@@ -43,6 +43,7 @@ sylius_grid:
                 orderNumber:
                     type: twig
                     label: sylius.ui.order
+                    path: order.number
                     options:
                         template: '@SyliusInvoicingPlugin/admin/invoice/index/grid/field/order_number.html.twig'
                     sortable: order.number

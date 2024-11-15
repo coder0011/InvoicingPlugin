@@ -54,7 +54,7 @@ class InvoiceVoterSpec extends ObjectBehavior
     function it_allows_accesings_an_invoice_if_user_is_logged_as_admin(
         TokenInterface $token,
         InvoiceInterface $invoice,
-        AdminUserInterface $adminUser
+        AdminUserInterface $adminUser,
     ): void {
         $token->getUser()->willReturn($adminUser);
 
@@ -66,12 +66,13 @@ class InvoiceVoterSpec extends ObjectBehavior
         TokenInterface $token,
         InvoiceInterface $invoice,
         ShopUserInterface $shopUser,
-        CustomerInterface $customer
+        CustomerInterface $customer,
+        OrderInterface $order,
     ): void {
-        $invoice->orderNumber()->willReturn('1337');
+        $invoice->order()->willReturn($order);
+        $order->getNumber()->willReturn('1337');
 
         $token->getUser()->willReturn($shopUser);
-
         $shopUser->getCustomer()->willReturn($customer);
 
         $orderRepository->findOneByNumberAndCustomer('1337', $customer)->willReturn(null);
@@ -85,12 +86,12 @@ class InvoiceVoterSpec extends ObjectBehavior
         InvoiceInterface $invoice,
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
-        OrderInterface $order
+        OrderInterface $order,
     ): void {
-        $invoice->orderNumber()->willReturn('1337');
+        $invoice->order()->willReturn($order);
+        $order->getNumber()->willReturn('1337');
 
         $token->getUser()->willReturn($shopUser);
-
         $shopUser->getCustomer()->willReturn($customer);
 
         $orderRepository->findOneByNumberAndCustomer('1337', $customer)->willReturn($order);
