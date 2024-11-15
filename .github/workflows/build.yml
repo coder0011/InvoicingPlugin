@@ -21,17 +21,17 @@ jobs:
             matrix:
                 php: ["8.3"]
                 symfony: ["^5.4.21", "^6.4"]
-                sylius: ["~1.13.0", "1.14.x-dev"]
+                sylius: ["~1.13.0", "~1.14.0"]
                 node: ["20.x"]
                 mysql: ["8.4"]
                 wkhtmltopdf: ["0.12.6-1"]
-                state_machine_adapter: [ "symfony_workflow" ]
+                state_machine_adapter: ["symfony_workflow"]
 
                 include:
                     -
                         php: "8.3"
                         symfony: "^6.4"
-                        sylius: "1.14.x-dev"
+                        sylius: "~1.14.0"
                         node: "20.x"
                         mysql: "8.4"
                         wkhtmltopdf: false
@@ -40,7 +40,7 @@ jobs:
                     -
                         php: "8.3"
                         symfony: "^6.4"
-                        sylius: "1.14.x-dev"
+                        sylius: "~1.14.0"
                         node: "20.x"
                         mysql: "8.4"
                         wkhtmltopdf: "0.12.6-1"
@@ -176,9 +176,7 @@ jobs:
 
             -
                 name: Validate composer.json
-                run: composer validate --ansi --strict --no-check-all
-#               Restore before InvoicingPlugin 1.0 release
-#               run: composer validate --ansi --strict --no-check-publish
+                run: composer validate --ansi --strict --no-check-publish
 
             -
                 name: Run ECS
