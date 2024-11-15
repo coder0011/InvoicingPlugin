@@ -16,20 +16,20 @@ namespace spec\Sylius\InvoicingPlugin\Creator;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\InvoicingPlugin\Creator\InvoiceCreatorInterface;
-use Sylius\InvoicingPlugin\DateTimeProvider;
+use Symfony\Component\Clock\ClockInterface;
 
 final class MassInvoicesCreatorSpec extends ObjectBehavior
 {
     function let(
         InvoiceCreatorInterface $invoiceCreator,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
     ): void {
-        $this->beConstructedWith($invoiceCreator, $dateTimeProvider);
+        $this->beConstructedWith($invoiceCreator, $clock);
     }
 
     function it_requests_invoices_creation_for_multiple_orders(
         InvoiceCreatorInterface $invoiceCreator,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
         OrderInterface $firstOrder,
         OrderInterface $secondOrder,
         OrderInterface $thirdOrder,
@@ -42,7 +42,7 @@ final class MassInvoicesCreatorSpec extends ObjectBehavior
         $secondInvoiceDateTime = new \DateTimeImmutable('2019-02-25');
         $thirdInvoiceDateTime = new \DateTimeImmutable('2019-02-25');
 
-        $dateTimeProvider->__invoke()->willReturn($firstInvoiceDateTime, $secondInvoiceDateTime, $thirdInvoiceDateTime);
+        $clock->now()->willReturn($firstInvoiceDateTime, $secondInvoiceDateTime, $thirdInvoiceDateTime);
 
         $invoiceCreator->__invoke('0000001', $firstInvoiceDateTime)->shouldBeCalled();
         $invoiceCreator->__invoke('0000002', $secondInvoiceDateTime)->shouldBeCalled();

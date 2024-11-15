@@ -16,15 +16,15 @@ namespace Sylius\InvoicingPlugin\EventProducer;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
-use Sylius\InvoicingPlugin\DateTimeProvider;
 use Sylius\InvoicingPlugin\Event\OrderPlaced;
+use Symfony\Component\Clock\ClockInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class OrderPlacedProducer
 {
     public function __construct(
         private readonly MessageBusInterface $eventBus,
-        private readonly DateTimeProvider $dateTimeProvider,
+        private readonly ClockInterface $clock,
     ) {
     }
 
@@ -67,8 +67,6 @@ final class OrderPlacedProducer
 
     private function dispatchOrderPlacedEvent(OrderInterface $order): void
     {
-        $this->eventBus->dispatch(
-            new OrderPlaced($order->getNumber(), $this->dateTimeProvider->__invoke()),
-        );
+        $this->eventBus->dispatch(new OrderPlaced($order->getNumber(), $this->clock->now()));
     }
 }

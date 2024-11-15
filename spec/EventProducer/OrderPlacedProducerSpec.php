@@ -22,26 +22,26 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
-use Sylius\InvoicingPlugin\DateTimeProvider;
 use Sylius\InvoicingPlugin\Event\OrderPlaced;
+use Symfony\Component\Clock\ClockInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class OrderPlacedProducerSpec extends ObjectBehavior
 {
-    function let(MessageBusInterface $eventBus, DateTimeProvider $dateTimeProvider): void
+    function let(MessageBusInterface $eventBus, ClockInterface $clock): void
     {
-        $this->beConstructedWith($eventBus, $dateTimeProvider);
+        $this->beConstructedWith($eventBus, $clock);
     }
 
     function it_dispatches_an_order_placed_event_for_persisted_order(
         MessageBusInterface $eventBus,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
         OrderInterface $order,
         EntityManagerInterface $entityManager,
     ): void {
-        $dateTime = new \DateTime('2018-12-14');
-        $dateTimeProvider->__invoke()->willReturn($dateTime);
+        $dateTime = new \DateTimeImmutable('2018-12-14');
+        $clock->now()->willReturn($dateTime);
 
         $order->getNumber()->willReturn('000666');
         $order->getCheckoutState()->willReturn(OrderCheckoutStates::STATE_COMPLETED);
@@ -56,12 +56,12 @@ final class OrderPlacedProducerSpec extends ObjectBehavior
 
     function it_dispatches_an_order_placed_event_for_updated_order(
         MessageBusInterface $eventBus,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
         EntityManagerInterface $entityManager,
         OrderInterface $order,
     ): void {
-        $dateTime = new \DateTime('2018-12-14');
-        $dateTimeProvider->__invoke()->willReturn($dateTime);
+        $dateTime = new \DateTimeImmutable('2018-12-14');
+        $clock->now()->willReturn($dateTime);
 
         /** @var UnitOfWork|MockInterface $unitOfWork */
         $unitOfWork = Mockery::mock(UnitOfWork::class);
