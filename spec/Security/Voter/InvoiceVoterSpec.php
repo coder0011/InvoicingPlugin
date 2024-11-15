@@ -67,11 +67,12 @@ class InvoiceVoterSpec extends ObjectBehavior
         InvoiceInterface $invoice,
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
+        OrderInterface $order,
     ): void {
-        $invoice->orderNumber()->willReturn('1337');
+        $invoice->order()->willReturn($order);
+        $order->getNumber()->willReturn('1337');
 
         $token->getUser()->willReturn($shopUser);
-
         $shopUser->getCustomer()->willReturn($customer);
 
         $orderRepository->findOneByNumberAndCustomer('1337', $customer)->willReturn(null);
@@ -87,10 +88,10 @@ class InvoiceVoterSpec extends ObjectBehavior
         CustomerInterface $customer,
         OrderInterface $order,
     ): void {
-        $invoice->orderNumber()->willReturn('1337');
+        $invoice->order()->willReturn($order);
+        $order->getNumber()->willReturn('1337');
 
         $token->getUser()->willReturn($shopUser);
-
         $shopUser->getCustomer()->willReturn($customer);
 
         $orderRepository->findOneByNumberAndCustomer('1337', $customer)->willReturn($order);
