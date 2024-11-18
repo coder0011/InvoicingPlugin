@@ -7,3 +7,13 @@
 
 1. The deprecated method `Sylius\InvoicingPlugin\Entity\InvoiceInterface::orderNumber()` has been removed, 
    use `Sylius\InvoicingPlugin\Entity\InvoiceInterface::order()` instead.
+
+1. The `Sylius\InvoicingPlugin\SystemDateTimeProvider` class, `Sylius\InvoicingPlugin\DateTimeProvider` interface
+   and corresponding `sylius_invoicing_plugin.date_time_provider` service have been removed. 
+   It has been replaced by `clock` service and `Symfony\Component\Clock\ClockInterface` interface.
+
+   Affected classes:
+   - `Sylius\InvoicingPlugin\Creator\MassInvoicesCreator`
+   - `Sylius\InvoicingPlugin\EventProducer\OrderPaymentPaidProducer`
+   - `Sylius\InvoicingPlugin\EventProducer\OrderPlacedProducer`
+   - `Sylius\InvoicingPlugin\Generator\SequentialInvoiceNumberGenerator`

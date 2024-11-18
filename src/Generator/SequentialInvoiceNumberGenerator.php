@@ -17,8 +17,8 @@ use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\InvoicingPlugin\DateTimeProvider;
 use Sylius\InvoicingPlugin\Entity\InvoiceSequenceInterface;
+use Symfony\Component\Clock\ClockInterface;
 
 final class SequentialInvoiceNumberGenerator implements InvoiceNumberGenerator
 {
@@ -26,7 +26,7 @@ final class SequentialInvoiceNumberGenerator implements InvoiceNumberGenerator
         private readonly RepositoryInterface $sequenceRepository,
         private readonly FactoryInterface $sequenceFactory,
         private readonly EntityManagerInterface $sequenceManager,
-        private readonly DateTimeProvider $dateTimeProvider,
+        private readonly ClockInterface $clock,
         private readonly int $startNumber = 1,
         private readonly int $numberLength = 9,
     ) {
@@ -34,7 +34,7 @@ final class SequentialInvoiceNumberGenerator implements InvoiceNumberGenerator
 
     public function generate(): string
     {
-        $invoiceIdentifierPrefix = $this->dateTimeProvider->__invoke()->format('Y/m') . '/';
+        $invoiceIdentifierPrefix = $this->clock->now()->format('Y/m') . '/';
 
         /** @var InvoiceSequenceInterface $sequence */
         $sequence = $this->getSequence();

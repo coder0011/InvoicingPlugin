@@ -17,10 +17,10 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\InvoicingPlugin\DateTimeProvider;
 use Sylius\InvoicingPlugin\Doctrine\ORM\InvoiceRepositoryInterface;
 use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 use Sylius\InvoicingPlugin\Event\OrderPaymentPaid;
+use Symfony\Component\Clock\ClockInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -28,15 +28,15 @@ final class OrderPaymentPaidProducerSpec extends ObjectBehavior
 {
     function let(
         MessageBusInterface $eventBus,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
         InvoiceRepositoryInterface $invoiceRepository,
     ): void {
-        $this->beConstructedWith($eventBus, $dateTimeProvider, $invoiceRepository);
+        $this->beConstructedWith($eventBus, $clock, $invoiceRepository);
     }
 
     function it_dispatches_order_payment_paid_event_for_payment(
         MessageBusInterface $eventBus,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
         PaymentInterface $payment,
         OrderInterface $order,
         InvoiceRepositoryInterface $invoiceRepository,
@@ -45,8 +45,8 @@ final class OrderPaymentPaidProducerSpec extends ObjectBehavior
         $payment->getOrder()->willReturn($order);
         $order->getNumber()->willReturn('0000001');
 
-        $dateTime = new \DateTime();
-        $dateTimeProvider->__invoke()->willReturn($dateTime);
+        $dateTime = new \DateTimeImmutable();
+        $clock->now()->willReturn($dateTime);
 
         $event = new OrderPaymentPaid('0000001', $dateTime);
 
@@ -59,21 +59,21 @@ final class OrderPaymentPaidProducerSpec extends ObjectBehavior
 
     function it_does_not_dispatch_event_when_payment_is_not_related_to_order(
         MessageBusInterface $eventBus,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
         PaymentInterface $payment,
     ): void {
         $payment->getOrder()->willReturn(null);
 
         $eventBus->dispatch(Argument::any())->shouldNotBeCalled();
 
-        $dateTimeProvider->__invoke()->shouldNotBeCalled();
+        $clock->now()->shouldNotBeCalled();
 
         $this->__invoke($payment);
     }
 
     function it_does_not_dispatch_event_when_there_is_no_invoice_related_to_order(
         MessageBusInterface $eventBus,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
         PaymentInterface $payment,
         OrderInterface $order,
         InvoiceRepositoryInterface $invoiceRepository,
@@ -83,7 +83,7 @@ final class OrderPaymentPaidProducerSpec extends ObjectBehavior
         $invoiceRepository->findOneByOrder($order)->willReturn(null);
 
         $eventBus->dispatch(Argument::any())->shouldNotBeCalled();
-        $dateTimeProvider->__invoke()->shouldNotBeCalled();
+        $clock->now()->shouldNotBeCalled();
 
         $this->__invoke($payment);
     }
