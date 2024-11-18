@@ -14,14 +14,14 @@ declare(strict_types=1);
 namespace Sylius\InvoicingPlugin\Creator;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\InvoicingPlugin\DateTimeProvider;
 use Sylius\InvoicingPlugin\Exception\InvoiceAlreadyGenerated;
+use Symfony\Component\Clock\ClockInterface;
 
 final class MassInvoicesCreator implements MassInvoicesCreatorInterface
 {
     public function __construct(
         private readonly InvoiceCreatorInterface $invoiceCreator,
-        private readonly DateTimeProvider $dateTimeProvider,
+        private readonly ClockInterface $clock,
     ) {
     }
 
@@ -30,7 +30,7 @@ final class MassInvoicesCreator implements MassInvoicesCreatorInterface
         /** @var OrderInterface $order */
         foreach ($orders as $order) {
             try {
-                $this->invoiceCreator->__invoke($order->getNumber(), $this->dateTimeProvider->__invoke());
+                $this->invoiceCreator->__invoke($order->getNumber(), $this->clock->now());
             } catch (InvoiceAlreadyGenerated) {
                 continue;
             }

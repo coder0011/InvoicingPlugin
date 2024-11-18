@@ -8,7 +8,7 @@
             <argument type="service" id="sylius_invoicing_plugin.repository.invoice_sequence" />
             <argument type="service" id="sylius_invoicing_plugin.factory.invoice_sequence" />
             <argument type="service" id="sylius_invoicing_plugin.manager.invoice_sequence" />
-            <argument type="service" id="sylius_invoicing_plugin.date_time_provider" />
+            <argument type="service" id="clock" />
         </service>
 
         <service id="sylius_invoicing_plugin.generator.invoice_identifier" class="Sylius\InvoicingPlugin\Generator\UuidInvoiceIdentifierGenerator" />
@@ -48,7 +48,7 @@
 
         <service id="sylius_invoicing_plugin.creator.mass_invoices" class="Sylius\InvoicingPlugin\Creator\MassInvoicesCreator">
             <argument type="service" id="sylius_invoicing_plugin.creator.invoice" />
-            <argument type="service" id="sylius_invoicing_plugin.date_time_provider" />
+            <argument type="service" id="clock" />
         </service>
 
         <service id="sylius_invoicing_plugin.generator.pdf_options" class="Sylius\InvoicingPlugin\Generator\PdfOptionsGenerator">

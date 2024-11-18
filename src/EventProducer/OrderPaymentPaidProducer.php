@@ -15,9 +15,9 @@ namespace Sylius\InvoicingPlugin\EventProducer;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\InvoicingPlugin\DateTimeProvider;
 use Sylius\InvoicingPlugin\Doctrine\ORM\InvoiceRepositoryInterface;
 use Sylius\InvoicingPlugin\Event\OrderPaymentPaid;
+use Symfony\Component\Clock\ClockInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 
@@ -25,7 +25,7 @@ final class OrderPaymentPaidProducer
 {
     public function __construct(
         private readonly MessageBusInterface $eventBus,
-        private readonly DateTimeProvider $dateTimeProvider,
+        private readonly ClockInterface $clock,
         private readonly InvoiceRepositoryInterface $invoiceRepository,
     ) {
     }
@@ -42,7 +42,7 @@ final class OrderPaymentPaidProducer
 
         $this->eventBus->dispatch(new OrderPaymentPaid(
             $order->getNumber(),
-            $this->dateTimeProvider->__invoke(),
+            $this->clock->now(),
         ));
     }
 

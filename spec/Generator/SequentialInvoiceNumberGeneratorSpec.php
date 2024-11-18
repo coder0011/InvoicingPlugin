@@ -18,9 +18,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\InvoicingPlugin\DateTimeProvider;
 use Sylius\InvoicingPlugin\Entity\InvoiceSequenceInterface;
 use Sylius\InvoicingPlugin\Generator\InvoiceNumberGenerator;
+use Symfony\Component\Clock\ClockInterface;
 
 final class SequentialInvoiceNumberGeneratorSpec extends ObjectBehavior
 {
@@ -28,13 +28,13 @@ final class SequentialInvoiceNumberGeneratorSpec extends ObjectBehavior
         RepositoryInterface $sequenceRepository,
         FactoryInterface $sequenceFactory,
         EntityManagerInterface $sequenceManager,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
     ): void {
         $this->beConstructedWith(
             $sequenceRepository,
             $sequenceFactory,
             $sequenceManager,
-            $dateTimeProvider,
+            $clock,
             1,
             9,
         );
@@ -48,12 +48,11 @@ final class SequentialInvoiceNumberGeneratorSpec extends ObjectBehavior
     function it_generates_invoice_number(
         RepositoryInterface $sequenceRepository,
         EntityManagerInterface $sequenceManager,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
         InvoiceSequenceInterface $sequence,
     ): void {
-        $dateTime = new \DateTime('now');
-
-        $dateTimeProvider->__invoke()->willReturn($dateTime);
+        $dateTime = new \DateTimeImmutable('now');
+        $clock->now()->willReturn($dateTime);
 
         $sequenceRepository->findOneBy([])->willReturn($sequence);
 
@@ -71,12 +70,11 @@ final class SequentialInvoiceNumberGeneratorSpec extends ObjectBehavior
         RepositoryInterface $sequenceRepository,
         FactoryInterface $sequenceFactory,
         EntityManagerInterface $sequenceManager,
-        DateTimeProvider $dateTimeProvider,
+        ClockInterface $clock,
         InvoiceSequenceInterface $sequence,
     ): void {
-        $dateTime = new \DateTime('now');
-
-        $dateTimeProvider->__invoke()->willReturn($dateTime);
+        $dateTime = new \DateTimeImmutable('now');
+        $clock->now()->willReturn($dateTime);
 
         $sequenceRepository->findOneBy([])->willReturn(null);
 

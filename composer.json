@@ -12,6 +12,7 @@
         "sylius/resource-bundle": "^1.9",
         "sylius/sylius": "2.0.x-dev",
         "sylius/twig-hooks": "^0.5",
+        "symfony/clock": "^6.4 || ^7.1",
         "symfony/config": "^6.4 || ^7.1",
         "symfony/console": "^6.4 || ^7.1",
         "symfony/dependency-injection": "^6.4 || ^7.1",
@@ -25,7 +26,9 @@
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
-        "behat/mink-selenium2-driver": "~1.6.0",
+        "dmore/behat-chrome-extension": "^1.4",
+        "dmore/chrome-mink-driver": "^2.9",
+        "friends-of-behat/exclude-specifications-extension": "^0.2 || ^0.3",
         "friends-of-behat/mink": "^1.8",
         "friends-of-behat/mink-browserkit-driver": "^1.4",
         "friends-of-behat/mink-debug-extension": "^2.0",
@@ -73,9 +76,6 @@
         "fix": [
             "vendor/bin/ecs check --fix src/ spec/"
         ]
-    },
-    "conflict": {
-        "behat/mink-selenium2-driver": ">=1.7.0"
     },
     "config": {
         "sort-packages": true,
