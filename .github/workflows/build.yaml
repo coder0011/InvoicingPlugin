@@ -21,17 +21,17 @@ jobs:
             matrix:
                 php: ["8.2", "8.3"]
                 symfony: ["^6.4", "^7.1"]
-                sylius: ["2.0.x-dev"]
+                sylius: ["~2.0.0"]
                 node: ["20.x"]
                 mysql: ["8.4"]
                 wkhtmltopdf: ["0.12.6-1", false]
-                state_machine_adapter: [ "symfony_workflow" ]
+                state_machine_adapter: ["symfony_workflow"]
 
                 include:
                     -
                         php: "8.3"
                         symfony: "^7.1"
-                        sylius: "2.0.x-dev"
+                        sylius: "~2.0.0"
                         node: "20.x"
                         mysql: "8.4"
                         wkhtmltopdf: "0.12.6-1"
