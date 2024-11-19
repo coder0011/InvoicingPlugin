@@ -13,12 +13,14 @@ declare(strict_types=1);
 
 namespace Sylius\InvoicingPlugin\EventProducer;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\InvoicingPlugin\Event\OrderPlaced;
 use Symfony\Component\Clock\ClockInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Webmozart\Assert\Assert;
 
 final class OrderPlacedProducer
 {
@@ -45,12 +47,12 @@ final class OrderPlacedProducer
     public function postUpdate(LifecycleEventArgs $event): void
     {
         $order = $event->getObject();
-
         if (!$order instanceof OrderInterface) {
             return;
         }
 
         $entityManager = $event->getObjectManager();
+        Assert::isInstanceOf($entityManager, EntityManagerInterface::class);
 
         $unitOfWork = $entityManager->getUnitOfWork();
         $changeSet = $unitOfWork->getEntityChangeSet($order);

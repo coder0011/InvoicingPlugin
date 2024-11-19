@@ -35,9 +35,6 @@ final class ShopBillingDataExampleFactory extends AbstractExampleFactory impleme
         $this->configureOptions($this->optionsResolver);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function create(array $options = []): ChannelInterface
     {
         $options = $this->optionsResolver->resolve($options);
@@ -62,9 +59,6 @@ final class ShopBillingDataExampleFactory extends AbstractExampleFactory impleme
         return $channel;
     }
 
-    /**
-     * @inheritdoc
-     */
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
