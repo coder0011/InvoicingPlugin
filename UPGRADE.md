@@ -19,3 +19,38 @@
    - `Sylius\InvoicingPlugin\Generator\SequentialInvoiceNumberGenerator`
 
 1. The translation keys have been changed from `sylius_invoicing_plugin` and `sylius_admin_order_creation` to `sylius_invoicing`.
+
+1. The `sylius_invoicing_admin_order_show_by_number` route and `Sylius\InvoicingPlugin\Ui\RedirectToOrderShowAction` controller
+   have been removed and replaced by the `sylius_admin_order_show` route from the Sylius Core.
+
+1. The following templates have been removed:
+   - `@SyliusInvoicingPlugin/Invoice/Grid/Field/orderNumber.html.twig`
+   - `@SyliusInvoicingPlugin/Invoice/Grid/Field/channel.html.twig`
+
+1. The invoice grid configuration has been updated accordingly to the above changes:
+
+   ```diff
+   sylius_grid:
+       grids:
+           sylius_invoicing_plugin_invoice:
+   #           ...
+               fields:
+   #               ...
+                   orderNumber:
+                       type: twig
+                       label: sylius.ui.order
+   -                   path: order.number
+   -                   options:
+   -                       template: '@SyliusInvoicingPlugin/Invoice/Grid/Field/orderNumber.html.twig'
+   +                   path: order
+   +                   options:
+   +                       template: "@SyliusAdmin/Order/Grid/Field/number.html.twig"
+                       sortable: order.number
+                   channel:
+                       type: twig
+                       label: sylius.ui.channel
+                       options:
+   -                       template: "@SyliusInvoicingPlugin/Invoice/Grid/Field/channel.html.twig"
+   +                       template: "@SyliusAdmin/Order/Grid/Field/channel.html.twig"
+   #           ...
+   ```
