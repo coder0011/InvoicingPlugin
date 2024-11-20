@@ -34,7 +34,7 @@ final class InvoicePdfFileGeneratorSpec extends ObjectBehavior
             $fileLocator,
             $invoiceFileNameGenerator,
             'invoiceTemplate.html.twig',
-            '@SyliusInvoicingPlugin/Resources/assets/sylius-logo.png',
+            '@SyliusInvoicingPlugin/assets/sylius-logo.png',
         );
     }
 
@@ -53,7 +53,7 @@ final class InvoicePdfFileGeneratorSpec extends ObjectBehavior
         $invoiceFileNameGenerator->generateForPdf($invoice)->willReturn('2015_05_00004444.pdf');
         $invoice->channel()->willReturn($channel);
 
-        $fileLocator->locate('@SyliusInvoicingPlugin/Resources/assets/sylius-logo.png')->willReturn('located-path/sylius-logo.png');
+        $fileLocator->locate('@SyliusInvoicingPlugin/assets/sylius-logo.png')->willReturn('located-path/sylius-logo.png');
 
         $twigToPdfGenerator
             ->generate('invoiceTemplate.html.twig', ['invoice' => $invoice, 'channel' => $channel, 'invoiceLogoPath' => 'located-path/sylius-logo.png'])

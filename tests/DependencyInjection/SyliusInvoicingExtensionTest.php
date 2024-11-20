@@ -41,7 +41,7 @@ class SyliusInvoicingExtensionTest extends AbstractExtensionTestCase
             $doctrineMigrationsExtensionConfig[0]['migrations_paths']['Sylius\InvoicingPlugin\Migrations']
         ));
         self::assertSame(
-            '@SyliusInvoicingPlugin/Migrations',
+            '@SyliusInvoicingPlugin/src/Migrations',
             $doctrineMigrationsExtensionConfig[0]['migrations_paths']['Sylius\InvoicingPlugin\Migrations']
         );
 

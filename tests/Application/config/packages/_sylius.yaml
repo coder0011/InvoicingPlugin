@@ -5,7 +5,7 @@ imports:
 
     - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
 
-    - { resource: "@SyliusInvoicingPlugin/Resources/config/config.yml" }
+    - { resource: "@SyliusInvoicingPlugin/config/config.yaml" }
 
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
 parameters:
