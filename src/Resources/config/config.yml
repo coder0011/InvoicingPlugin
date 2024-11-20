@@ -46,15 +46,15 @@ sylius_grid:
                 orderNumber:
                     type: twig
                     label: sylius.ui.order
-                    path: order.number
+                    path: order
                     options:
-                        template: '@SyliusInvoicingPlugin/Invoice/Grid/Field/orderNumber.html.twig'
+                        template: "@SyliusAdmin/Order/Grid/Field/number.html.twig"
                     sortable: order.number
                 channel:
                     type: twig
                     label: sylius.ui.channel
                     options:
-                        template: "@SyliusInvoicingPlugin/Invoice/Grid/Field/channel.html.twig"
+                        template: "@SyliusAdmin/Order/Grid/Field/channel.html.twig"
                 total:
                     type: twig
                     label: sylius.ui.total

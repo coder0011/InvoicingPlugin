@@ -16,10 +16,5 @@
         <service id="sylius_invoicing_plugin.grid.filter.channel" class="Sylius\InvoicingPlugin\Grid\Filter\ChannelFilter">
             <tag name="sylius.grid_filter" type="invoice_channel" form_type="Sylius\InvoicingPlugin\Form\Type\ChannelFilterType" />
         </service>
-
-        <service id="Sylius\InvoicingPlugin\Ui\RedirectToOrderShowAction">
-            <argument type="service" id="router" />
-            <argument type="service" id="sylius.repository.order" />
-        </service>
     </services>
 </container>
