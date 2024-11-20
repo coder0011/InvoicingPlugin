@@ -41,7 +41,7 @@ sylius_grid:
             fields:
                 number:
                     type: string
-                    label: sylius_invoicing_plugin.ui.invoice_number
+                    label: sylius_invoicing.ui.invoice_number
                     sortable: true
                 orderNumber:
                     type: twig
@@ -64,22 +64,22 @@ sylius_grid:
                         template: "@SyliusAdmin/Order/Grid/Field/total.html.twig"
                 issuedAt:
                     type: datetime
-                    label: sylius_invoicing_plugin.ui.issued_at
+                    label: sylius_invoicing.ui.issued_at
                     options:
                         format: 'Y-m-d H:i:s'
                     sortable: true
             filters:
                 orderNumber:
                     type: string
-                    label: sylius_invoicing_plugin.ui.order_number
+                    label: sylius_invoicing.ui.order_number
                     options:
                         fields: [order.number]
                 number:
                     type: string
-                    label: sylius_invoicing_plugin.ui.invoice_number
+                    label: sylius_invoicing.ui.invoice_number
                 issuedAt:
                     type: date
-                    label: sylius_invoicing_plugin.ui.issued_at
+                    label: sylius_invoicing.ui.issued_at
                 channel:
                     type: invoice_channel
                     label: sylius.ui.channel
@@ -89,7 +89,7 @@ sylius_grid:
                         type: show
                     download:
                         type: default
-                        label: sylius_invoicing_plugin.ui.download_invoice
+                        label: sylius_invoicing.ui.download_invoice
                         enabled: '%sylius_invoicing.pdf_generator.enabled%'
                         icon: download
                         options:
@@ -99,7 +99,7 @@ sylius_grid:
                                     id: resource.id
                     resend:
                         type: default
-                        label: sylius_invoicing_plugin.ui.resend_invoice
+                        label: sylius_invoicing.ui.resend_invoice
                         icon: send
                         options:
                             link:

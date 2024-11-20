@@ -1,4 +1,4 @@
-sylius_invoicing_plugin:
+sylius_invoicing:
     ui:
         billing_data: 'Rechnungsdaten'
         buyer: 'Käufer'

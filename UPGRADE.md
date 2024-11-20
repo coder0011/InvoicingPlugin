@@ -17,3 +17,5 @@
    - `Sylius\InvoicingPlugin\EventProducer\OrderPaymentPaidProducer`
    - `Sylius\InvoicingPlugin\EventProducer\OrderPlacedProducer`
    - `Sylius\InvoicingPlugin\Generator\SequentialInvoiceNumberGenerator`
+
+1. The translation keys have been changed from `sylius_invoicing_plugin` and `sylius_admin_order_creation` to `sylius_invoicing`.

@@ -61,7 +61,7 @@ final class ResendInvoiceAction
             );
         }
 
-        $this->getFlashBag()->add('success', 'sylius_invoicing_plugin.invoice_resent_successfully');
+        $this->getFlashBag()->add('success', 'sylius_invoicing.invoice_resent_successfully');
 
         return new RedirectResponse(
             $this->urlGenerator->generate('sylius_admin_order_show', ['id' => $order->getId()]),
