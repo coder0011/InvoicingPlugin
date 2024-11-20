@@ -5,6 +5,37 @@
 1. Support for Sylius 1.12 has been dropped, upgrade your application to [Sylius 1.13](https://github.com/Sylius/Sylius/blob/1.13/UPGRADE-1.13.md).
    or [Sylius 1.14](https://github.com/Sylius/Sylius/blob/1.14/UPGRADE-1.14.md).
 
+1. The directories structure has been updated to the current Symfony recommendations:
+   - `@SyliusInvoicingPlugin/Resources/assets` -> `@SyliusInvoicingPlugin/assets`
+   - `@SyliusInvoicingPlugin/Resources/config` -> `@SyliusInvoicingPlugin/config`
+   - `@SyliusInvoicingPlugin/Resources/translations` -> `@SyliusInvoicingPlugin/translations`
+   - `@SyliusInvoicingPlugin/Resources/views` -> `@SyliusInvoicingPlugin/templates`
+
+   You need to adjust the import of configuration file in your end application:
+   ```diff
+   imports:
+   -   - { resource: "@SyliusInvoicingPlugin/Resources/config/config.yml" }
+   +   - { resource: '@SyliusInvoicingPlugin/config/config.yaml' }
+   ```
+   
+   And the routes configuration paths:
+   ```diff
+   sylius_invoicing_plugin_admin:
+   -   resource: "@SyliusInvoicingPlugin/Resources/config/app/routing/admin_invoicing.yml"
+   -   prefix: /admin
+   +   resource: '@SyliusInvoicingPlugin/config/admin_routes.yaml'
+   +   prefix: '/%sylius_admin.path_name%'
+    
+   sylius_invoicing_plugin_shop:
+   -   resource: "@SyliusInvoicingPlugin/Resources/config/app/routing/shop_invoicing.yml"
+   +   resource: '@SyliusInvoicingPlugin/config/shop_routes.yaml'
+       prefix: /{_locale}
+       requirements:
+           _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+   ```
+
+   And the paths to assets and templates if you are using them.   
+
 1. The deprecated method `Sylius\InvoicingPlugin\Entity\InvoiceInterface::orderNumber()` has been removed, 
    use `Sylius\InvoicingPlugin\Entity\InvoiceInterface::order()` instead.
 

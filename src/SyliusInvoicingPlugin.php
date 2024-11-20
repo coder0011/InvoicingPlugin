@@ -29,4 +29,9 @@ final class SyliusInvoicingPlugin extends Bundle
 
         $container->addCompilerPass(new SymfonyClockCompilerPass());
     }
+
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
 }
