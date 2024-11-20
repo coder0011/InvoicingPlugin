@@ -30,7 +30,7 @@
         prefix: '/%sylius_admin.path_name%'
     
     sylius_invoicing_plugin_shop:
-        resource: '@SyliusInvoicingPlugin/config/shop_routes.yml'
+        resource: '@SyliusInvoicingPlugin/config/shop_routes.yaml'
         prefix: /{_locale}
         requirements:
             _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
