@@ -27,10 +27,17 @@
    - `@SyliusInvoicingPlugin/Invoice/Grid/Field/orderNumber.html.twig`
    - `@SyliusInvoicingPlugin/Invoice/Grid/Field/channel.html.twig`
 
+1. The custom `invoice_channel` filter, its `Sylius\InvoicingPlugin\Grid\Filter\ChannelFilter` class 
+   and `Sylius\InvoicingPlugin\Form\Type\ChannelFilterType` form type have been removed and replaced by 
+   the `entity` filter from GridBundle.
+
 1. The invoice grid configuration has been updated accordingly to the above changes:
 
    ```diff
    sylius_grid:
+   -   templates:
+   -       filter:
+   -           invoice_channel: '@SyliusInvoicingPlugin/Grid/Filter/channel.html.twig'
        grids:
            sylius_invoicing_plugin_invoice:
    #           ...
@@ -52,5 +59,13 @@
                        options:
    -                       template: "@SyliusInvoicingPlugin/Invoice/Grid/Field/channel.html.twig"
    +                       template: "@SyliusAdmin/Order/Grid/Field/channel.html.twig"
+               filters:
+   #               ...
+                   channel:
+   -                   type: invoice_channel
+   +                   type: entity
+                       label: sylius.ui.channel
+   +                   form_options:
+   +                       class: "%sylius.model.channel.class%"
    #           ...
    ```

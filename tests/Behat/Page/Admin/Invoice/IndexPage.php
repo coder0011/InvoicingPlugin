@@ -22,6 +22,6 @@ final class IndexPage extends BaseIndexPage implements IndexPageInterface
 
     public function filterByChannel(string $channelName): void
     {
-        $this->getDocument()->find('css', '#criteria_channel_channel')->selectOption($channelName);
+        $this->getDocument()->find('css', '#criteria_channel')->selectOption($channelName);
     }
 }
