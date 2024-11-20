@@ -27,10 +27,8 @@ final class InvoiceEmailSender implements InvoiceEmailSenderInterface
     ) {
     }
 
-    public function sendInvoiceEmail(
-        InvoiceInterface $invoice,
-        string $customerEmail,
-    ): void {
+    public function sendInvoiceEmail(InvoiceInterface $invoice, string $customerEmail): void
+    {
         if (!$this->hasEnabledPdfFileGenerator) {
             $this->emailSender->send(Emails::INVOICE_GENERATED, [$customerEmail], ['invoice' => $invoice]);
 

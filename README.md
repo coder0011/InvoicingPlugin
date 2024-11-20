@@ -109,7 +109,7 @@ sylius_invoicing_plugin_invoice:
         permission: true
         vars:
             all:
-                subheader: sylius_invoicing_plugin.ui.manage_invoices
+                subheader: sylius_invoicing.ui.manage_invoices
             index:
                 icon: inbox
     type: sylius.resource

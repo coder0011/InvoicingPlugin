@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace spec\Sylius\InvoicingPlugin\EventProducer;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\UnitOfWork;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Mockery;
 use Mockery\MockInterface;
 use PhpSpec\ObjectBehavior;

@@ -1,4 +1,4 @@
-sylius_admin_order_creation:
+sylius_invoicing:
     channel:
         company:
             not_blank: 'Company cannot be blank'

@@ -15,14 +15,17 @@ namespace Sylius\InvoicingPlugin\Cli;
 
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\InvoicingPlugin\Creator\MassInvoicesCreatorInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'sylius-invoicing:generate-invoices',
+    description: 'Generates invoices for orders placed before InvoicingPlugin installation',
+)]
 final class GenerateInvoicesCommand extends Command
 {
-    protected static $defaultName = 'sylius-invoicing:generate-invoices';
-
     public function __construct(
         private readonly MassInvoicesCreatorInterface $massInvoicesCreator,
         private readonly OrderRepositoryInterface $orderRepository,
@@ -37,18 +40,13 @@ final class GenerateInvoicesCommand extends Command
             ->createListQueryBuilder()
             ->andWhere('o.number IS NOT NULL')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         $this->massInvoicesCreator->__invoke($orders);
 
         $output->writeln('Invoices generated successfully');
 
-        return 0;
-    }
-
-    protected function configure(): void
-    {
-        $this->setName(self::$defaultName);
-        $this->setDescription('Generates invoices for orders placed before InvoicingPlugin installation');
+        return Command::SUCCESS;
     }
 }

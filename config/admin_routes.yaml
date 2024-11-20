@@ -8,7 +8,7 @@ sylius_invoicing_plugin_invoice:
         permission: true
         vars:
             all:
-                subheader: sylius_invoicing_plugin.ui.manage_invoices
+                subheader: sylius_invoicing.ui.manage_invoices
             index:
                 icon: inbox
     type: sylius.resource
@@ -34,13 +34,3 @@ sylius_invoicing_plugin_admin_invoice_resend:
     methods: [GET]
     defaults:
         _controller: sylius_invoicing_plugin.ui.action.resend_invoice
-
-sylius_invoicing_admin_order_show_by_number:
-    path: /orders/by-number/{number}
-    methods: [GET]
-    defaults:
-        _controller: Sylius\InvoicingPlugin\Ui\RedirectToOrderShowAction
-        _sylius:
-            section: admin
-            permission: true
-            alias: invoicing_plugin

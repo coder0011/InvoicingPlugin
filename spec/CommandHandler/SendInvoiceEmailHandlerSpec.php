@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace spec\Sylius\InvoicingPlugin\CommandHandler;
 
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -41,16 +42,45 @@ final class SendInvoiceEmailHandlerSpec extends ObjectBehavior
         CustomerInterface $customer,
     ): void {
         $orderRepository->findOneByNumber('0000001')->willReturn($order);
-
-        $invoiceRepository->findOneByOrder($order)->willReturn($invoice);
-
         $order->getCustomer()->willReturn($customer);
-
         $customer->getEmail()->willReturn('shop@example.com');
+        $invoiceRepository->findOneByOrder($order)->willReturn($invoice);
 
         $emailSender->sendInvoiceEmail($invoice, 'shop@example.com')->shouldBeCalled();
 
-        $this->__invoke(new SendInvoiceEmail('0000001', new \DateTime('now')));
+        $this(new SendInvoiceEmail('0000001'));
+    }
+
+    function it_does_not_request_an_email_to_be_sent_if_order_was_not_found(
+        InvoiceRepositoryInterface $invoiceRepository,
+        OrderRepositoryInterface $orderRepository,
+        InvoiceEmailSenderInterface $emailSender,
+        CustomerInterface $customer,
+    ): void {
+        $orderRepository->findOneByNumber('0000001')->willReturn(null);
+
+        $invoiceRepository->findOneByOrder(Argument::any())->shouldNotBeCalled();
+        $customer->getEmail()->shouldNotBeCalled();
+        $emailSender->sendInvoiceEmail(Argument::any(), Argument::any())->shouldNotBeCalled();
+
+        $this(new SendInvoiceEmail('0000001'));
+    }
+
+    function it_does_not_request_an_email_to_be_sent_if_customer_was_not_found(
+        InvoiceRepositoryInterface $invoiceRepository,
+        OrderRepositoryInterface $orderRepository,
+        InvoiceEmailSenderInterface $emailSender,
+        OrderInterface $order,
+        CustomerInterface $customer,
+    ): void {
+        $orderRepository->findOneByNumber('0000001')->willReturn($order);
+        $order->getCustomer()->willReturn(null);
+
+        $invoiceRepository->findOneByOrder($order)->shouldNotBeCalled();
+        $customer->getEmail()->shouldNotBeCalled();
+        $emailSender->sendInvoiceEmail(Argument::any(), Argument::any())->shouldNotBeCalled();
+
+        $this(new SendInvoiceEmail('0000001'));
     }
 
     function it_does_not_request_an_email_to_be_sent_if_invoice_was_not_found(
@@ -61,11 +91,12 @@ final class SendInvoiceEmailHandlerSpec extends ObjectBehavior
         CustomerInterface $customer,
     ): void {
         $orderRepository->findOneByNumber('0000001')->willReturn($order);
+        $order->getCustomer()->willReturn($customer);
         $invoiceRepository->findOneByOrder($order)->willReturn(null);
 
-        $order->getCustomer()->shouldNotBeCalled();
         $customer->getEmail()->shouldNotBeCalled();
+        $emailSender->sendInvoiceEmail(Argument::any(), Argument::any())->shouldNotBeCalled();
 
-        $this->__invoke(new SendInvoiceEmail('0000001', new \DateTime('now')));
+        $this(new SendInvoiceEmail('0000001'));
     }
 }

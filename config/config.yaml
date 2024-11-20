@@ -1,6 +1,6 @@
 imports:
-    - { resource: "@SyliusInvoicingPlugin/Resources/config/app/winzou_state_machine.php" }
-    - { resource: 'app/twig_hooks/**/*.yaml' }
+    - { resource: '@SyliusInvoicingPlugin/config/twig_hooks/**/*.yaml' }
+    - { resource: '@SyliusInvoicingPlugin/config/winzou_state_machine.php' }
 
 parameters:
     sylius_invoicing.invoice_save_path: "%kernel.project_dir%/private/invoices/"
@@ -23,8 +23,6 @@ knp_snappy:
 
 sylius_grid:
     templates:
-        filter:
-            invoice_channel: '@SyliusInvoicingPlugin/admin/invoice/index/grid/filter/channel.html.twig'
         action:
             download: '@SyliusInvoicingPlugin/admin/shared/action/download.html.twig'
     grids:
@@ -38,14 +36,14 @@ sylius_grid:
             fields:
                 number:
                     type: string
-                    label: sylius_invoicing_plugin.ui.invoice_number
+                    label: sylius_invoicing.ui.invoice_number
                     sortable: true
                 orderNumber:
                     type: twig
                     label: sylius.ui.order
-                    path: order.number
+                    path: order
                     options:
-                        template: '@SyliusInvoicingPlugin/admin/invoice/index/grid/field/order_number.html.twig'
+                        template: "@SyliusAdmin/shared/grid/field/order_number.html.twig"
                     sortable: order.number
                 channel:
                     type: twig
@@ -61,25 +59,27 @@ sylius_grid:
                         template: "@SyliusAdmin/order/grid/field/order_total.html.twig"
                 issuedAt:
                     type: datetime
-                    label: sylius_invoicing_plugin.ui.issued_at
+                    label: sylius_invoicing.ui.issued_at
                     options:
                         format: 'Y-m-d H:i:s'
                     sortable: true
             filters:
                 orderNumber:
                     type: string
-                    label: sylius_invoicing_plugin.ui.order_number
+                    label: sylius_invoicing.ui.order_number
                     options:
                         fields: [order.number]
                 number:
                     type: string
-                    label: sylius_invoicing_plugin.ui.invoice_number
+                    label: sylius_invoicing.ui.invoice_number
                 issuedAt:
                     type: date
-                    label: sylius_invoicing_plugin.ui.issued_at
+                    label: sylius_invoicing.ui.issued_at
                 channel:
-                    type: invoice_channel
+                    type: entity
                     label: sylius.ui.channel
+                    form_options:
+                        class: "%sylius.model.channel.class%"
             actions:
                 item:
                     show:

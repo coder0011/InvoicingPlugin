@@ -27,7 +27,7 @@ final class SyliusInvoicingExtension extends AbstractResourceExtension implement
 
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.xml');
 
         /** @var ConfigurationInterface $configuration */
@@ -55,7 +55,7 @@ final class SyliusInvoicingExtension extends AbstractResourceExtension implement
 
     protected function getMigrationsDirectory(): string
     {
-        return '@SyliusInvoicingPlugin/Migrations';
+        return '@SyliusInvoicingPlugin/src/Migrations';
     }
 
     protected function getNamespacesOfMigrationsExecutedBefore(): array

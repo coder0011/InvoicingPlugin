@@ -19,18 +19,18 @@
 
     ```yaml
     imports:
-        - { resource: "@SyliusInvoicingPlugin/Resources/config/config.yml" }
+        - { resource: '@SyliusInvoicingPlugin/config/config.yaml' }
     ```
 
 1. Import routing:
 
     ```yaml
     sylius_invoicing_plugin_admin:
-        resource: "@SyliusInvoicingPlugin/Resources/config/app/routing/admin_invoicing.yml"
-        prefix: /admin
+        resource: '@SyliusInvoicingPlugin/config/admin_routes.yaml'
+        prefix: '/%sylius_admin.path_name%'
     
     sylius_invoicing_plugin_shop:
-        resource: "@SyliusInvoicingPlugin/Resources/config/app/routing/shop_invoicing.yml"
+        resource: '@SyliusInvoicingPlugin/config/shop_routes.yaml'
         prefix: /{_locale}
         requirements:
             _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
@@ -46,7 +46,7 @@
             enabled: true
             binary: /usr/local/bin/wkhtmltopdf # Change this! :)
             options: []
-    ```   
+    ```
 
 1. Apply migrations to your database:
 
