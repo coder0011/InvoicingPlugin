@@ -3,11 +3,11 @@
 <div class="mt-1">
     <ul class="list-inline mb-0">
         <li class="list-inline-item">
-            <strong>{{ 'sylius_invoicing_plugin.ui.issued_at'|trans }}:</strong>
+            <strong>{{ 'sylius_invoicing.ui.issued_at'|trans }}:</strong>
             <span {{ sylius_test_html_attribute('issued-at') }}>{{ invoice.issuedAt|format_datetime }}</span>
         </li>
         <li class="list-inline-item">
-            <strong>{{ 'sylius_invoicing_plugin.ui.issued_for_order'|trans }}:</strong>
+            <strong>{{ 'sylius_invoicing.ui.issued_for_order'|trans }}:</strong>
             #{{ invoice.order.number }}
         </li>
         <li class="list-inline-item">
