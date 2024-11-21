@@ -8,7 +8,9 @@ sylius_invoicing_plugin_invoice:
         permission: true
         vars:
             all:
+                header: sylius_invoicing.ui.invoices
                 subheader: sylius_invoicing.ui.manage_invoices
+                breadcrumb: sylius_invoicing.ui.invoices
             index:
                 icon: inbox
     type: sylius.resource
