@@ -100,6 +100,125 @@
    +                       class: "%sylius.model.channel.class%"
    #           ...
    ```
+   
+1. Service and Alias Refactoring for [New Naming Convention](https://github.com/Sylius/Sylius/blob/2.0/adr/2024_10_03_services_naming_convention.md)
+   Including the following changes:
+
+#### Configuration root key change:
+
+   ```diff
+      -   sylius_invoicing_plugin:
+      +   sylius_invoicing:
+   ```
+
+#### Routing
+
+| Old route                                            | New route                                     |
+|------------------------------------------------------|-----------------------------------------------|
+| sylius_invoicing_plugin_admin_invoice_index          | sylius_invoicing_admin_invoice_index          |
+| sylius_invoicing_plugin_admin_invoice_show           | sylius_invoicing_admin_invoice_show           |
+| sylius_invoicing_plugin_admin_invoice_download       | sylius_invoicing_admin_invoice_download       |
+| sylius_invoicing_plugin_admin_invoice_resend         | sylius_invoicing_admin_invoice_resend         |
+| sylius_invoicing_plugin_admin_order_invoices_partial | sylius_invoicing_admin_order_invoices_partial |
+| sylius_invoicing_plugin_shop_invoice_download        | sylius_invoicing_shop_invoice_download        |
+| sylius_invoicing_plugin_shop_order_invoices_partial  | sylius_invoicing_shop_order_invoices_partial  |
+
+#### Grids
+
+| Old grid                        | New grid                 |
+|---------------------------------|--------------------------|
+| sylius_invoicing_plugin_invoice | sylius_invoicing_invoice |
+
+#### Changed Services
+
+| Old id                                                                             | New id                                                                      |
+|------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| sylius_invoicing_plugin.event_listener.workflow.payment.produce_order_payment_paid | sylius_invoicing.event_listener.workflow.payment.produce_order_payment_paid |
+| sylius_invoicing_plugin.ui.action.download_invoice                                 | sylius_invoicing.controller.download_invoice                             |
+| sylius_invoicing_plugin.ui.action.resend_invoice                                   | sylius_invoicing.controller.resend_invoice                               |
+| sylius_invoicing_plugin.cli.generate_invoices                                      | sylius_invoicing.cli.generate_invoices                                      |
+| sylius_invoicing_plugin.converter.order_item_units_to_line_items                   | sylius_invoicing.converter.order_item_units_to_line_items                   |
+| sylius_invoicing_plugin.converter.shipping_adjustments_to_line_items               | sylius_invoicing.converter.shipping_adjustments_to_line_items               |
+| sylius_invoicing_plugin.converter.tax_items                                        | sylius_invoicing.converter.tax_items                                        |
+| sylius_invoicing_plugin.fixture.example_factory.invoicing_plugin_shop_billing_data | sylius_invoicing.fixture.example_factory.invoicing_plugin_shop_billing_data |
+| sylius_invoicing_plugin.fixture.shop_billing_data_fixture                          | sylius_invoicing.fixture.shop_billing_data                                  |
+| Sylius\InvoicingPlugin\Fixture\Listener\InvoicesPurgerListener                     | sylius_invoicing.fixture.listener.invoices_purger                           |
+| Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface                       | sylius_invoicing.provider.invoice_file                                      |
+| Sylius\InvoicingPlugin\Manager\InvoiceFileManagerInterface                         | sylius_invoicing.manager.invoice_file                                       |
+| Sylius\InvoicingPlugin\Provider\UnitNetPriceProviderInterface                      | sylius_invoicing.provider.unit_net_price                                    |
+| Sylius\InvoicingPlugin\Generator\InvoiceFileNameGeneratorInterface                 | sylius_invoicing.generator.invoice_file_name                                |
+| sylius_invoicing_plugin.generator.invoice_number_generator                         | sylius_invoicing.generator.invoice_number                                   |
+| sylius_invoicing_plugin.generator.invoice_identifier                               | sylius_invoicing.generator.invoice_identifier                               |
+| sylius_invoicing_plugin.generator.invoice                                          | sylius_invoicing.generator.invoice                                          |
+| sylius_invoicing_plugin.generator.invoice_pdf_file                                 | sylius_invoicing.generator.invoice_pdf_file                                 |
+| sylius_invoicing_plugin.creator.invoice                                            | sylius_invoicing.creator.invoice                                            |
+| sylius_invoicing_plugin.creator.mass_invoices                                      | sylius_invoicing.creator.mass_invoices                                      |
+| sylius_invoicing_plugin.generator.pdf_options                                      | sylius_invoicing.generator.pdf_options                                      |
+| sylius_invoicing_plugin.generator.twig_to_pdf                                      | sylius_invoicing.generator.twig_to_pdf                                      |
+| sylius_invoicing_plugin.event_producer.order_payment_paid                          | sylius_invoicing.event_producer.order_payment_paid                          |
+| sylius_invoicing_plugin.event_listener.order_placed                                | sylius_invoicing.listener.order_placed                                      |
+| sylius_invoicing_plugin.event_producer.order_placed                                | sylius_invoicing.event_producer.order_placed                                |
+| sylius_invoicing_plugin.listener.order_payment_paid                                | sylius_invoicing.listener.order_payment_paid                                |
+| sylius_invoicing_plugin.ui.menu.admin_menu_listener                                | sylius_invoicing.listener.admin_menu                                      |
+| sylius_invoicing_plugin.email.invoice_email_sender                                 | sylius_invoicing.email.invoice_email_sender                                 |
+| sylius_invoicing_plugin.command_handler.send_invoice_email                         | sylius_invoicing.command_handler.send_invoice_email                         |
+| sylius_invoicing_plugin.provider.tax_rate_percentage                               | sylius_invoicing.provider.tax_rate_percentage                               |
+| sylius_invoicing_plugin.custom_factory.invoice                                     | sylius_invoicing.custom_factory.invoice                                     |
+| sylius_invoicing_plugin_security.voter.invoice                                     | sylius_invoicing.security.voter.invoice                                     |
+| sylius_invoicing_plugin.controller.invoice                                         | sylius_invoicing.controller.invoice                                         |
+| sylius_invoicing_plugin.repository.invoice                                         | sylius_invoicing.repository.invoice                                         |
+| sylius_invoicing.factory.invoice                                                   | sylius_invoicing.factory.invoice                                            |
+| sylius_invoicing_plugin.controller.billing_data                                    | sylius_invoicing.controller.billing_data                                    |
+| sylius_invoicing_plugin.repository.billing_data                                    | sylius_invoicing.repository.billing_data                                    |
+| sylius_invoicing_plugin.factory.billing_data                                       | sylius_invoicing.factory.billing_data                                       |
+| sylius_invoicing_plugin.controller.shop_billing_data                               | sylius_invoicing.controller.shop_billing_data                               |
+| sylius_invoicing_plugin.repository.shop_billing_data                               | sylius_invoicing.repository.shop_billing_data                               |
+| sylius_invoicing_plugin.factory.shop_billing_data                                  | sylius_invoicing.factory.shop_billing_data                                  |
+| sylius_invoicing_plugin.controller.line_item                                       | sylius_invoicing.controller.line_item                                       |
+| sylius_invoicing_plugin.repository.line_item                                       | sylius_invoicing.repository.line_item                                       |
+| sylius_invoicing_plugin.factory.line_item                                          | sylius_invoicing.factory.line_item                                          |
+| sylius_invoicing_plugin.controller.tax_item                                        | sylius_invoicing.controller.tax_item                                        |
+| sylius_invoicing_plugin.repository.tax_item                                        | sylius_invoicing.repository.tax_item                                        |
+| sylius_invoicing_plugin.factory.tax_item                                           | sylius_invoicing.factory.tax_item                                           |
+| sylius_invoicing_plugin.controller.invoice_sequence                                | sylius_invoicing.controller.invoice_sequence                                |
+| sylius_invoicing_plugin.repository.invoice_sequence                                | sylius_invoicing.repository.invoice_sequence                                |
+| sylius_invoicing_plugin.factory.invoice_sequence                                   | sylius_invoicing.factory.invoice_sequence                                   |
+| sylius_invoicing_plugin.manager.invoice                                            | sylius_invoicing.manager.invoice                                            |
+| sylius_invoicing_plugin.manager.billing_data                                       | sylius_invoicing.manager.billing_data                                       |
+| sylius_invoicing_plugin.manager.shop_billing_data                                  | sylius_invoicing.manager.shop_billing_data                                  |
+| sylius_invoicing_plugin.manager.line_item                                          | sylius_invoicing.manager.line_item                                          |
+| sylius_invoicing_plugin.manager.tax_item                                           | sylius_invoicing.manager.tax_item                                           |
+| sylius_invoicing_plugin.manager.invoice_sequence                                   | sylius_invoicing.manager.invoice_sequence                                   |
+| sylius_invoicing_plugin.controller_state_machine.invoice                           | sylius_invoicing.controller_state_machine.invoice                           |
+| sylius_invoicing_plugin.controller_state_machine.billing_data                      | sylius_invoicing.controller_state_machine.billing_data                      |
+| sylius_invoicing_plugin.controller_state_machine.shop_billing_data                 | sylius_invoicing.controller_state_machine.shop_billing_data                 |
+| sylius_invoicing_plugin.controller_state_machine.line_item                         | sylius_invoicing.controller_state_machine.line_item                         |
+| sylius_invoicing_plugin.controller_state_machine.tax_item                          | sylius_invoicing.controller_state_machine.tax_item                          |
+| sylius_invoicing_plugin.controller_state_machine.invoice_sequence                  | sylius_invoicing.controller_state_machine.invoice_sequence                  |
+
+#### Changed Parameters
+
+| Old                                                        | New                                                 |
+|------------------------------------------------------------|-----------------------------------------------------|
+| sylius_invoicing_plugin.controller.billing_data.class      | sylius_invoicing.controller.billing_data.class      |
+| sylius_invoicing_plugin.controller.invoice.class           | sylius_invoicing.controller.invoice.class           |
+| sylius_invoicing_plugin.controller.invoice_sequence.class  | sylius_invoicing.controller.invoice_sequence.class  |
+| sylius_invoicing_plugin.controller.line_item.class         | sylius_invoicing.controller.line_item.class         |
+| sylius_invoicing_plugin.controller.shop_billing_data.class | sylius_invoicing.controller.shop_billing_data.class |
+| sylius_invoicing_plugin.controller.tax_item.class          | sylius_invoicing.controller.tax_item.class          |
+| sylius_invoicing_plugin.factory.billing_data.class         | sylius_invoicing.factory.billing_data.class         |
+| sylius_invoicing_plugin.factory.invoice.class              | sylius_invoicing.factory.invoice.class              |
+| sylius_invoicing_plugin.factory.invoice_sequence.class     | sylius_invoicing.factory.invoice_sequence.class     |
+| sylius_invoicing_plugin.factory.line_item.class            | sylius_invoicing.factory.line_item.class            |
+| sylius_invoicing_plugin.factory.shop_billing_data.class    | sylius_invoicing.factory.shop_billing_data.class    |
+| sylius_invoicing_plugin.factory.tax_item.class             | sylius_invoicing.factory.tax_item.class             |
+| sylius_invoicing_plugin.model.billing_data.class           | sylius_invoicing.model.billing_data.class           |
+| sylius_invoicing_plugin.model.invoice.class                | sylius_invoicing.model.invoice.class                |
+| sylius_invoicing_plugin.model.invoice_sequence.class       | sylius_invoicing.model.invoice_sequence.class       |
+| sylius_invoicing_plugin.model.line_item.class              | sylius_invoicing.model.line_item.class              |
+| sylius_invoicing_plugin.model.shop_billing_data.class      | sylius_invoicing.model.shop_billing_data.class      |
+| sylius_invoicing_plugin.model.tax_item.class               | sylius_invoicing.model.tax_item.class               |
+| sylius_invoicing_plugin.repository.invoice.class           | sylius_invoicing.repository.invoice.class           |
 
 1. Doctrine migrations have been regenerated, meaning all previous migration files have been removed and their content is now in a single migration file.
    To apply the new migration and get rid of the old entries run migrations as usual:
