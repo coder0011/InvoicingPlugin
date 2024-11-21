@@ -23,7 +23,7 @@ winzou_state_machine:
             after:
                 sylius_invoicing_plugin_payment_complete_producer:
                     on: ['complete']
-                    do: ['@sylius_invoicing_plugin.event_producer.order_payment_paid', '__invoke']
+                    do: ['@sylius_invoicing.event_producer.order_payment_paid', '__invoke']
                     args: ['object']
 
 sylius_grid:
@@ -32,7 +32,7 @@ sylius_grid:
             driver:
                 name: doctrine/orm
                 options:
-                    class: '%sylius_invoicing_plugin.model.invoice.class%'
+                    class: '%sylius_invoicing.model.invoice.class%'
             sorting:
                 issuedAt: desc
             fields:

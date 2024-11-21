@@ -4,9 +4,9 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_invoicing_plugin.event_listener.workflow.payment.produce_order_payment_paid"
+        <service id="sylius_invoicing.event_listener.workflow.payment.produce_order_payment_paid"
                  class="Sylius\InvoicingPlugin\EventListener\Workflow\Payment\ProduceOrderPaymentPaidListener">
-            <argument type="service" id="sylius_invoicing_plugin.event_producer.order_payment_paid" />
+            <argument type="service" id="sylius_invoicing.event_producer.order_payment_paid" />
 
             <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.complete" priority="50" />
         </service>

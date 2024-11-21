@@ -110,12 +110,12 @@ class SyliusInvoicingExtensionTest extends AbstractExtensionTestCase
         $this->prepend();
 
         $this->assertContainerBuilderHasParameter(
-            'sylius_invoicing_plugin.model.invoice.class',
+            'sylius_invoicing.model.invoice.class',
             Invoice::class
         );
 
         $this->assertContainerBuilderHasService(
-            'sylius_invoicing_plugin.controller.invoice',
+            'sylius_invoicing.controller.invoice',
             ResourceController::class
         );
     }
@@ -126,12 +126,12 @@ class SyliusInvoicingExtensionTest extends AbstractExtensionTestCase
         $this->prepend();
 
         $this->assertContainerBuilderHasParameter(
-            'sylius_invoicing_plugin.model.billing_data.class',
+            'sylius_invoicing.model.billing_data.class',
             BillingData::class
         );
 
         $this->assertContainerBuilderHasService(
-            'sylius_invoicing_plugin.controller.billing_data',
+            'sylius_invoicing.controller.billing_data',
             ResourceController::class
         );
     }
@@ -142,12 +142,12 @@ class SyliusInvoicingExtensionTest extends AbstractExtensionTestCase
         $this->prepend();
 
         $this->assertContainerBuilderHasParameter(
-            'sylius_invoicing_plugin.model.shop_billing_data.class',
+            'sylius_invoicing.model.shop_billing_data.class',
             InvoiceShopBillingData::class
         );
 
         $this->assertContainerBuilderHasService(
-            'sylius_invoicing_plugin.controller.shop_billing_data',
+            'sylius_invoicing.controller.shop_billing_data',
             ResourceController::class
         );
     }
@@ -158,12 +158,12 @@ class SyliusInvoicingExtensionTest extends AbstractExtensionTestCase
         $this->prepend();
 
         $this->assertContainerBuilderHasParameter(
-            'sylius_invoicing_plugin.model.line_item.class',
+            'sylius_invoicing.model.line_item.class',
             LineItem::class
         );
 
         $this->assertContainerBuilderHasService(
-            'sylius_invoicing_plugin.controller.line_item',
+            'sylius_invoicing.controller.line_item',
             ResourceController::class
         );
     }
@@ -174,12 +174,12 @@ class SyliusInvoicingExtensionTest extends AbstractExtensionTestCase
         $this->prepend();
 
         $this->assertContainerBuilderHasParameter(
-            'sylius_invoicing_plugin.model.tax_item.class',
+            'sylius_invoicing.model.tax_item.class',
             TaxItem::class
         );
 
         $this->assertContainerBuilderHasService(
-            'sylius_invoicing_plugin.controller.tax_item',
+            'sylius_invoicing.controller.tax_item',
             ResourceController::class
         );
     }
@@ -190,12 +190,12 @@ class SyliusInvoicingExtensionTest extends AbstractExtensionTestCase
         $this->prepend();
 
         $this->assertContainerBuilderHasParameter(
-            'sylius_invoicing_plugin.model.invoice_sequence.class',
+            'sylius_invoicing.model.invoice_sequence.class',
             InvoiceSequence::class
         );
 
         $this->assertContainerBuilderHasService(
-            'sylius_invoicing_plugin.controller.invoice_sequence',
+            'sylius_invoicing.controller.invoice_sequence',
             ResourceController::class
         );
     }
