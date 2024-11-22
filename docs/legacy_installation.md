@@ -25,11 +25,11 @@
 1. Import routing:
 
     ```yaml
-    sylius_invoicing_plugin_admin:
+    sylius_invoicing_admin:
         resource: '@SyliusInvoicingPlugin/config/admin_routes.yaml'
         prefix: '/%sylius_admin.path_name%'
     
-    sylius_invoicing_plugin_shop:
+    sylius_invoicing_shop:
         resource: '@SyliusInvoicingPlugin/config/shop_routes.yaml'
         prefix: /{_locale}
         requirements:
