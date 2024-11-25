@@ -10,14 +10,14 @@
             <argument type="service" id="Tests\Sylius\InvoicingPlugin\Behat\Page\Admin\Invoice\IndexPageInterface" />
             <argument type="service" id="Tests\Sylius\InvoicingPlugin\Behat\Page\Admin\Invoice\ShowPageInterface" />
             <argument type="service" id="Tests\Sylius\InvoicingPlugin\Behat\Page\Admin\Order\ShowPageInterface" />
-            <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
+            <argument type="service" id="sylius.behat.notification_checker"/>
             <argument type="service" id="sylius.behat.notification_checker.admin"/>
         </service>
 
         <service id="Tests\Sylius\InvoicingPlugin\Behat\Context\Ui\Shop\CustomerBrowsingInvoicesContext" public="true">
             <argument type="service" id="Tests\Sylius\InvoicingPlugin\Behat\Page\Shop\Order\ShowPageInterface" />
             <argument type="service" id="Tests\Sylius\InvoicingPlugin\Behat\Page\Shop\Order\DownloadInvoicePageInterface" />
-            <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
+            <argument type="service" id="sylius_invoicing.repository.invoice" />
         </service>
 
         <service id="Tests\Sylius\InvoicingPlugin\Behat\Context\Domain\InvoiceEmailContext" public="true" >
@@ -25,8 +25,8 @@
         </service>
 
         <service id="Tests\Sylius\InvoicingPlugin\Behat\Context\Domain\GeneratingInvoiceContext" public="true">
-            <argument type="service" id="sylius_invoicing_plugin.manager.invoice" />
-            <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
+            <argument type="service" id="sylius_invoicing.manager.invoice" />
+            <argument type="service" id="sylius_invoicing.repository.invoice" />
         </service>
 
         <service id="Tests\Sylius\InvoicingPlugin\Behat\Context\Hook\InvoicesContext" public="true">
@@ -35,8 +35,8 @@
 
         <service id="Tests\Sylius\InvoicingPlugin\Behat\Context\Cli\InvoicesGenerationContext" public="true">
             <argument type="service" id="kernel" />
-            <argument type="service" id="sylius_invoicing_plugin.creator.mass_invoices" />
-            <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
+            <argument type="service" id="sylius_invoicing.creator.mass_invoices" />
+            <argument type="service" id="sylius_invoicing.repository.invoice" />
             <argument type="service" id="sylius.repository.order" />
         </service>
 
@@ -59,7 +59,7 @@
 
         <service id="Tests\Sylius\InvoicingPlugin\Behat\Context\Application\ManagingInvoicesContext" public="true">
             <argument>%sylius_invoicing.invoice_save_path%</argument>
-            <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
+            <argument type="service" id="sylius_invoicing.repository.invoice" />
         </service>
 
         <service id="Tests\Sylius\InvoicingPlugin\Behat\Page\Admin\Invoice\IndexPageInterface"
@@ -67,7 +67,7 @@
                  parent="sylius.behat.page.admin.crud.index"
                  public="true"
         >
-            <argument type="string">sylius_invoicing_plugin_admin_invoice_index</argument>
+            <argument type="string">sylius_invoicing_admin_invoice_index</argument>
         </service>
 
         <service id="Tests\Sylius\InvoicingPlugin\Behat\Page\Admin\Invoice\ShowPageInterface"

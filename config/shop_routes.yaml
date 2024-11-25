@@ -1,5 +1,5 @@
-sylius_invoicing_plugin_shop_invoice_download:
+sylius_invoicing_shop_invoice_download:
     path: /invoices/{id}/download
     methods: [GET]
     defaults:
-        _controller: sylius_invoicing_plugin.ui.action.download_invoice
+        _controller: sylius_invoicing.controller.download_invoice

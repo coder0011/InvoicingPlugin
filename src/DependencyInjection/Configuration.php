@@ -40,7 +40,7 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('sylius_invoicing_plugin');
+        $treeBuilder = new TreeBuilder('sylius_invoicing');
         $rootNode = $treeBuilder->getRootNode();
 
         $this->addResourcesSection($rootNode);

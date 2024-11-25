@@ -99,13 +99,13 @@ You can read more about Resources here:
 Hence, the template for displaying the list of Invoices is defined in the `routing.yml` file:
 
 ```yaml
-sylius_invoicing_plugin_invoice:
+sylius_invoicing_invoice:
     resource: |
-        alias: sylius_invoicing_plugin.invoice
+        alias: sylius_invoicing.invoice
         section: admin
         templates: "@SyliusAdmin\\Crud"
         only: ['index']
-        grid: sylius_invoicing_plugin_invoice
+        grid: sylius_invoicing_invoice
         permission: true
         vars:
             all:

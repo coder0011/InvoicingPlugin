@@ -43,7 +43,7 @@ final class SyliusInvoicingExtension extends AbstractResourceExtension implement
 
         $container->setParameter('sylius_invoicing.pdf_generator.enabled', $config['pdf_generator']['enabled']);
 
-        $this->registerResources('sylius_invoicing_plugin', 'doctrine/orm', $config['resources'], $container);
+        $this->registerResources('sylius_invoicing', 'doctrine/orm', $config['resources'], $container);
 
         $this->prependDoctrineMigrations($container);
     }

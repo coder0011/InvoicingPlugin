@@ -1,10 +1,10 @@
-sylius_invoicing_plugin_invoice:
+sylius_invoicing_invoice:
     resource: |
-        alias: sylius_invoicing_plugin.invoice
+        alias: sylius_invoicing.invoice
         section: admin
         templates: "@SyliusAdmin\\shared\\crud"
         only: ['index']
-        grid: sylius_invoicing_plugin_invoice
+        grid: sylius_invoicing_invoice
         permission: true
         vars:
             all:
@@ -15,24 +15,24 @@ sylius_invoicing_plugin_invoice:
                 icon: inbox
     type: sylius.resource
 
-sylius_invoicing_plugin_admin_invoice_show:
+sylius_invoicing_admin_invoice_show:
     path: /invoices/{id}
     methods: [GET]
     defaults:
-        _controller: sylius_invoicing_plugin.controller.invoice::showAction
+        _controller: sylius_invoicing.controller.invoice::showAction
         _sylius:
             section: admin
             permission: true
             template: "@SyliusAdmin/shared/crud/show.html.twig"
 
-sylius_invoicing_plugin_admin_invoice_download:
+sylius_invoicing_admin_invoice_download:
     path: /invoices/{id}/download
     methods: [GET]
     defaults:
-        _controller: sylius_invoicing_plugin.ui.action.download_invoice
+        _controller: sylius_invoicing.controller.download_invoice
 
-sylius_invoicing_plugin_admin_invoice_resend:
+sylius_invoicing_admin_invoice_resend:
     path: /invoices/{id}/resend
     methods: [GET]
     defaults:
-        _controller: sylius_invoicing_plugin.ui.action.resend_invoice
+        _controller: sylius_invoicing.controller.resend_invoice

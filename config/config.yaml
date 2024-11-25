@@ -26,11 +26,11 @@ sylius_grid:
         action:
             download: '@SyliusInvoicingPlugin/admin/shared/action/download.html.twig'
     grids:
-        sylius_invoicing_plugin_invoice:
+        sylius_invoicing_invoice:
             driver:
                 name: doctrine/orm
                 options:
-                    class: '%sylius_invoicing_plugin.model.invoice.class%'
+                    class: '%sylius_invoicing.model.invoice.class%'
             sorting:
                 issuedAt: desc
             fields:
@@ -89,7 +89,7 @@ sylius_grid:
                         enabled: '%sylius_invoicing.pdf_generator.enabled%'
                         options:
                             link:
-                                route: sylius_invoicing_plugin_admin_invoice_download
+                                route: sylius_invoicing_admin_invoice_download
                                 parameters:
                                     id: resource.id
                     resend:
@@ -98,7 +98,7 @@ sylius_grid:
                         icon: "tabler:send"
                         options:
                             link:
-                                route: sylius_invoicing_plugin_admin_invoice_resend
+                                route: sylius_invoicing_admin_invoice_resend
                                 parameters:
                                     id: resource.id
 

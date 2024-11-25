@@ -33,7 +33,7 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
 
     public function getRouteName(): string
     {
-        return 'sylius_invoicing_plugin_admin_invoice_show';
+        return 'sylius_invoicing_admin_invoice_show';
     }
 
     public function hasBillingData(
