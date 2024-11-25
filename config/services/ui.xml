@@ -4,7 +4,7 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_invoicing_plugin.ui.menu.admin_menu_listener" class="Sylius\InvoicingPlugin\Ui\Menu\AdminMenuListener">
+        <service id="sylius_invoicing.listener.admin_menu " class="Sylius\InvoicingPlugin\Ui\Menu\AdminMenuListener">
             <tag name="kernel.event_listener" event="sylius.menu.admin.main" method="__invoke" />
         </service>
     </services>

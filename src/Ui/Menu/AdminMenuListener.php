@@ -26,7 +26,7 @@ final class AdminMenuListener
         $salesMenu = $menu->getChild('sales');
 
         $salesMenu
-            ->addChild('invoices', ['route' => 'sylius_invoicing_plugin_admin_invoice_index'])
+            ->addChild('invoices', ['route' => 'sylius_invoicing_admin_invoice_index'])
                 ->setLabel('sylius_invoicing.ui.invoices')
                 ->setLabelAttribute('icon', 'file')
         ;

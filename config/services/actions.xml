@@ -4,16 +4,16 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_invoicing_plugin.ui.action.download_invoice" class="Sylius\InvoicingPlugin\Ui\Action\DownloadInvoiceAction">
-            <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
+        <service id="sylius_invoicing.controller.download_invoice" class="Sylius\InvoicingPlugin\Ui\Action\DownloadInvoiceAction">
+            <argument type="service" id="sylius_invoicing.repository.invoice" />
             <argument type="service" id="security.authorization_checker" />
-            <argument type="service" id="Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface" />
+            <argument type="service" id="sylius_invoicing.provider.invoice_file" />
             <argument>%sylius_invoicing.pdf_generator.enabled%</argument>
         </service>
 
-        <service id="sylius_invoicing_plugin.ui.action.resend_invoice" class="Sylius\InvoicingPlugin\Ui\Action\Admin\ResendInvoiceAction">
-            <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
-            <argument type="service" id="sylius_invoicing_plugin.email.invoice_email_sender" />
+        <service id="sylius_invoicing.controller.resend_invoice" class="Sylius\InvoicingPlugin\Ui\Action\Admin\ResendInvoiceAction">
+            <argument type="service" id="sylius_invoicing.repository.invoice" />
+            <argument type="service" id="sylius_invoicing.email.invoice_email_sender" />
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="router" />
             <argument type="service" id="request_stack" />

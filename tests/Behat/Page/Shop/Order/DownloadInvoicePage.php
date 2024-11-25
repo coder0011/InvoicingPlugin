@@ -10,6 +10,6 @@ final class DownloadInvoicePage extends SymfonyPage implements DownloadInvoicePa
 {
     public function getRouteName(): string
     {
-        return 'sylius_invoicing_plugin_shop_invoice_download';
+        return 'sylius_invoicing_shop_invoice_download';
     }
 }

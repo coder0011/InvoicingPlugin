@@ -21,18 +21,18 @@ winzou_state_machine:
     sylius_payment:
         callbacks:
             after:
-                sylius_invoicing_plugin_payment_complete_producer:
+                sylius_invoicing_payment_complete_producer:
                     on: ['complete']
-                    do: ['@sylius_invoicing_plugin.event_producer.order_payment_paid', '__invoke']
+                    do: ['@sylius_invoicing.event_producer.order_payment_paid', '__invoke']
                     args: ['object']
 
 sylius_grid:
     grids:
-        sylius_invoicing_plugin_invoice:
+        sylius_invoicing_invoice:
             driver:
                 name: doctrine/orm
                 options:
-                    class: '%sylius_invoicing_plugin.model.invoice.class%'
+                    class: '%sylius_invoicing.model.invoice.class%'
             sorting:
                 issuedAt: desc
             fields:
@@ -93,7 +93,7 @@ sylius_grid:
                         icon: download
                         options:
                             link:
-                                route: sylius_invoicing_plugin_admin_invoice_download
+                                route: sylius_invoicing_admin_invoice_download
                                 parameters:
                                     id: resource.id
                     resend:
@@ -102,7 +102,7 @@ sylius_grid:
                         icon: send
                         options:
                             link:
-                                route: sylius_invoicing_plugin_admin_invoice_resend
+                                route: sylius_invoicing_admin_invoice_resend
                                 parameters:
                                     id: resource.id
 
@@ -110,13 +110,13 @@ sylius_ui:
     events:
         sylius.admin.order.show.summary:
             blocks:
-                sylius_invoicing_plugin:
+                sylius_invoicing:
                     template: '@SyliusInvoicingPlugin/Order/Admin/fetchInvoices.html.twig'
                     priority: 15
 
         sylius.shop.account.order.show.subcontent:
             blocks:
-                sylius_invoicing_plugin:
+                sylius_invoicing:
                     template: '@SyliusInvoicingPlugin/Order/Shop/fetchInvoices.html.twig'
                     priority: 15
 

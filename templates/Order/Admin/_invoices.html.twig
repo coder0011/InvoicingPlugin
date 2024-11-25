@@ -15,7 +15,7 @@
         {% for invoice in invoices %}
             <tr>
                 <td>
-                    <a href="{{ path('sylius_invoicing_plugin_admin_invoice_show', {'id': invoice.id}) }}" >{{ invoice.number }}</a>
+                    <a href="{{ path('sylius_invoicing_admin_invoice_show', {'id': invoice.id}) }}" >{{ invoice.number }}</a>
                 </td>
                 <td>
                     {% include '@SyliusAdmin/Common/_channel.html.twig' with {'channel': invoice.channel} %}

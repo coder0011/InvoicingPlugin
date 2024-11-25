@@ -13,46 +13,52 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_invoicing_plugin.email.invoice_email_sender" class="Sylius\InvoicingPlugin\Email\InvoiceEmailSender">
+        <service id="sylius_invoicing.email.invoice_email_sender" class="Sylius\InvoicingPlugin\Email\InvoiceEmailSender">
             <argument type="service" id="sylius.email_sender" />
-            <argument type="service" id="Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface" />
+            <argument type="service" id="sylius_invoicing.provider.invoice_file" />
             <argument>%sylius_invoicing.pdf_generator.enabled%</argument>
         </service>
+        <service id="Sylius\InvoicingPlugin\Email\InvoiceEmailSenderInterface" alias="sylius_invoicing.email.invoice_email_sender" />
 
-        <service id="sylius_invoicing_plugin.command_handler.send_invoice_email" class="Sylius\InvoicingPlugin\CommandHandler\SendInvoiceEmailHandler">
-            <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
+        <service id="sylius_invoicing.command_handler.send_invoice_email" class="Sylius\InvoicingPlugin\CommandHandler\SendInvoiceEmailHandler">
+            <argument type="service" id="sylius_invoicing.repository.invoice" />
             <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="sylius_invoicing_plugin.email.invoice_email_sender" />
+            <argument type="service" id="sylius_invoicing.email.invoice_email_sender" />
             <tag name="messenger.message_handler" />
         </service>
 
-        <service id="sylius_invoicing_plugin_security.voter.invoice" class="Sylius\InvoicingPlugin\Security\Voter\InvoiceVoter">
+        <service id="sylius_invoicing.security.voter.invoice" class="Sylius\InvoicingPlugin\Security\Voter\InvoiceVoter">
             <argument type="service" id="sylius.repository.order" />
             <tag name="security.voter" />
         </service>
 
-        <service id="sylius_invoicing_plugin.provider.tax_rate_percentage" class="Sylius\InvoicingPlugin\Provider\TaxRatePercentageProvider" />
+        <service id="sylius_invoicing.provider.tax_rate_percentage" class="Sylius\InvoicingPlugin\Provider\TaxRatePercentageProvider" />
+        <service id="Sylius\InvoicingPlugin\Provider\TaxRatePercentageProviderInterface" alias="sylius_invoicing.provider.tax_rate_percentage" />
 
-        <service id="sylius_invoicing_plugin.custom_factory.invoice" class="Sylius\InvoicingPlugin\Factory\InvoiceFactory">
-            <argument>%sylius_invoicing_plugin.model.invoice.class%</argument>
-            <argument type="service" id="sylius_invoicing_plugin.factory.shop_billing_data" />
+        <service id="sylius_invoicing.custom_factory.invoice" class="Sylius\InvoicingPlugin\Factory\InvoiceFactory">
+            <argument>%sylius_invoicing.model.invoice.class%</argument>
+            <argument type="service" id="sylius_invoicing.factory.shop_billing_data" />
         </service>
+        <service id="Sylius\InvoicingPlugin\Factory\InvoiceFactoryInterface" alias="sylius_invoicing.custom_factory.invoice" />
 
-        <service id="Sylius\InvoicingPlugin\Manager\InvoiceFileManagerInterface" class="Sylius\InvoicingPlugin\Manager\InvoiceFileManager">
+        <service id="sylius_invoicing.manager.invoice_file" class="Sylius\InvoicingPlugin\Manager\InvoiceFileManager">
             <argument type="service" id="gaufrette.sylius_invoicing_invoice_filesystem" />
         </service>
+        <service id="Sylius\InvoicingPlugin\Manager\InvoiceFileManagerInterface" alias="sylius_invoicing.manager.invoice_file" />
 
-        <service id="Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface" class="Sylius\InvoicingPlugin\Provider\InvoiceFileProvider">
-            <argument type="service" id="Sylius\InvoicingPlugin\Generator\InvoiceFileNameGeneratorInterface" />
+        <service id="sylius_invoicing.provider.invoice_file" class="Sylius\InvoicingPlugin\Provider\InvoiceFileProvider">
+            <argument type="service" id="sylius_invoicing.generator.invoice_file_name" />
             <argument type="service" id="gaufrette.sylius_invoicing_invoice_filesystem" />
-            <argument type="service" id="sylius_invoicing_plugin.generator.invoice_pdf_file" />
-            <argument type="service" id="Sylius\InvoicingPlugin\Manager\InvoiceFileManagerInterface" />
+            <argument type="service" id="sylius_invoicing.generator.invoice_pdf_file" />
+            <argument type="service" id="sylius_invoicing.manager.invoice_file" />
             <argument>%sylius_invoicing.invoice_save_path%</argument>
         </service>
+        <service id="Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface" alias="sylius_invoicing.provider.invoice_file" />
 
         <service
-            id="Sylius\InvoicingPlugin\Provider\UnitNetPriceProviderInterface"
+            id="sylius_invoicing.provider.unit_net_price"
             class="Sylius\InvoicingPlugin\Provider\UnitNetPriceProvider"
         />
+        <service id="Sylius\InvoicingPlugin\Provider\UnitNetPriceProviderInterface" alias="sylius_invoicing.provider.unit_net_price" />
     </services>
 </container>

@@ -4,20 +4,21 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_invoicing_plugin.converter.order_item_units_to_line_items" class="Sylius\InvoicingPlugin\Converter\OrderItemUnitsToLineItemsConverter">
-            <argument type="service" id="sylius_invoicing_plugin.provider.tax_rate_percentage" />
-            <argument type="service" id="sylius_invoicing_plugin.factory.line_item" />
-            <argument type="service" id="Sylius\InvoicingPlugin\Provider\UnitNetPriceProviderInterface" />
+        <service id="sylius_invoicing.converter.order_item_units_to_line_items" class="Sylius\InvoicingPlugin\Converter\OrderItemUnitsToLineItemsConverter">
+            <argument type="service" id="sylius_invoicing.provider.tax_rate_percentage" />
+            <argument type="service" id="sylius_invoicing.factory.line_item" />
+            <argument type="service" id="sylius_invoicing.provider.unit_net_price" />
         </service>
 
-        <service id="sylius_invoicing_plugin.converter.shipping_adjustments_to_line_items" class="Sylius\InvoicingPlugin\Converter\ShippingAdjustmentsToLineItemsConverter">
-            <argument type="service" id="sylius_invoicing_plugin.provider.tax_rate_percentage" />
-            <argument type="service" id="sylius_invoicing_plugin.factory.line_item" />
+        <service id="sylius_invoicing.converter.shipping_adjustments_to_line_items" class="Sylius\InvoicingPlugin\Converter\ShippingAdjustmentsToLineItemsConverter">
+            <argument type="service" id="sylius_invoicing.provider.tax_rate_percentage" />
+            <argument type="service" id="sylius_invoicing.factory.line_item" />
         </service>
 
-        <service id="sylius_invoicing_plugin.converter.tax_items" class="Sylius\InvoicingPlugin\Converter\TaxItemsConverter">
-            <argument type="service" id="sylius_invoicing_plugin.provider.tax_rate_percentage" />
-            <argument type="service" id="sylius_invoicing_plugin.factory.tax_item" />
+        <service id="sylius_invoicing.converter.tax_items" class="Sylius\InvoicingPlugin\Converter\TaxItemsConverter">
+            <argument type="service" id="sylius_invoicing.provider.tax_rate_percentage" />
+            <argument type="service" id="sylius_invoicing.factory.tax_item" />
         </service>
+        <service id="Sylius\InvoicingPlugin\Converter\TaxItemsConverterInterface" alias="sylius_invoicing.converter.tax_items" />
     </services>
 </container>
