@@ -6,7 +6,7 @@
     {% set invoice = data %}
 {% endif %}
 
-{% set path = path('sylius_invoicing_plugin_admin_invoice_download', {'id': invoice.id}) %}
+{% set path = path('sylius_invoicing_admin_invoice_download', {'id': invoice.id}) %}
 
 <a href="{{ path }}" class="btn" {{ sylius_test_html_attribute('download-button') }}>
     <svg  xmlns="http://www.w3.org/2000/svg"

@@ -6,7 +6,7 @@
     {% set invoice = data %}
 {% endif %}
 
-{% set path = path('sylius_invoicing_plugin_admin_invoice_resend', {'id': invoice.id}) %}
+{% set path = path('sylius_invoicing_admin_invoice_resend', {'id': invoice.id}) %}
 
 <a href="{{ path }}" class="btn">
     {{ ux_icon('tabler:send', {'class': 'icon'}) }}

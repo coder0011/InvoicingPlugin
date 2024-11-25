@@ -15,7 +15,7 @@
                 id="sylius_invoicing.twig.component.invoice.list"
                 class="Sylius\InvoicingPlugin\Twig\Component\Invoice\ListComponent"
         >
-            <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
+            <argument type="service" id="sylius_invoicing.repository.invoice" />
 
             <tag
                 name="sylius.twig_component"
