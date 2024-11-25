@@ -11,7 +11,7 @@
             #{{ invoice.order.number }}
         </li>
         <li class="list-inline-item">
-            <strong>{{ 'sylius_invoicing_plugin.ui.issued_from'|trans }}:</strong>
+            <strong>{{ 'sylius_invoicing.ui.issued_from'|trans }}:</strong>
             <div {{ sylius_test_html_attribute('channel') }} class="d-inline">
                 {% include '@SyliusAdmin/shared/grid/field/channel.html.twig' with {'data': invoice.channel} %}
             </div>

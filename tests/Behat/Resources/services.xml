@@ -10,7 +10,7 @@
             <argument type="service" id="Tests\Sylius\InvoicingPlugin\Behat\Page\Admin\Invoice\IndexPageInterface" />
             <argument type="service" id="Tests\Sylius\InvoicingPlugin\Behat\Page\Admin\Invoice\ShowPageInterface" />
             <argument type="service" id="Tests\Sylius\InvoicingPlugin\Behat\Page\Admin\Order\ShowPageInterface" />
-            <argument type="service" id="sylius.behat.notification_checker"/>
+            <argument type="service" id="sylius_invoicing.repository.invoice"/>
             <argument type="service" id="sylius.behat.notification_checker.admin"/>
         </service>
 
