@@ -15,7 +15,6 @@ namespace Sylius\InvoicingPlugin\Twig\Component\Invoice;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\InvoicingPlugin\Doctrine\ORM\InvoiceRepositoryInterface;
-use Sylius\InvoicingPlugin\Entity\Invoice;
 use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 use Sylius\TwigHooks\Twig\Component\HookableComponentTrait;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
@@ -28,16 +27,11 @@ class ListComponent
 
     public OrderInterface $order;
 
-    /**
-     * @param InvoiceRepositoryInterface<Invoice> $productReviewRepository
-     */
     public function __construct(private readonly InvoiceRepositoryInterface $invoiceRepository)
     {
     }
 
-    /**
-     * @return array|InvoiceInterface[]
-     */
+    /** @return array|InvoiceInterface[] */
     #[ExposeInTemplate('invoices')]
     public function getInvoices(): array
     {

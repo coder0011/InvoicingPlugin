@@ -189,9 +189,9 @@ jobs:
                 name: Run security check
                 run: symfony security:check
 
-#            -
-#                name: Run analysis
-#                run: composer analyse
+            -
+                name: Run analysis
+                run: composer analyse
 
             -
                 name: Run PHPSpec
