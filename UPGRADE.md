@@ -165,7 +165,7 @@
 | sylius_invoicing_plugin.converter.order_item_units_to_line_items                   | sylius_invoicing.converter.order_item_units_to_line_items                   |
 | sylius_invoicing_plugin.converter.shipping_adjustments_to_line_items               | sylius_invoicing.converter.shipping_adjustments_to_line_items               |
 | sylius_invoicing_plugin.converter.tax_items                                        | sylius_invoicing.converter.tax_items                                        |
-| sylius_invoicing_plugin.fixture.example_factory.invoicing_plugin_shop_billing_data | sylius_invoicing.fixture.example_factory.invoicing_plugin_shop_billing_data |
+| sylius_invoicing_plugin.fixture.example_factory.invoicing_plugin_shop_billing_data | sylius_invoicing.fixture.example_factory.shop_billing_data                  |
 | sylius_invoicing_plugin.fixture.shop_billing_data_fixture                          | sylius_invoicing.fixture.shop_billing_data                                  |
 | Sylius\InvoicingPlugin\Fixture\Listener\InvoicesPurgerListener                     | sylius_invoicing.fixture.listener.invoices_purger                           |
 | Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface                       | sylius_invoicing.provider.invoice_file                                      |
