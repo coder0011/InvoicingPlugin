@@ -227,3 +227,9 @@
 ```bash
     bin/console doctrine:migrations:migrate --no-interaction
 ```
+
+1. The visibility of services has been changed to `private` by default. This change enhances the performance
+   and maintainability of the application and also follows Symfony's best practices for service encapsulation.
+
+   Exceptions:
+   - Services required by Symfony to be `public` (e.g., controllers, event listeners) remain public.
