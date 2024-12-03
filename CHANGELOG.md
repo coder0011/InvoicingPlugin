@@ -1,5 +1,33 @@
 # CHANGELOG
 
+### v1.0.0-RC.1 (2024-12-03)
+
+- [#321](https://github.com/Sylius/InvoicingPlugin/issues/321) [symfony/workflow] Makes workflow event listener loading ([@Prometee](https://github.com/Prometee))
+- [#326](https://github.com/Sylius/InvoicingPlugin/issues/326) Rename LICENCE to LICENSE ([@damonsson](https://github.com/damonsson))
+- [#330](https://github.com/Sylius/InvoicingPlugin/issues/330) [Maintenance] Fix CI builds ([@mpysiak](https://github.com/mpysiak))
+- [#322](https://github.com/Sylius/InvoicingPlugin/issues/322) Update LICENCE ([@damonsson](https://github.com/damonsson))
+- [#327](https://github.com/Sylius/InvoicingPlugin/issues/327) Create LICENSE_OF_TRADEMARK_AND_LOGO ([@damonsson](https://github.com/damonsson))
+- [#331](https://github.com/Sylius/InvoicingPlugin/issues/331) [Maintenance][Refactor] Bump plugin to 1.14 ([@mpysiak](https://github.com/mpysiak))
+- [#333](https://github.com/Sylius/InvoicingPlugin/issues/333) Remove deprecated method + bump to stable Sylius 1.14 + minor clean up ([@GSadee](https://github.com/GSadee))
+- [#329](https://github.com/Sylius/InvoicingPlugin/issues/329) Add German Translations for Invoicing Plugin ([@curler7](https://github.com/curler7))
+- [#334](https://github.com/Sylius/InvoicingPlugin/issues/334) [Behat] Use Chrome instead of Selenium driver ([@GSadee](https://github.com/GSadee))
+- [#335](https://github.com/Sylius/InvoicingPlugin/issues/335) Replace custom DateTimeProvider by Symfony Clock ([@GSadee](https://github.com/GSadee))
+- [#336](https://github.com/Sylius/InvoicingPlugin/issues/336) Remove trademark and logo part from LICENSE file ([@GSadee](https://github.com/GSadee))
+- [#337](https://github.com/Sylius/InvoicingPlugin/issues/337) [CI] Update builds' matrix ([@GSadee](https://github.com/GSadee))
+- [#341](https://github.com/Sylius/InvoicingPlugin/issues/341) Fix and make consistent the translation keys ([@GSadee](https://github.com/GSadee))
+- [#340](https://github.com/Sylius/InvoicingPlugin/issues/340) Minor improvements and clean up ([@GSadee](https://github.com/GSadee))
+- [#339](https://github.com/Sylius/InvoicingPlugin/issues/339) [Admin] Remove unneeded route + grid improvements ([@GSadee](https://github.com/GSadee))
+- [#338](https://github.com/Sylius/InvoicingPlugin/issues/338) [Admin] Replace custom invoice_channel filter with entity filter from GridBundle ([@GSadee](https://github.com/GSadee))
+- [#342](https://github.com/Sylius/InvoicingPlugin/issues/342) Reorganize directory structure ([@GSadee](https://github.com/GSadee))
+- [#345](https://github.com/Sylius/InvoicingPlugin/issues/345) [Admin] Fix translations on Invoice index page ([@GSadee](https://github.com/GSadee))
+- [#343](https://github.com/Sylius/InvoicingPlugin/issues/343) Regenerate migrations and add support for Postgres ([@TheMilek](https://github.com/TheMilek))
+- [#346](https://github.com/Sylius/InvoicingPlugin/issues/346) Refactor services names according to the new convention ([@TheMilek](https://github.com/TheMilek))
+- [#350](https://github.com/Sylius/InvoicingPlugin/issues/350) Upgrade file fixes ([@TheMilek](https://github.com/TheMilek))
+- [#349](https://github.com/Sylius/InvoicingPlugin/issues/349) Make services private by default ([@GSadee](https://github.com/GSadee))
+- [#351](https://github.com/Sylius/InvoicingPlugin/issues/351) Move StateMachineAbstraction config to the proper directory in the test application ([@GSadee](https://github.com/GSadee))
+- [#352](https://github.com/Sylius/InvoicingPlugin/issues/352) Minor services fixes ([@TheMilek](https://github.com/TheMilek))
+- [#353](https://github.com/Sylius/InvoicingPlugin/issues/353) Fix legacy installation ([@GSadee](https://github.com/GSadee))
+
 ### v0.25.1 (2024-07-01)
 
 - [#317](https://github.com/Sylius/InvoicingPlugin/issues/317) [Translation] Add missing french translation ([@pierre-grebert](https://github.com/pierre-grebert))
