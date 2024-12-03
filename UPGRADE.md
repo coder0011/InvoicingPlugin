@@ -18,7 +18,7 @@
    +   - { resource: '@SyliusInvoicingPlugin/config/config.yaml' }
    ```
    
-   And the routes configuration paths:
+   The routes configuration paths:
    ```diff
    sylius_invoicing_plugin_admin:
    -   resource: "@SyliusInvoicingPlugin/Resources/config/app/routing/admin_invoicing.yml"

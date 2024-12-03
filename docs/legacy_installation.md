@@ -5,13 +5,13 @@
     ```bash
     composer require sylius/invoicing-plugin
     ```
-    
-1. Add plugin class to your `AppKernel`:
+
+1. Add plugin class and other required bundles to your `config/bundles.php`:
 
     ```php
     $bundles = [
-        new \Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-        new \Sylius\InvoicingPlugin\SyliusInvoicingPlugin(),
+        Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
+        Sylius\InvoicingPlugin\SyliusInvoicingPlugin::class => ['all' => true],
     ];
     ```
 
