@@ -1,5 +1,10 @@
 # CHANGELOG
 
+### v0.25.1 (2024-07-01)
+
+- [#317](https://github.com/Sylius/InvoicingPlugin/issues/317) [Translation] Add missing french translation ([@pierre-grebert](https://github.com/pierre-grebert))
+- [#319](https://github.com/Sylius/InvoicingPlugin/issues/319) OP-301 - Change style on order details ([@SzymonKostrubiec](https://github.com/SzymonKostrubiec))
+
 ### v0.25.0 (2024-04-26)
 
 - [#300](https://github.com/Sylius/InvoicingPlugin/issues/300) [Maintenance] Remove wkhtmltopdf binary ([@coldic3](https://github.com/coldic3))
