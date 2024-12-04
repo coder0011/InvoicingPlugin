@@ -9,7 +9,7 @@ parameters:
 sylius_invoicing:
     pdf_generator:
         allowed_files:
-            - '%env(default:default_logo_file:resolve:SYLIUS_INVOICING_LOGO_FILE)%'
+            - '%env(default:sylius_invoicing.default_logo_file:resolve:SYLIUS_INVOICING_LOGO_FILE)%'
 
 sylius_mailer:
     emails:
