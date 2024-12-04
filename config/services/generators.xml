@@ -49,7 +49,7 @@
             <argument type="service" id="file_locator" />
             <argument type="service" id="sylius_invoicing.generator.invoice_file_name" />
             <argument>@SyliusInvoicingPlugin/Invoice/Download/pdf.html.twig</argument>
-            <argument>%sylius.invoicing.template.logo_file%</argument>
+            <argument>%sylius_invoicing.template.logo_file%</argument>
         </service>
         <service id="Sylius\InvoicingPlugin\Generator\InvoicePdfFileGeneratorInterface" alias="sylius_invoicing.generator.invoice_pdf_file" />
 

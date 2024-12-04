@@ -132,6 +132,8 @@
 
 | Old                                                        | New                                                 |
 |------------------------------------------------------------|-----------------------------------------------------|
+| default_logo_file                                          | sylius_invoicing.default_logo_file                  |
+| sylius.invoicing.template.logo_file                        | sylius_invoicing.template.logo_file                 |
 | sylius_invoicing_plugin.controller.billing_data.class      | sylius_invoicing.controller.billing_data.class      |
 | sylius_invoicing_plugin.controller.invoice.class           | sylius_invoicing.controller.invoice.class           |
 | sylius_invoicing_plugin.controller.invoice_sequence.class  | sylius_invoicing.controller.invoice_sequence.class  |
