@@ -18,6 +18,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
+/** @internal */
 final class SymfonyClockCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
