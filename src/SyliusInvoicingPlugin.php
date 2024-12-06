@@ -18,7 +18,6 @@ use Sylius\InvoicingPlugin\DependencyInjection\Compiler\SymfonyClockCompilerPass
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/** @internal */
 final class SyliusInvoicingPlugin extends Bundle
 {
     use SyliusPluginTrait;
