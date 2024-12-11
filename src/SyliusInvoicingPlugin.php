@@ -16,7 +16,6 @@ namespace Sylius\InvoicingPlugin;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/** @internal */
 final class SyliusInvoicingPlugin extends Bundle
 {
     use SyliusPluginTrait;

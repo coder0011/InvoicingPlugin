@@ -22,18 +22,11 @@
         - { resource: '@SyliusInvoicingPlugin/config/config.yaml' }
     ```
 
-1. Import routing:
+1. Import routes:
 
     ```yaml
-    sylius_invoicing_admin:
-        resource: '@SyliusInvoicingPlugin/config/admin_routes.yaml'
-        prefix: '/%sylius_admin.path_name%'
-    
-    sylius_invoicing_shop:
-        resource: '@SyliusInvoicingPlugin/config/shop_routes.yaml'
-        prefix: /{_locale}
-        requirements:
-            _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+    sylius_refund:
+        resource: "@SyliusInvoicingPlugin/config/routes.yaml"
     ```
 
 1. Check if you have `wkhtmltopdf` binary. If not, you can download it [here](https://wkhtmltopdf.org/downloads.html).
