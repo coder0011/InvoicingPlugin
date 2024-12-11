@@ -17,21 +17,29 @@
    -   - { resource: "@SyliusInvoicingPlugin/Resources/config/config.yml" }
    +   - { resource: '@SyliusInvoicingPlugin/config/config.yaml' }
    ```
+
+   The routes have been consolidated into a single `config/routes.yaml` file. It is sufficient to import this file instead of defining each route explicitly:
+   ```yaml
+       sylius_invoicing:
+           resource: "@SyliusRefundPlugin/config/routes.yaml"
+   ```
    
-   The routes configuration paths:
+   However, if you have customized the routes, you need to adjust the paths to reflect the new structure:
    ```diff
-   sylius_invoicing_plugin_admin:
-   -   resource: "@SyliusInvoicingPlugin/Resources/config/app/routing/admin_invoicing.yml"
-   -   prefix: /admin
-   +   resource: '@SyliusInvoicingPlugin/config/admin_routes.yaml'
-   +   prefix: '/%sylius_admin.path_name%'
+   -   sylius_invoicing_plugin_admin:
+   -       resource: "@SyliusInvoicingPlugin/Resources/config/app/routing/admin_invoicing.yml"
+   -       prefix: /admin
+   +   sylius_invoicing_admin:
+   +       resource: '@SyliusInvoicingPlugin/config/routes/admin.yaml'
+   +       prefix: '/%sylius_admin.path_name%'
     
-   sylius_invoicing_plugin_shop:
-   -   resource: "@SyliusInvoicingPlugin/Resources/config/app/routing/shop_invoicing.yml"
-   +   resource: '@SyliusInvoicingPlugin/config/shop_routes.yaml'
-       prefix: /{_locale}
-       requirements:
-           _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+   -   sylius_invoicing_plugin_shop:
+   -       resource: "@SyliusInvoicingPlugin/Resources/config/app/routing/shop_invoicing.yml"
+   +   sylius_invoicing_shop:
+   +       resource: '@SyliusInvoicingPlugin/config/routes/shop.yaml'
+           prefix: /{_locale}
+           requirements:
+               _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
    ```
 
    And the paths to assets and templates if you are using them.   
