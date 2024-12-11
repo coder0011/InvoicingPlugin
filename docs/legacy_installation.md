@@ -24,10 +24,10 @@
 
 1. Import routes:
 
-    ````yaml
-   sylius_refund:
-       resource: "@SyliusInvoicingPlugin/config/routes.yaml"
-    ````
+    ```yaml
+    sylius_refund:
+        resource: "@SyliusInvoicingPlugin/config/routes.yaml"
+    ```
 
 1. Check if you have `wkhtmltopdf` binary. If not, you can download it [here](https://wkhtmltopdf.org/downloads.html).
 
