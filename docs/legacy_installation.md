@@ -39,7 +39,7 @@
             enabled: true
             binary: /usr/local/bin/wkhtmltopdf # Change this! :)
             options: []
-    ```   
+    ```
 
 1. Apply migrations to your database:
 
