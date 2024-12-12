@@ -25,7 +25,7 @@
 1. Import routes:
 
     ```yaml
-    sylius_refund:
+    sylius_invoicing:
         resource: "@SyliusInvoicingPlugin/config/routes.yaml"
     ```
 
