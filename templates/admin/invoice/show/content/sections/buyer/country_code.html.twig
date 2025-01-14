@@ -1,1 +1,5 @@
-<span class="flag flag-sm flag-country-{{ hookable_metadata.context.resource.billingData.countryCode|lower }} me-2"></span>
+{% set billing_data = hookable_metadata.context.resource.billingData %}
+
+{% if billing_data.countryCode %}
+    {{ ux_icon('flagpack:' ~ billing_data.countryCode|lower, {'class': 'icon me-1'}) }}
+{% endif %}
