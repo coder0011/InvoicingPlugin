@@ -1,5 +1,11 @@
 # CHANGELOG
 
+### v2.0.0 (2025-01-17)
+
+- [#365](https://github.com/Sylius/InvoicingPlugin/issues/365) [Composer] Remove explicit sylius/twig-hooks dependency ([@GSadee](https://github.com/GSadee))
+- [#366](https://github.com/Sylius/InvoicingPlugin/issues/366) SYL-4253: Flags fix ([@bartek-sek](https://github.com/bartek-sek))
+- [#369](https://github.com/Sylius/InvoicingPlugin/issues/369) Bring back regenerating migrations in 2.0 ([@GSadee](https://github.com/GSadee))
+
 ### v2.0.0-RC.1 (2024-12-03)
 
 - [#323](https://github.com/Sylius/InvoicingPlugin/issues/323) Upgrade to 2.0 ([@TheMilek](https://github.com/TheMilek))
