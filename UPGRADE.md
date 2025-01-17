@@ -231,13 +231,6 @@
 | sylius_invoicing_plugin.controller_state_machine.tax_item                          | sylius_invoicing.controller_state_machine.tax_item                          |
 | sylius_invoicing_plugin.controller_state_machine.invoice_sequence                  | sylius_invoicing.controller_state_machine.invoice_sequence                  |
 
-1. Doctrine migrations have been regenerated, meaning all previous migration files have been removed and their content is now in a single migration file.
-   To apply the new migration and get rid of the old entries run migrations as usual:
-
-```bash
-    bin/console doctrine:migrations:migrate --no-interaction
-```
-
 1. The visibility of services has been changed to `private` by default. This change enhances the performance
    and maintainability of the application and also follows Symfony's best practices for service encapsulation.
 
