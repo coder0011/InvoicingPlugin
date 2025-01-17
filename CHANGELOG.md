@@ -1,5 +1,19 @@
 # CHANGELOG
 
+### v1.0.0 (2025-01-17)
+
+- [#354](https://github.com/Sylius/InvoicingPlugin/issues/354) Rename logo parameters to be consistent with others ([@GSadee](https://github.com/GSadee))
+- [#355](https://github.com/Sylius/InvoicingPlugin/issues/355) [Maintenance] Move invalid internal note ([@NoResponseMate](https://github.com/NoResponseMate))
+- [#356](https://github.com/Sylius/InvoicingPlugin/issues/356) [Maintenance] Configuration Files Cleanup ([@Rafikooo](https://github.com/Rafikooo))
+- [#357](https://github.com/Sylius/InvoicingPlugin/issues/357) Upmerge GA ([@mpysiak](https://github.com/mpysiak))
+- [#358](https://github.com/Sylius/InvoicingPlugin/issues/358) [Maintenance] Reorganize Route-Related Files ([@Rafikooo](https://github.com/Rafikooo))
+- [#359](https://github.com/Sylius/InvoicingPlugin/issues/359) Installation Guide Minor Style Improvement ([@Rafikooo](https://github.com/Rafikooo))
+- [#361](https://github.com/Sylius/InvoicingPlugin/issues/361) Installation Guide Routes Importing Step Correction ([@Rafikooo](https://github.com/Rafikooo))
+- [#363](https://github.com/Sylius/InvoicingPlugin/issues/363) [Maintenance] Bump wkhtmltopdf version ([@Wojdylak](https://github.com/Wojdylak))
+- [#364](https://github.com/Sylius/InvoicingPlugin/issues/364) [CI] Make consistent build file extension with 2.0 branch ([@GSadee](https://github.com/GSadee))
+- [#367](https://github.com/Sylius/InvoicingPlugin/issues/367) Remove charset in regenerated migrations to be compatible with Sylius ([@GSadee](https://github.com/GSadee))
+- [#368](https://github.com/Sylius/InvoicingPlugin/issues/368) Revert regenerating migrations in 1.0 ([@GSadee](https://github.com/GSadee))
+
 ### v1.0.0-RC.1 (2024-12-03)
 
 - [#321](https://github.com/Sylius/InvoicingPlugin/issues/321) [symfony/workflow] Makes workflow event listener loading ([@Prometee](https://github.com/Prometee))
