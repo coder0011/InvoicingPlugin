@@ -14,11 +14,8 @@ declare(strict_types=1);
 namespace Sylius\InvoicingPlugin\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\Migrations\AbstractMigration;
+use Sylius\Bundle\CoreBundle\Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20210607115930 extends AbstractMigration
 {
     public function getDescription(): string
@@ -28,7 +25,6 @@ final class Version20210607115930 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP INDEX IDX_3AA279BF551F0F81 ON sylius_invoicing_plugin_invoice');
         $this->addSql('ALTER TABLE sylius_invoicing_plugin_invoice ADD order_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE sylius_invoicing_plugin_invoice ADD CONSTRAINT FK_3AA279BF8D9F6D38 FOREIGN KEY (order_id) REFERENCES sylius_order (id)');
@@ -44,7 +40,6 @@ final class Version20210607115930 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE sylius_invoicing_plugin_invoice DROP FOREIGN KEY FK_3AA279BF8D9F6D38');
         $this->addSql('DROP INDEX IDX_3AA279BF8D9F6D38 ON sylius_invoicing_plugin_invoice');
         $this->addSql('ALTER TABLE sylius_invoicing_plugin_invoice ADD order_number VARCHAR(255) CHARACTER SET utf8 NOT NULL COLLATE `utf8_unicode_ci`');

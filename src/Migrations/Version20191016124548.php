@@ -14,14 +14,12 @@ declare(strict_types=1);
 namespace Sylius\InvoicingPlugin\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\Migrations\AbstractMigration;
+use Sylius\Bundle\CoreBundle\Doctrine\Migrations\AbstractMigration;
 
 final class Version20191016124548 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
         $this->addSql('CREATE TABLE sylius_invoicing_plugin_shop_billing_data (id INT AUTO_INCREMENT NOT NULL, company VARCHAR(255) DEFAULT NULL, tax_id VARCHAR(255) DEFAULT NULL, street VARCHAR(255) DEFAULT NULL, city VARCHAR(255) DEFAULT NULL, postcode VARCHAR(255) DEFAULT NULL, country_code VARCHAR(255) DEFAULT NULL, representative VARCHAR(255) DEFAULT NULL, id_invoice VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET UTF8 COLLATE UTF8_unicode_ci ENGINE = InnoDB');
 
         $this->addSql('CREATE TABLE sylius_invoicing_plugin_embeddable_backup(id INT AUTO_INCREMENT NOT NULL, id_invoice VARCHAR(255) NOT NULL, channel_code VARCHAR(255) NOT NULL,  shop_billing_data_company VARCHAR(255) DEFAULT NULL, shop_billing_data_tax_id VARCHAR(255) DEFAULT NULL, shop_billing_data_street VARCHAR(255) DEFAULT NULL, shop_billing_data_city VARCHAR(255) DEFAULT NULL, shop_billing_data_postcode VARCHAR(255) DEFAULT NULL, shop_billing_data_country_code VARCHAR(255) DEFAULT NULL, shop_billing_data_representative VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET UTF8 COLLATE UTF8_unicode_ci ENGINE = InnoDB');
@@ -63,8 +61,6 @@ final class Version20191016124548 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
         $this->addSql('ALTER TABLE sylius_invoicing_plugin_invoice DROP FOREIGN KEY FK_3AA279BFCFE4AA36');
         $this->addSql('DROP TABLE sylius_invoicing_plugin_shop_billing_data');
         $this->addSql('ALTER TABLE sylius_invoicing_plugin_invoice DROP FOREIGN KEY FK_3AA279BF72F5A1AA');

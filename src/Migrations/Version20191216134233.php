@@ -14,14 +14,12 @@ declare(strict_types=1);
 namespace Sylius\InvoicingPlugin\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\Migrations\AbstractMigration;
+use Sylius\Bundle\CoreBundle\Doctrine\Migrations\AbstractMigration;
 
 final class Version20191216134233 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
         $this->addSql('ALTER TABLE sylius_invoicing_plugin_invoice DROP FOREIGN KEY FK_3AA279BFCFE4AA36');
         $this->addSql('DROP INDEX UNIQ_3AA279BFCFE4AA36 ON sylius_invoicing_plugin_invoice');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_3AA279BFB5282EDF ON sylius_invoicing_plugin_invoice (shop_billing_data_id)');
@@ -30,8 +28,6 @@ final class Version20191216134233 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
         $this->addSql('ALTER TABLE sylius_invoicing_plugin_invoice DROP FOREIGN KEY FK_3AA279BFCFE4AA36');
         $this->addSql('DROP INDEX UNIQ_3AA279BFB5282EDF ON sylius_invoicing_plugin_invoice');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_3AA279BFCFE4AA36 ON sylius_invoicing_plugin_invoice (shop_billing_data_id)');
