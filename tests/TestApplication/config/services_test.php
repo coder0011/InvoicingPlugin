@@ -10,6 +10,9 @@ return function (ContainerConfigurator $container) {
     if (str_starts_with($env, 'test')) {
         $container->import('../../../vendor/sylius/sylius/src/Sylius/Behat/Resources/config/services.xml');
         $container->import('@SyliusInvoicingPlugin/tests/Behat/Resources/services.xml');
-        $container->import('test/*.yaml');
+    }
+
+    if (true === $_ENV['TEST_SYLIUS_INVOICING_PDF_GENERATION_DISABLED']) {
+        $container->import('sylius_invoicing_pdf_generation_disabled.yaml');
     }
 };
