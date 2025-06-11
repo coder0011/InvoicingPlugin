@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\InvoicingPlugin\Creator;
 
-use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\EntityNotFoundException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -131,7 +131,7 @@ final class InvoiceCreatorSpec extends ObjectBehavior
         $invoicePdfFileGenerator->generate($invoice)->willReturn($invoicePdf);
         $invoiceFileManager->save($invoicePdf)->shouldBeCalled();
 
-        $invoiceRepository->add($invoice)->willThrow(ORMException::class);
+        $invoiceRepository->add($invoice)->willThrow(EntityNotFoundException::class);
         $invoiceFileManager->remove($invoicePdf)->shouldBeCalled();
 
         $this->__invoke('0000001', $invoiceDateTime);
