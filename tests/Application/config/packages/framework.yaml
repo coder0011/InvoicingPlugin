@@ -5,3 +5,5 @@ framework:
     session:
         handler_id: ~
     http_method_override: true
+    annotations:
+        enabled: false
