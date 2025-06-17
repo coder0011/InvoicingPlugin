@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v2.0.1 (2025-06-17)
+
+- [#375](https://github.com/Sylius/InvoicingPlugin/pull/375) Support Sylius 2.1 and Symfony 7.3 ([@GSadee](https://github.com/GSadee))
+
 ### v2.0.0 (2025-01-17)
 
 - [#365](https://github.com/Sylius/InvoicingPlugin/issues/365) [Composer] Remove explicit sylius/twig-hooks dependency ([@GSadee](https://github.com/GSadee))
