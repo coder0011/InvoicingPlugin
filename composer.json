@@ -46,6 +46,7 @@
         "phpunit/phpunit": "^9.5",
         "polishsymfonycommunity/symfony-mocker-container": "^1.0",
         "sylius-labs/coding-standard": "^4.4",
+        "sylius/test-application": "^2.0.0@alpha",
         "symfony/browser-kit": "^6.4 || ^7.1",
         "symfony/debug-bundle": "^6.4 || ^7.1",
         "symfony/dotenv": "^6.4 || ^7.1",
@@ -82,13 +83,19 @@
             "dealerdirect/phpcodesniffer-composer-installer": false,
             "phpstan/extension-installer": true,
             "symfony/thanks": false,
-            "php-http/discovery": false
+            "php-http/discovery": false,
+            "symfony/runtime": false
         }
     },
     "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "~7.2.0"
+        },
         "branch-alias": {
             "dev-2.0": "2.0-dev"
-        }
+        },
+        "public-dir": "vendor/sylius/test-application/public"
     },
     "prefer-stable": true
 }
