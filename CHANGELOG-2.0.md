@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v2.0.2 (2025-07-03)
+
+- [#373](https://github.com/Sylius/InvoicingPlugin/pull/373) Add sylius/test-application ([@Wojdylak](https://github.com/Wojdylak))
+
 ### v2.0.1 (2025-06-17)
 
 - [#375](https://github.com/Sylius/InvoicingPlugin/pull/375) Support Sylius 2.1 and Symfony 7.3 ([@GSadee](https://github.com/GSadee))
