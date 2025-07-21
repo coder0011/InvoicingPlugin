@@ -69,10 +69,10 @@
         "analyse": [
             "@composer validate --strict",
             "vendor/bin/phpstan analyse -c phpstan.neon -l max",
-            "vendor/bin/ecs check src/ spec/"
+            "vendor/bin/ecs check src/"
         ],
         "fix": [
-            "vendor/bin/ecs check --fix src/ spec/"
+            "vendor/bin/ecs check --fix src/"
         ]
     },
     "config": {
