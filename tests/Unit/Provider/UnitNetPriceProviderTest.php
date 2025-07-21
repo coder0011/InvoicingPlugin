@@ -27,13 +27,14 @@ final class UnitNetPriceProviderTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->provider = new UnitNetPriceProvider();
     }
 
     /** @test */
     public function it_implements_unit_net_price_provider_interface(): void
     {
-        $this->assertInstanceOf(UnitNetPriceProviderInterface::class, $this->provider);
+        self::assertInstanceOf(UnitNetPriceProviderInterface::class, $this->provider);
     }
 
     /** @test */
@@ -56,7 +57,7 @@ final class UnitNetPriceProviderTest extends TestCase
 
         $result = $this->provider->getUnitNetPrice($unit);
 
-        $this->assertSame(800, $result);
+        self::assertSame(800, $result);
     }
 
     /** @test */
@@ -79,6 +80,6 @@ final class UnitNetPriceProviderTest extends TestCase
 
         $result = $this->provider->getUnitNetPrice($unit);
 
-        $this->assertSame(1000, $result);
+        self::assertSame(1000, $result);
     }
 }

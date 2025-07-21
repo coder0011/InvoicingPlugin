@@ -26,6 +26,7 @@ final class LineItemTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->lineItem = new LineItem(
             'Mjolnir',
             2,
@@ -43,27 +44,27 @@ final class LineItemTest extends TestCase
     /** @test */
     public function it_implements_line_item_interface(): void
     {
-        $this->assertInstanceOf(LineItemInterface::class, $this->lineItem);
+        self::assertInstanceOf(LineItemInterface::class, $this->lineItem);
     }
 
     /** @test */
     public function it_implements_resource_interface(): void
     {
-        $this->assertInstanceOf(ResourceInterface::class, $this->lineItem);
+        self::assertInstanceOf(ResourceInterface::class, $this->lineItem);
     }
 
     /** @test */
     public function it_has_proper_line_item_data(): void
     {
-        $this->assertSame('Mjolnir', $this->lineItem->name());
-        $this->assertSame(2, $this->lineItem->quantity());
-        $this->assertSame(5000, $this->lineItem->unitPrice());
-        $this->assertSame(5000, $this->lineItem->discountedUnitNetPrice());
-        $this->assertSame(10000, $this->lineItem->subtotal());
-        $this->assertSame(1000, $this->lineItem->taxTotal());
-        $this->assertSame(11000, $this->lineItem->total());
-        $this->assertSame('Blue', $this->lineItem->variantName());
-        $this->assertSame('7903c83a-4c5e-4bcf-81d8-9dc304c6a353', $this->lineItem->variantCode());
+        self::assertSame('Mjolnir', $this->lineItem->name());
+        self::assertSame(2, $this->lineItem->quantity());
+        self::assertSame(5000, $this->lineItem->unitPrice());
+        self::assertSame(5000, $this->lineItem->discountedUnitNetPrice());
+        self::assertSame(10000, $this->lineItem->subtotal());
+        self::assertSame(1000, $this->lineItem->taxTotal());
+        self::assertSame(11000, $this->lineItem->total());
+        self::assertSame('Blue', $this->lineItem->variantName());
+        self::assertSame('7903c83a-4c5e-4bcf-81d8-9dc304c6a353', $this->lineItem->variantCode());
     }
 
     /** @test */

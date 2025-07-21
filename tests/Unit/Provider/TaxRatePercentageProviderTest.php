@@ -27,13 +27,14 @@ final class TaxRatePercentageProviderTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->provider = new TaxRatePercentageProvider();
     }
 
     /** @test */
     public function it_implements_tax_rate_percentage_provider_interface(): void
     {
-        $this->assertInstanceOf(TaxRatePercentageProviderInterface::class, $this->provider);
+        self::assertInstanceOf(TaxRatePercentageProviderInterface::class, $this->provider);
     }
 
     /** @test */
@@ -51,7 +52,7 @@ final class TaxRatePercentageProviderTest extends TestCase
 
         $result = $this->provider->provideFromAdjustable($orderItemUnit);
 
-        $this->assertSame('20%', $result);
+        self::assertSame('20%', $result);
     }
 
     /** @test */
@@ -66,7 +67,7 @@ final class TaxRatePercentageProviderTest extends TestCase
 
         $result = $this->provider->provideFromAdjustable($orderItemUnit);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     /** @test */
@@ -113,6 +114,6 @@ final class TaxRatePercentageProviderTest extends TestCase
 
         $result = $this->provider->provideFromAdjustment($taxAdjustment);
 
-        $this->assertSame('20%', $result);
+        self::assertSame('20%', $result);
     }
 }

@@ -7,7 +7,7 @@
     bootstrap="vendor/sylius/test-application/config/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="SyliusInvoicingPlugin Test Suite">
+        <testsuite name="sylius_invoicing_plugin_test_suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

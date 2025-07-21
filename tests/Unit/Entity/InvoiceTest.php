@@ -45,6 +45,7 @@ final class InvoiceTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->billingData = $this->createMock(BillingDataInterface::class);
         $this->lineItem = $this->createMock(LineItemInterface::class);
         $this->taxItem = $this->createMock(TaxItemInterface::class);
@@ -54,11 +55,11 @@ final class InvoiceTest extends TestCase
 
         $this->issuedAt = \DateTimeImmutable::createFromFormat('Y-m', '2019-01');
 
-        $this->lineItem->expects($this->once())
+        $this->lineItem->expects(self::once())
             ->method('setInvoice')
             ->with($this->isInstanceOf(Invoice::class));
 
-        $this->taxItem->expects($this->once())
+        $this->taxItem->expects(self::once())
             ->method('setInvoice')
             ->with($this->isInstanceOf(Invoice::class));
 
@@ -82,26 +83,26 @@ final class InvoiceTest extends TestCase
     /** @test */
     public function it_implements_invoice_interface(): void
     {
-        $this->assertInstanceOf(InvoiceInterface::class, $this->invoice);
+        self::assertInstanceOf(InvoiceInterface::class, $this->invoice);
     }
 
     /** @test */
     public function it_implements_resource_interface(): void
     {
-        $this->assertInstanceOf(ResourceInterface::class, $this->invoice);
+        self::assertInstanceOf(ResourceInterface::class, $this->invoice);
     }
 
     /** @test */
     public function it_has_data(): void
     {
-        $this->assertSame('7903c83a-4c5e-4bcf-81d8-9dc304c6a353', $this->invoice->id());
-        $this->assertSame('2019/01/000000001', $this->invoice->number());
-        $this->assertSame($this->order, $this->invoice->order());
-        $this->assertSame($this->billingData, $this->invoice->billingData());
-        $this->assertSame('USD', $this->invoice->currencyCode());
-        $this->assertSame('en_US', $this->invoice->localeCode());
-        $this->assertSame(10300, $this->invoice->total());
-        $this->assertEquals(new ArrayCollection([$this->lineItem]), $this->invoice->lineItems());
+        self::assertSame('7903c83a-4c5e-4bcf-81d8-9dc304c6a353', $this->invoice->id());
+        self::assertSame('2019/01/000000001', $this->invoice->number());
+        self::assertSame($this->order, $this->invoice->order());
+        self::assertSame($this->billingData, $this->invoice->billingData());
+        self::assertSame('USD', $this->invoice->currencyCode());
+        self::assertSame('en_US', $this->invoice->localeCode());
+        self::assertSame(10300, $this->invoice->total());
+        self::assertEquals(new ArrayCollection([$this->lineItem]), $this->invoice->lineItems());
         $this->assertEquals(new ArrayCollection([$this->taxItem]), $this->invoice->taxItems());
         $this->assertSame($this->channel, $this->invoice->channel());
         $this->assertSame($this->shopBillingData, $this->invoice->shopBillingData());

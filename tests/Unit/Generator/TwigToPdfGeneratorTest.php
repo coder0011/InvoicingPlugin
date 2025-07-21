@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
 use Knp\Snappy\GeneratorInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Generator\PdfOptionsGeneratorInterface;
 use Sylius\InvoicingPlugin\Generator\TwigToPdfGenerator;
@@ -22,16 +23,17 @@ use Twig\Environment;
 
 final class TwigToPdfGeneratorTest extends TestCase
 {
-    private Environment $twig;
+    private Environment&MockObject $twig;
 
-    private GeneratorInterface $pdfGenerator;
+    private GeneratorInterface&MockObject $pdfGenerator;
 
-    private PdfOptionsGeneratorInterface $pdfOptionsGenerator;
+    private MockObject&PdfOptionsGeneratorInterface $pdfOptionsGenerator;
 
     private TwigToPdfGenerator $generator;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->twig = $this->createMock(Environment::class);
         $this->pdfGenerator = $this->createMock(GeneratorInterface::class);
         $this->pdfOptionsGenerator = $this->createMock(PdfOptionsGeneratorInterface::class);
@@ -46,25 +48,25 @@ final class TwigToPdfGeneratorTest extends TestCase
     /** @test */
     public function it_is_twig_to_pdf_generator_interface(): void
     {
-        $this->assertInstanceOf(TwigToPdfGeneratorInterface::class, $this->generator);
+        self::assertInstanceOf(TwigToPdfGeneratorInterface::class, $this->generator);
     }
 
     /** @test */
     public function it_generates_pdf_from_twig_template(): void
     {
         $this->twig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with('template.html.twig', ['figcaption' => 'Swans', 'imgPath' => 'located-path/swans.png'])
             ->willReturn('<html>I am a pdf file generated from twig template</html>');
 
         $this->pdfOptionsGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
             ->willReturn(['allow' => ['allowed_file_in_knp_snappy_config.png', 'located-path/swans.png']]);
 
         $this->pdfGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getOutputFromHtml')
             ->with(
                 '<html>I am a pdf file generated from twig template</html>',
@@ -74,6 +76,6 @@ final class TwigToPdfGeneratorTest extends TestCase
 
         $result = $this->generator->generate('template.html.twig', ['figcaption' => 'Swans', 'imgPath' => 'located-path/swans.png']);
 
-        $this->assertSame('PDF FILE', $result);
+        self::assertSame('PDF FILE', $result);
     }
 }

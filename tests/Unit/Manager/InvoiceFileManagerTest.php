@@ -26,7 +26,7 @@ final class InvoiceFileManagerTest extends TestCase
         $filesystem = $this->createMock(FilesystemInterface::class);
         $manager = new InvoiceFileManager($filesystem);
 
-        $this->assertInstanceOf(InvoiceFileManagerInterface::class, $manager);
+        self::assertInstanceOf(InvoiceFileManagerInterface::class, $manager);
     }
 
     public function test_it_saves_invoice_pdf_in_given_filesystem(): void
@@ -34,7 +34,7 @@ final class InvoiceFileManagerTest extends TestCase
         $filesystem = $this->createMock(FilesystemInterface::class);
 
         $filesystem
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('write')
             ->with('2020_01_01_invoice.pdf', 'CONTENT');
 
@@ -47,7 +47,7 @@ final class InvoiceFileManagerTest extends TestCase
         $filesystem = $this->createMock(FilesystemInterface::class);
 
         $filesystem
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('delete')
             ->with('2020_01_01_invoice.pdf');
 

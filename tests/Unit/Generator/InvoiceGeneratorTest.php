@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -36,26 +37,27 @@ use Sylius\InvoicingPlugin\Generator\InvoiceNumberGenerator;
 
 final class InvoiceGeneratorTest extends TestCase
 {
-    private InvoiceIdentifierGenerator $uuidInvoiceIdentifierGenerator;
+    private InvoiceIdentifierGenerator&MockObject $uuidInvoiceIdentifierGenerator;
 
-    private InvoiceNumberGenerator $sequentialInvoiceNumberGenerator;
+    private InvoiceNumberGenerator&MockObject $sequentialInvoiceNumberGenerator;
 
-    private InvoiceFactoryInterface $invoiceFactory;
+    private InvoiceFactoryInterface&MockObject $invoiceFactory;
 
-    private BillingDataFactoryInterface $billingDataFactory;
+    private BillingDataFactoryInterface&MockObject $billingDataFactory;
 
-    private InvoiceShopBillingDataFactoryInterface $invoiceShopBillingDataFactory;
+    private InvoiceShopBillingDataFactoryInterface&MockObject $invoiceShopBillingDataFactory;
 
-    private LineItemsConverterInterface $orderItemUnitsToLineItemsConverter;
+    private LineItemsConverterInterface&MockObject $orderItemUnitsToLineItemsConverter;
 
-    private LineItemsConverterInterface $shippingAdjustmentsToLineItemsConverter;
+    private LineItemsConverterInterface&MockObject $shippingAdjustmentsToLineItemsConverter;
 
-    private TaxItemsConverterInterface $taxItemsConverter;
+    private MockObject&TaxItemsConverterInterface $taxItemsConverter;
 
     private InvoiceGenerator $invoiceGenerator;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->uuidInvoiceIdentifierGenerator = $this->createMock(InvoiceIdentifierGenerator::class);
         $this->sequentialInvoiceNumberGenerator = $this->createMock(InvoiceNumberGenerator::class);
         $this->invoiceFactory = $this->createMock(InvoiceFactoryInterface::class);
@@ -80,7 +82,7 @@ final class InvoiceGeneratorTest extends TestCase
     /** @test */
     public function it_is_an_invoice_generator(): void
     {
-        $this->assertInstanceOf(InvoiceGeneratorInterface::class, $this->invoiceGenerator);
+        self::assertInstanceOf(InvoiceGeneratorInterface::class, $this->invoiceGenerator);
     }
 
     /** @test */
@@ -99,12 +101,12 @@ final class InvoiceGeneratorTest extends TestCase
         $date = new \DateTimeImmutable('2019-03-06');
 
         $this->uuidInvoiceIdentifierGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
             ->willReturn('7903c83a-4c5e-4bcf-81d8-9dc304c6a353');
 
         $this->sequentialInvoiceNumberGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
             ->willReturn($date->format('Y/m') . '/0000001');
 
@@ -116,37 +118,37 @@ final class InvoiceGeneratorTest extends TestCase
         $order->method('getBillingAddress')->willReturn($billingAddress);
 
         $this->billingDataFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createFromAddress')
             ->with($billingAddress)
             ->willReturn($billingData);
 
         $this->invoiceShopBillingDataFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createFromChannel')
             ->with($channel)
             ->willReturn($invoiceShopBillingData);
 
         $this->orderItemUnitsToLineItemsConverter
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('convert')
             ->with($order)
             ->willReturn([$unitLineItem]);
 
         $this->shippingAdjustmentsToLineItemsConverter
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('convert')
             ->with($order)
             ->willReturn([$shippingLineItem]);
 
         $this->taxItemsConverter
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('convert')
             ->with($order)
             ->willReturn(new ArrayCollection([$taxItem]));
 
         $this->invoiceFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createForData')
             ->with(
                 '7903c83a-4c5e-4bcf-81d8-9dc304c6a353',
@@ -167,6 +169,6 @@ final class InvoiceGeneratorTest extends TestCase
 
         $result = $this->invoiceGenerator->generateForOrder($order, $date);
 
-        $this->assertSame($invoice, $result);
+        self::assertSame($invoice, $result);
     }
 }

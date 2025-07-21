@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Converter;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -26,14 +27,15 @@ use Sylius\InvoicingPlugin\Provider\TaxRatePercentageProviderInterface;
 
 final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
 {
-    private TaxRatePercentageProviderInterface $taxRatePercentageProvider;
+    private MockObject&TaxRatePercentageProviderInterface $taxRatePercentageProvider;
 
-    private LineItemFactoryInterface $lineItemFactory;
+    private LineItemFactoryInterface&MockObject $lineItemFactory;
 
     private ShippingAdjustmentsToLineItemsConverter $converter;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->taxRatePercentageProvider = $this->createMock(TaxRatePercentageProviderInterface::class);
         $this->lineItemFactory = $this->createMock(LineItemFactoryInterface::class);
 
@@ -46,7 +48,7 @@ final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
     /** @test */
     public function it_implements_line_items_converter_interface(): void
     {
-        $this->assertInstanceOf(LineItemsConverterInterface::class, $this->converter);
+        self::assertInstanceOf(LineItemsConverterInterface::class, $this->converter);
     }
 
     /** @test */
@@ -59,27 +61,27 @@ final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
         $shipment = $this->createMock(ShipmentInterface::class);
 
         $this->lineItemFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createWithData')
             ->with('UPS', 1, 800, 1000, 1000, 200, 1200, null, null, '20%')
             ->willReturn($lineItem);
 
         $order
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getAdjustments')
             ->with(AdjustmentInterface::SHIPPING_ADJUSTMENT)
             ->willReturn(new ArrayCollection([$shippingAdjustment]));
 
-        $shippingAdjustment->expects($this->once())->method('getLabel')->willReturn('UPS');
-        $shippingAdjustment->expects($this->once())->method('getShipment')->willReturn($shipment);
+        $shippingAdjustment->expects(self::once())->method('getLabel')->willReturn('UPS');
+        $shippingAdjustment->expects(self::once())->method('getShipment')->willReturn($shipment);
 
         $shipment
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getAdjustments')
             ->with(AdjustmentInterface::TAX_ADJUSTMENT)
             ->willReturn(new ArrayCollection([$shippingTaxAdjustment]));
 
-        $shippingTaxAdjustment->expects($this->once())->method('getAmount')->willReturn(200);
+        $shippingTaxAdjustment->expects(self::once())->method('getAmount')->willReturn(200);
 
         $shipment
             ->method('getAdjustmentsTotal')
@@ -92,13 +94,13 @@ final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
             });
 
         $this->taxRatePercentageProvider
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('provideFromAdjustable')
             ->with($shipment)
             ->willReturn('20%');
 
         $result = $this->converter->convert($order);
 
-        $this->assertEquals([$lineItem], $result);
+        self::assertEquals([$lineItem], $result);
     }
 }

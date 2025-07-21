@@ -27,7 +27,7 @@ final class InvoicesPurgerListenerTest extends TestCase
         $suite = $this->createMock(SuiteInterface::class);
 
         $filesystem
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('remove')
             ->with('path/to/invoices/');
 

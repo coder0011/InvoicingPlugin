@@ -44,7 +44,7 @@ final class OrderPaymentPaidProducerTest extends TestCase
         $invoiceRepository->method('findOneByOrder')->with($order)->willReturn($invoice);
 
         $eventBus
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('dispatch')
             ->with($event)
             ->willReturn(new Envelope($event));

@@ -24,6 +24,7 @@ final class BillingDataTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->billingData = new BillingData(
             'John',
             'Doe',
@@ -40,19 +41,19 @@ final class BillingDataTest extends TestCase
     /** @test */
     public function it_implements_billing_data_interface(): void
     {
-        $this->assertInstanceOf(BillingDataInterface::class, $this->billingData);
+        self::assertInstanceOf(BillingDataInterface::class, $this->billingData);
     }
 
     /** @test */
     public function it_implements_resource_interface(): void
     {
-        $this->assertInstanceOf(ResourceInterface::class, $this->billingData);
+        self::assertInstanceOf(ResourceInterface::class, $this->billingData);
     }
 
     /** @test */
     public function it_has_proper_billing_data(): void
     {
-        $this->assertSame('John', $this->billingData->firstName());
+        self::assertSame('John', $this->billingData->firstName());
         $this->assertSame('Doe', $this->billingData->lastName());
         $this->assertSame('US', $this->billingData->countryCode());
         $this->assertSame('Foo Street 3/44', $this->billingData->street());

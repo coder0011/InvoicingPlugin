@@ -25,13 +25,14 @@ final class TaxItemFactoryTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->taxItemFactory = new TaxItemFactory(TaxItem::class);
     }
 
     /** @test */
     public function it_implements_tax_item_factory_interface(): void
     {
-        $this->assertInstanceOf(TaxItemFactoryInterface::class, $this->taxItemFactory);
+        self::assertInstanceOf(TaxItemFactoryInterface::class, $this->taxItemFactory);
     }
 
     /** @test */
@@ -56,6 +57,6 @@ final class TaxItemFactoryTest extends TestCase
         $result = $this->taxItemFactory->createWithData('Tax', 17);
         $expected = new TaxItem('Tax', 17);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }

@@ -31,7 +31,7 @@ final class InvoiceVoterTest extends TestCase
         $orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $voter = new InvoiceVoter($orderRepository);
 
-        $this->assertInstanceOf(VoterInterface::class, $voter);
+        self::assertInstanceOf(VoterInterface::class, $voter);
     }
 
     public function test_it_abstains_from_making_a_decision_if_attribute_is_not_supported(): void

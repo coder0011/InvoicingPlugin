@@ -25,26 +25,27 @@ final class TaxItemTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->taxItem = new TaxItem('VAT (23%)', 2300);
     }
 
     /** @test */
     public function it_implements_tax_item_interface(): void
     {
-        $this->assertInstanceOf(TaxItemInterface::class, $this->taxItem);
+        self::assertInstanceOf(TaxItemInterface::class, $this->taxItem);
     }
 
     /** @test */
     public function it_implements_resource_interface(): void
     {
-        $this->assertInstanceOf(ResourceInterface::class, $this->taxItem);
+        self::assertInstanceOf(ResourceInterface::class, $this->taxItem);
     }
 
     /** @test */
     public function it_has_proper_tax_item_data(): void
     {
-        $this->assertSame('VAT (23%)', $this->taxItem->label());
-        $this->assertSame(2300, $this->taxItem->amount());
+        self::assertSame('VAT (23%)', $this->taxItem->label());
+        self::assertSame(2300, $this->taxItem->amount());
     }
 
     /** @test */
@@ -54,6 +55,6 @@ final class TaxItemTest extends TestCase
 
         $this->taxItem->setInvoice($invoice);
 
-        $this->assertSame($invoice, $this->taxItem->invoice());
+        self::assertSame($invoice, $this->taxItem->invoice());
     }
 }

@@ -44,7 +44,7 @@ final class OrderPlacedProducerTest extends TestCase
         $orderPlacedEvent = new OrderPlaced('000666', $dateTime);
 
         $eventBus
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('dispatch')
             ->with($orderPlacedEvent)
             ->willReturn(new Envelope($orderPlacedEvent));
@@ -78,7 +78,7 @@ final class OrderPlacedProducerTest extends TestCase
         $orderPlacedEvent = new OrderPlaced('000666', $dateTime);
 
         $eventBus
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('dispatch')
             ->with($orderPlacedEvent)
             ->willReturn(new Envelope($orderPlacedEvent));

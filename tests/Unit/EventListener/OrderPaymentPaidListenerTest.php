@@ -28,7 +28,7 @@ final class OrderPaymentPaidListenerTest extends TestCase
         $command = new SendInvoiceEmail('00000001');
 
         $commandBus
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('dispatch')
             ->with($command)
             ->willReturn(new Envelope($command));

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Creator;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\InvoicingPlugin\Creator\InvoiceCreatorInterface;
@@ -21,14 +22,15 @@ use Symfony\Component\Clock\ClockInterface;
 
 final class MassInvoicesCreatorTest extends TestCase
 {
-    private InvoiceCreatorInterface $invoiceCreator;
+    private InvoiceCreatorInterface&MockObject $invoiceCreator;
 
-    private ClockInterface $clock;
+    private ClockInterface&MockObject $clock;
 
     private MassInvoicesCreator $massInvoicesCreator;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->invoiceCreator = $this->createMock(InvoiceCreatorInterface::class);
         $this->clock = $this->createMock(ClockInterface::class);
 

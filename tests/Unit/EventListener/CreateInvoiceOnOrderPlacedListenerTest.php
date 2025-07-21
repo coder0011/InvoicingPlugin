@@ -26,7 +26,7 @@ final class CreateInvoiceOnOrderPlacedListenerTest extends TestCase
         $issuedAt = new \DateTimeImmutable();
 
         $invoiceCreator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('__invoke')
             ->with('0000001', $issuedAt);
 

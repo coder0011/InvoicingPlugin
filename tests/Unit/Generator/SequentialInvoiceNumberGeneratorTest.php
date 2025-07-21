@@ -15,6 +15,7 @@ namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
 use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -25,18 +26,19 @@ use Symfony\Component\Clock\ClockInterface;
 
 final class SequentialInvoiceNumberGeneratorTest extends TestCase
 {
-    private RepositoryInterface $sequenceRepository;
+    private MockObject&RepositoryInterface $sequenceRepository;
 
-    private FactoryInterface $sequenceFactory;
+    private FactoryInterface&MockObject $sequenceFactory;
 
-    private EntityManagerInterface $sequenceManager;
+    private EntityManagerInterface&MockObject $sequenceManager;
 
-    private ClockInterface $clock;
+    private ClockInterface&MockObject $clock;
 
     private SequentialInvoiceNumberGenerator $generator;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->sequenceRepository = $this->createMock(RepositoryInterface::class);
         $this->sequenceFactory = $this->createMock(FactoryInterface::class);
         $this->sequenceManager = $this->createMock(EntityManagerInterface::class);
@@ -55,7 +57,7 @@ final class SequentialInvoiceNumberGeneratorTest extends TestCase
     /** @test */
     public function it_implements_invoice_number_generator_interface(): void
     {
-        $this->assertInstanceOf(InvoiceNumberGenerator::class, $this->generator);
+        self::assertInstanceOf(InvoiceNumberGenerator::class, $this->generator);
     }
 
     /** @test */
@@ -72,17 +74,17 @@ final class SequentialInvoiceNumberGeneratorTest extends TestCase
         $sequence->method('getIndex')->willReturn(0);
 
         $this->sequenceManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('lock')
             ->with($sequence, LockMode::OPTIMISTIC, 1);
 
         $sequence
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('incrementIndex');
 
         $result = $this->generator->generate();
 
-        $this->assertSame($dateTime->format('Y/m') . '/000000001', $result);
+        self::assertSame($dateTime->format('Y/m') . '/000000001', $result);
     }
 
     /** @test */
@@ -98,7 +100,7 @@ final class SequentialInvoiceNumberGeneratorTest extends TestCase
         $this->sequenceFactory->method('createNew')->willReturn($sequence);
 
         $this->sequenceManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('persist')
             ->with($sequence);
 
@@ -106,12 +108,12 @@ final class SequentialInvoiceNumberGeneratorTest extends TestCase
         $sequence->method('getIndex')->willReturn(0);
 
         $this->sequenceManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('lock')
             ->with($sequence, LockMode::OPTIMISTIC, 1);
 
         $sequence
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('incrementIndex');
 
         $result = $this->generator->generate();

@@ -24,13 +24,14 @@ final class InvoiceFileNameGeneratorTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->generator = new InvoiceFileNameGenerator();
     }
 
     /** @test */
     public function it_implements_invoice_file_name_generator_interface(): void
     {
-        $this->assertInstanceOf(InvoiceFileNameGeneratorInterface::class, $this->generator);
+        self::assertInstanceOf(InvoiceFileNameGeneratorInterface::class, $this->generator);
     }
 
     /** @test */
@@ -41,6 +42,6 @@ final class InvoiceFileNameGeneratorTest extends TestCase
 
         $result = $this->generator->generateForPdf($invoice);
 
-        $this->assertSame('2020_01_02_000333.pdf', $result);
+        self::assertSame('2020_01_02_000333.pdf', $result);
     }
 }

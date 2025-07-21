@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\CommandHandler;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -25,16 +26,17 @@ use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 
 final class SendInvoiceEmailHandlerTest extends TestCase
 {
-    private InvoiceRepositoryInterface $invoiceRepository;
+    private InvoiceRepositoryInterface&MockObject $invoiceRepository;
 
-    private OrderRepositoryInterface $orderRepository;
+    private MockObject&OrderRepositoryInterface $orderRepository;
 
-    private InvoiceEmailSenderInterface $emailSender;
+    private InvoiceEmailSenderInterface&MockObject $emailSender;
 
     private SendInvoiceEmailHandler $handler;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->invoiceRepository = $this->createMock(InvoiceRepositoryInterface::class);
         $this->orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $this->emailSender = $this->createMock(InvoiceEmailSenderInterface::class);
@@ -54,29 +56,29 @@ final class SendInvoiceEmailHandlerTest extends TestCase
         $customer = $this->createMock(CustomerInterface::class);
 
         $this->orderRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByNumber')
             ->with('0000001')
             ->willReturn($order);
 
         $order
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getCustomer')
             ->willReturn($customer);
 
         $customer
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getEmail')
             ->willReturn('shop@example.com');
 
         $this->invoiceRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByOrder')
             ->with($order)
             ->willReturn($invoice);
 
         $this->emailSender
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('sendInvoiceEmail')
             ->with($invoice, 'shop@example.com');
 
@@ -87,7 +89,7 @@ final class SendInvoiceEmailHandlerTest extends TestCase
     public function it_does_not_request_an_email_to_be_sent_if_order_was_not_found(): void
     {
         $this->orderRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByNumber')
             ->with('0000001')
             ->willReturn(null);
@@ -109,13 +111,13 @@ final class SendInvoiceEmailHandlerTest extends TestCase
         $order = $this->createMock(OrderInterface::class);
 
         $this->orderRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByNumber')
             ->with('0000001')
             ->willReturn($order);
 
         $order
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getCustomer')
             ->willReturn(null);
 
@@ -137,18 +139,18 @@ final class SendInvoiceEmailHandlerTest extends TestCase
         $customer = $this->createMock(CustomerInterface::class);
 
         $this->orderRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByNumber')
             ->with('0000001')
             ->willReturn($order);
 
         $order
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getCustomer')
             ->willReturn($customer);
 
         $this->invoiceRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByOrder')
             ->with($order)
             ->willReturn(null);

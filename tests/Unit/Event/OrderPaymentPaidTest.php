@@ -25,7 +25,7 @@ final class OrderPaymentPaidTest extends TestCase
 
         $event = new OrderPaymentPaid('000001', $date);
 
-        $this->assertSame('000001', $event->orderNumber());
-        $this->assertEquals($date, $event->date());
+        self::assertSame('000001', $event->orderNumber());
+        self::assertEquals($date, $event->date());
     }
 }

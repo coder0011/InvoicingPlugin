@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Generator\PdfOptionsGenerator;
 use Sylius\InvoicingPlugin\Generator\PdfOptionsGeneratorInterface;
@@ -20,12 +21,13 @@ use Symfony\Component\Config\FileLocatorInterface;
 
 final class PdfOptionsGeneratorTest extends TestCase
 {
-    private FileLocatorInterface $fileLocator;
+    private FileLocatorInterface&MockObject $fileLocator;
 
     private PdfOptionsGenerator $generator;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->fileLocator = $this->createMock(FileLocatorInterface::class);
 
         $this->generator = new PdfOptionsGenerator(
@@ -38,14 +40,14 @@ final class PdfOptionsGeneratorTest extends TestCase
     /** @test */
     public function it_is_pdf_options_generator_interface(): void
     {
-        $this->assertInstanceOf(PdfOptionsGeneratorInterface::class, $this->generator);
+        self::assertInstanceOf(PdfOptionsGeneratorInterface::class, $this->generator);
     }
 
     /** @test */
     public function it_generates_pdf_options(): void
     {
         $this->fileLocator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('locate')
             ->with('swans.png')
             ->willReturn('located-path/swans.png');
@@ -59,6 +61,6 @@ final class PdfOptionsGeneratorTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Email;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\InvoicingPlugin\Email\Emails;
@@ -24,12 +25,13 @@ use Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface;
 
 final class InvoiceEmailSenderTest extends TestCase
 {
-    private SenderInterface $sender;
+    private MockObject&SenderInterface $sender;
 
-    private InvoiceFileProviderInterface $invoiceFileProvider;
+    private InvoiceFileProviderInterface&MockObject $invoiceFileProvider;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->sender = $this->createMock(SenderInterface::class);
         $this->invoiceFileProvider = $this->createMock(InvoiceFileProviderInterface::class);
     }
@@ -39,7 +41,7 @@ final class InvoiceEmailSenderTest extends TestCase
     {
         $invoiceEmailSender = new InvoiceEmailSender($this->sender, $this->invoiceFileProvider);
 
-        $this->assertInstanceOf(InvoiceEmailSenderInterface::class, $invoiceEmailSender);
+        self::assertInstanceOf(InvoiceEmailSenderInterface::class, $invoiceEmailSender);
     }
 
     /** @test */
@@ -52,13 +54,13 @@ final class InvoiceEmailSenderTest extends TestCase
         $invoicePdf->setFullPath('/path/to/invoices/invoice.pdf');
 
         $this->invoiceFileProvider
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('provide')
             ->with($invoice)
             ->willReturn($invoicePdf);
 
         $this->sender
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('send')
             ->with(
                 Emails::INVOICE_GENERATED,
@@ -81,7 +83,7 @@ final class InvoiceEmailSenderTest extends TestCase
             ->method('provide');
 
         $this->sender
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('send')
             ->with(Emails::INVOICE_GENERATED, ['sylius@example.com'], ['invoice' => $invoice]);
 

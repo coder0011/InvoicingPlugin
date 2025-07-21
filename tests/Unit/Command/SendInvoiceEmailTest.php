@@ -23,6 +23,6 @@ final class SendInvoiceEmailTest extends TestCase
     {
         $command = new SendInvoiceEmail('0000001');
 
-        $this->assertSame('0000001', $command->orderNumber());
+        self::assertSame('0000001', $command->orderNumber());
     }
 }

@@ -26,13 +26,14 @@ final class BillingDataFactoryTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->factory = new BillingDataFactory(BillingData::class);
     }
 
     /** @test */
     public function it_implements_billing_data_factory_interface(): void
     {
-        $this->assertInstanceOf(BillingDataFactoryInterface::class, $this->factory);
+        self::assertInstanceOf(BillingDataFactoryInterface::class, $this->factory);
     }
 
     /** @test */
@@ -56,15 +57,15 @@ final class BillingDataFactoryTest extends TestCase
     {
         $address = $this->createMock(AddressInterface::class);
 
-        $address->expects($this->once())->method('getCountryCode')->willReturn('US');
-        $address->expects($this->once())->method('getCity')->willReturn('Las Vegas');
-        $address->expects($this->once())->method('getPostcode')->willReturn('000001');
-        $address->expects($this->once())->method('getStreet')->willReturn('Fremont Street');
-        $address->expects($this->once())->method('getProvinceCode')->willReturn('sample_province_code');
-        $address->expects($this->once())->method('getProvinceName')->willReturn('sample_province_name');
-        $address->expects($this->once())->method('getFirstName')->willReturn('Thomas');
-        $address->expects($this->once())->method('getLastName')->willReturn('Shelby');
-        $address->expects($this->once())->method('getCompany')->willReturn('Shelby Company Limited');
+        $address->expects(self::once())->method('getCountryCode')->willReturn('US');
+        $address->expects(self::once())->method('getCity')->willReturn('Las Vegas');
+        $address->expects(self::once())->method('getPostcode')->willReturn('000001');
+        $address->expects(self::once())->method('getStreet')->willReturn('Fremont Street');
+        $address->expects(self::once())->method('getProvinceCode')->willReturn('sample_province_code');
+        $address->expects(self::once())->method('getProvinceName')->willReturn('sample_province_name');
+        $address->expects(self::once())->method('getFirstName')->willReturn('Thomas');
+        $address->expects(self::once())->method('getLastName')->willReturn('Shelby');
+        $address->expects(self::once())->method('getCompany')->willReturn('Shelby Company Limited');
 
         $result = $this->factory->createFromAddress($address);
         $expected = new BillingData(
@@ -79,6 +80,6 @@ final class BillingDataFactoryTest extends TestCase
             'Shelby Company Limited',
         );
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }

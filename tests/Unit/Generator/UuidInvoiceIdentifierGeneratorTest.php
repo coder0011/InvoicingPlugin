@@ -23,13 +23,14 @@ final class UuidInvoiceIdentifierGeneratorTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->generator = new UuidInvoiceIdentifierGenerator();
     }
 
     /** @test */
     public function it_is_an_invoice_identifier_generator(): void
     {
-        $this->assertInstanceOf(InvoiceIdentifierGenerator::class, $this->generator);
+        self::assertInstanceOf(InvoiceIdentifierGenerator::class, $this->generator);
     }
 
     /** @test */
@@ -37,7 +38,7 @@ final class UuidInvoiceIdentifierGeneratorTest extends TestCase
     {
         $result = $this->generator->generate();
 
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 
     /** @test */
@@ -46,6 +47,6 @@ final class UuidInvoiceIdentifierGeneratorTest extends TestCase
         $firstResult = $this->generator->generate();
         $secondResult = $this->generator->generate();
 
-        $this->assertNotEquals($firstResult, $secondResult);
+        self::assertNotEquals($firstResult, $secondResult);
     }
 }

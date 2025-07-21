@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Provider;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -21,12 +22,13 @@ use Sylius\InvoicingPlugin\Provider\ChannelColorProviderInterface;
 
 final class ChannelColorProviderTest extends TestCase
 {
-    private ChannelRepositoryInterface $channelRepository;
+    private ChannelRepositoryInterface&MockObject $channelRepository;
 
     private ChannelColorProvider $provider;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->channelRepository = $this->createMock(ChannelRepositoryInterface::class);
 
         $this->provider = new ChannelColorProvider($this->channelRepository, 'whiteGrey');
@@ -35,7 +37,7 @@ final class ChannelColorProviderTest extends TestCase
     /** @test */
     public function it_implements_channel_color_provider_interface(): void
     {
-        $this->assertInstanceOf(ChannelColorProviderInterface::class, $this->provider);
+        self::assertInstanceOf(ChannelColorProviderInterface::class, $this->provider);
     }
 
     /** @test */
@@ -48,7 +50,7 @@ final class ChannelColorProviderTest extends TestCase
 
         $result = $this->provider->provide('en_US');
 
-        $this->assertSame('black', $result);
+        self::assertSame('black', $result);
     }
 
     /** @test */
@@ -61,6 +63,6 @@ final class ChannelColorProviderTest extends TestCase
 
         $result = $this->provider->provide('en_US');
 
-        $this->assertSame('whiteGrey', $result);
+        self::assertSame('whiteGrey', $result);
     }
 }

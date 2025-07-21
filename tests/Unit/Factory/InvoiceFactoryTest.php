@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -28,12 +29,13 @@ use Sylius\InvoicingPlugin\Factory\InvoiceFactoryInterface;
 
 final class InvoiceFactoryTest extends TestCase
 {
-    private FactoryInterface $invoiceShopBillingDataFactory;
+    private FactoryInterface&MockObject $invoiceShopBillingDataFactory;
 
     private InvoiceFactory $invoiceFactory;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->invoiceShopBillingDataFactory = $this->createMock(FactoryInterface::class);
 
         $this->invoiceFactory = new InvoiceFactory(
@@ -45,7 +47,7 @@ final class InvoiceFactoryTest extends TestCase
     /** @test */
     public function it_implements_invoice_factory_interface(): void
     {
-        $this->assertInstanceOf(InvoiceFactoryInterface::class, $this->invoiceFactory);
+        self::assertInstanceOf(InvoiceFactoryInterface::class, $this->invoiceFactory);
     }
 
     /** @test */
@@ -74,7 +76,7 @@ final class InvoiceFactoryTest extends TestCase
             $invoiceShopBillingData,
         );
 
-        $this->assertInstanceOf(InvoiceInterface::class, $result);
+        self::assertInstanceOf(InvoiceInterface::class, $result);
     }
 
     /** @test */
@@ -87,7 +89,7 @@ final class InvoiceFactoryTest extends TestCase
         $date = new \DateTimeImmutable('2019-03-06');
 
         $this->invoiceShopBillingDataFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createNew')
             ->willReturn(new InvoiceShopBillingData());
 
@@ -107,6 +109,6 @@ final class InvoiceFactoryTest extends TestCase
             null,
         );
 
-        $this->assertInstanceOf(InvoiceInterface::class, $result);
+        self::assertInstanceOf(InvoiceInterface::class, $result);
     }
 }

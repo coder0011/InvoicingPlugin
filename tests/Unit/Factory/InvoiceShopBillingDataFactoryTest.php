@@ -26,13 +26,14 @@ final class InvoiceShopBillingDataFactoryTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->invoiceShopBillingDataFactory = new InvoiceShopBillingDataFactory(InvoiceShopBillingData::class);
     }
 
     /** @test */
     public function it_implements_invoice_shop_billing_data_factory_interface(): void
     {
-        $this->assertInstanceOf(InvoiceShopBillingDataFactoryInterface::class, $this->invoiceShopBillingDataFactory);
+        self::assertInstanceOf(InvoiceShopBillingDataFactoryInterface::class, $this->invoiceShopBillingDataFactory);
     }
 
     /** @test */
@@ -45,7 +46,7 @@ final class InvoiceShopBillingDataFactoryTest extends TestCase
 
         $result = $this->invoiceShopBillingDataFactory->createFromChannel($channel);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /** @test */
@@ -73,7 +74,7 @@ final class InvoiceShopBillingDataFactoryTest extends TestCase
 
         $result = $this->invoiceShopBillingDataFactory->createFromChannel($channel);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /** @test */
@@ -98,6 +99,6 @@ final class InvoiceShopBillingDataFactoryTest extends TestCase
 
         $result = $this->invoiceShopBillingDataFactory->createFromShopBillingData($shopBillingData);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }

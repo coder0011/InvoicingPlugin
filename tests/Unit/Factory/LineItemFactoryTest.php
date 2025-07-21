@@ -25,13 +25,14 @@ final class LineItemFactoryTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->lineItemFactory = new LineItemFactory(LineItem::class);
     }
 
     /** @test */
     public function it_implements_line_item_factory_interface(): void
     {
-        $this->assertInstanceOf(LineItemFactoryInterface::class, $this->lineItemFactory);
+        self::assertInstanceOf(LineItemFactoryInterface::class, $this->lineItemFactory);
     }
 
     /** @test */
@@ -67,7 +68,7 @@ final class LineItemFactoryTest extends TestCase
             '10%',
         );
 
-        $this->assertEquals($expected1, $result1);
+        self::assertEquals($expected1, $result1);
 
         $result2 = $this->lineItemFactory->createWithData('UPS', 1, 1000, 1000, 1000, 200, 1200, null, null, '20%');
         $expected2 = new LineItem(
@@ -83,6 +84,6 @@ final class LineItemFactoryTest extends TestCase
             '20%',
         );
 
-        $this->assertEquals($expected2, $result2);
+        self::assertEquals($expected2, $result2);
     }
 }

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Converter;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -25,9 +26,9 @@ use Sylius\InvoicingPlugin\Provider\TaxRatePercentageProviderInterface;
 
 final class TaxItemsConverterTest extends TestCase
 {
-    private TaxRatePercentageProviderInterface $taxRatePercentageProvider;
+    private MockObject&TaxRatePercentageProviderInterface $taxRatePercentageProvider;
 
-    private TaxItemFactoryInterface $taxItemFactory;
+    private MockObject&TaxItemFactoryInterface $taxItemFactory;
 
     private TaxItemsConverter $converter;
 
@@ -45,7 +46,7 @@ final class TaxItemsConverterTest extends TestCase
     /** @test */
     public function it_implements_tax_items_converter_interface(): void
     {
-        $this->assertInstanceOf(TaxItemsConverterInterface::class, $this->converter);
+        self::assertInstanceOf(TaxItemsConverterInterface::class, $this->converter);
     }
 
     /** @test */
@@ -56,30 +57,30 @@ final class TaxItemsConverterTest extends TestCase
         $taxAdjustment = $this->createMock(AdjustmentInterface::class);
 
         $this->taxItemFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createWithData')
             ->with('10%', 500)
             ->willReturn($taxItem);
 
         $order
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getAdjustmentsRecursively')
             ->with(AdjustmentInterface::TAX_ADJUSTMENT)
             ->willReturn(new ArrayCollection([$taxAdjustment]));
 
         $this->taxRatePercentageProvider
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('provideFromAdjustment')
             ->with($taxAdjustment)
             ->willReturn('10%');
 
         $taxAdjustment
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getAmount')
             ->willReturn(500);
 
         $result = $this->converter->convert($order);
 
-        $this->assertEquals(new ArrayCollection([$taxItem]), $result);
+        self::assertEquals(new ArrayCollection([$taxItem]), $result);
     }
 }

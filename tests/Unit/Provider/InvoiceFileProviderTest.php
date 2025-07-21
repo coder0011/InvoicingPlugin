@@ -16,6 +16,7 @@ namespace Tests\Sylius\InvoicingPlugin\Unit\Provider;
 use Gaufrette\Exception\FileNotFound;
 use Gaufrette\File;
 use Gaufrette\FilesystemInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 use Sylius\InvoicingPlugin\Generator\InvoiceFileNameGeneratorInterface;
@@ -27,18 +28,19 @@ use Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface;
 
 final class InvoiceFileProviderTest extends TestCase
 {
-    private InvoiceFileNameGeneratorInterface $invoiceFileNameGenerator;
+    private InvoiceFileNameGeneratorInterface&MockObject $invoiceFileNameGenerator;
 
-    private FilesystemInterface $filesystem;
+    private FilesystemInterface&MockObject $filesystem;
 
-    private InvoicePdfFileGeneratorInterface $invoicePdfFileGenerator;
+    private InvoicePdfFileGeneratorInterface&MockObject $invoicePdfFileGenerator;
 
-    private InvoiceFileManagerInterface $invoiceFileManager;
+    private InvoiceFileManagerInterface&MockObject $invoiceFileManager;
 
     private InvoiceFileProvider $provider;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->invoiceFileNameGenerator = $this->createMock(InvoiceFileNameGeneratorInterface::class);
         $this->filesystem = $this->createMock(FilesystemInterface::class);
         $this->invoicePdfFileGenerator = $this->createMock(InvoicePdfFileGeneratorInterface::class);
@@ -56,7 +58,7 @@ final class InvoiceFileProviderTest extends TestCase
     /** @test */
     public function it_implements_invoice_file_provider_interface(): void
     {
-        $this->assertInstanceOf(InvoiceFileProviderInterface::class, $this->provider);
+        self::assertInstanceOf(InvoiceFileProviderInterface::class, $this->provider);
     }
 
     /** @test */
@@ -66,19 +68,19 @@ final class InvoiceFileProviderTest extends TestCase
         $invoiceFile = $this->createMock(File::class);
 
         $this->invoiceFileNameGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generateForPdf')
             ->with($invoice)
             ->willReturn('invoice.pdf');
 
         $this->filesystem
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('invoice.pdf')
             ->willReturn($invoiceFile);
 
         $invoiceFile
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getContent')
             ->willReturn('CONTENT');
 
@@ -87,7 +89,7 @@ final class InvoiceFileProviderTest extends TestCase
         $expected = new InvoicePdf('invoice.pdf', 'CONTENT');
         $expected->setFullPath('/path/to/invoices/invoice.pdf');
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /** @test */
@@ -96,13 +98,13 @@ final class InvoiceFileProviderTest extends TestCase
         $invoice = $this->createMock(InvoiceInterface::class);
 
         $this->invoiceFileNameGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generateForPdf')
             ->with($invoice)
             ->willReturn('invoice.pdf');
 
         $this->filesystem
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('invoice.pdf')
             ->willThrowException(new FileNotFound('invoice.pdf'));
@@ -111,13 +113,13 @@ final class InvoiceFileProviderTest extends TestCase
         $invoicePdf->setFullPath('/path/to/invoices/invoice.pdf');
 
         $this->invoicePdfFileGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
             ->with($invoice)
             ->willReturn($invoicePdf);
 
         $this->invoiceFileManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('save')
             ->with($invoicePdf);
 
@@ -126,6 +128,6 @@ final class InvoiceFileProviderTest extends TestCase
         $expected = new InvoicePdf('invoice.pdf', 'CONTENT');
         $expected->setFullPath('/path/to/invoices/invoice.pdf');
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }

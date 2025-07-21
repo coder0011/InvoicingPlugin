@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Creator;
 
 use Doctrine\ORM\EntityNotFoundException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -29,20 +30,21 @@ use Sylius\InvoicingPlugin\Model\InvoicePdf;
 
 final class InvoiceCreatorTest extends TestCase
 {
-    private InvoiceRepositoryInterface $invoiceRepository;
+    private InvoiceRepositoryInterface&MockObject $invoiceRepository;
 
-    private OrderRepositoryInterface $orderRepository;
+    private MockObject&OrderRepositoryInterface $orderRepository;
 
-    private InvoiceGeneratorInterface $invoiceGenerator;
+    private InvoiceGeneratorInterface&MockObject $invoiceGenerator;
 
-    private InvoicePdfFileGeneratorInterface $invoicePdfFileGenerator;
+    private InvoicePdfFileGeneratorInterface&MockObject $invoicePdfFileGenerator;
 
-    private InvoiceFileManagerInterface $invoiceFileManager;
+    private InvoiceFileManagerInterface&MockObject $invoiceFileManager;
 
     private InvoiceCreator $creator;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->invoiceRepository = $this->createMock(InvoiceRepositoryInterface::class);
         $this->orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $this->invoiceGenerator = $this->createMock(InvoiceGeneratorInterface::class);
@@ -61,7 +63,7 @@ final class InvoiceCreatorTest extends TestCase
     /** @test */
     public function it_implements_invoice_for_order_creator_interface(): void
     {
-        $this->assertInstanceOf(InvoiceCreatorInterface::class, $this->creator);
+        self::assertInstanceOf(InvoiceCreatorInterface::class, $this->creator);
     }
 
     /** @test */
@@ -73,36 +75,36 @@ final class InvoiceCreatorTest extends TestCase
         $invoiceDateTime = new \DateTimeImmutable('2019-02-25');
 
         $this->orderRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByNumber')
             ->with('0000001')
             ->willReturn($order);
 
         $this->invoiceRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByOrder')
             ->with($order)
             ->willReturn(null);
 
         $this->invoiceGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generateForOrder')
             ->with($order, $invoiceDateTime)
             ->willReturn($invoice);
 
         $this->invoicePdfFileGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
             ->with($invoice)
             ->willReturn($invoicePdf);
 
         $this->invoiceFileManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('save')
             ->with($invoicePdf);
 
         $this->invoiceRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('add')
             ->with($invoice);
 
@@ -126,19 +128,19 @@ final class InvoiceCreatorTest extends TestCase
         $invoiceDateTime = new \DateTimeImmutable('2019-02-25');
 
         $this->orderRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByNumber')
             ->with('0000001')
             ->willReturn($order);
 
         $this->invoiceRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByOrder')
             ->with($order)
             ->willReturn(null);
 
         $this->invoiceGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generateForOrder')
             ->with($order, $invoiceDateTime)
             ->willReturn($invoice);
@@ -152,7 +154,7 @@ final class InvoiceCreatorTest extends TestCase
             ->method('save');
 
         $this->invoiceRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('add')
             ->with($invoice);
 
@@ -168,42 +170,42 @@ final class InvoiceCreatorTest extends TestCase
         $invoiceDateTime = new \DateTimeImmutable('2019-02-25');
 
         $this->orderRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByNumber')
             ->with('0000001')
             ->willReturn($order);
 
         $this->invoiceRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByOrder')
             ->with($order)
             ->willReturn(null);
 
         $this->invoiceGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generateForOrder')
             ->with($order, $invoiceDateTime)
             ->willReturn($invoice);
 
         $this->invoicePdfFileGenerator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
             ->with($invoice)
             ->willReturn($invoicePdf);
 
         $this->invoiceFileManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('save')
             ->with($invoicePdf);
 
         $this->invoiceRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('add')
             ->with($invoice)
             ->willThrowException(new EntityNotFoundException());
 
         $this->invoiceFileManager
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('remove')
             ->with($invoicePdf);
 
@@ -218,13 +220,13 @@ final class InvoiceCreatorTest extends TestCase
         $invoiceDateTime = new \DateTimeImmutable('2019-02-25');
 
         $this->orderRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByNumber')
             ->with('0000001')
             ->willReturn($order);
 
         $this->invoiceRepository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findOneByOrder')
             ->with($order)
             ->willReturn($invoice);

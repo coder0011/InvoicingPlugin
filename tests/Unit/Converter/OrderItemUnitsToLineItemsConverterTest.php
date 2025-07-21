@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Converter;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -28,16 +29,17 @@ use Sylius\InvoicingPlugin\Provider\UnitNetPriceProviderInterface;
 
 final class OrderItemUnitsToLineItemsConverterTest extends TestCase
 {
-    private TaxRatePercentageProviderInterface $taxRatePercentageProvider;
+    private MockObject&TaxRatePercentageProviderInterface $taxRatePercentageProvider;
 
-    private LineItemFactoryInterface $lineItemFactory;
+    private LineItemFactoryInterface&MockObject $lineItemFactory;
 
-    private UnitNetPriceProviderInterface $unitNetPriceProvider;
+    private MockObject&UnitNetPriceProviderInterface $unitNetPriceProvider;
 
     private OrderItemUnitsToLineItemsConverter $converter;
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->taxRatePercentageProvider = $this->createMock(TaxRatePercentageProviderInterface::class);
         $this->lineItemFactory = $this->createMock(LineItemFactoryInterface::class);
         $this->unitNetPriceProvider = $this->createMock(UnitNetPriceProviderInterface::class);
@@ -52,7 +54,7 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
     /** @test */
     public function it_implements_line_items_converter_interface(): void
     {
-        $this->assertInstanceOf(LineItemsConverterInterface::class, $this->converter);
+        self::assertInstanceOf(LineItemsConverterInterface::class, $this->converter);
     }
 
     /** @test */
@@ -65,41 +67,41 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
         $variant = $this->createMock(ProductVariantInterface::class);
 
         $this->lineItemFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createWithData')
             ->with('Mjolnir', 1, 6000, 5000, 5000, 500, 5500, null, 'CODE', '10%')
             ->willReturn($lineItem);
 
         $order
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getItemUnits')
             ->willReturn(new ArrayCollection([$orderItemUnit]));
 
-        $orderItemUnit->expects($this->once())->method('getTaxTotal')->willReturn(500);
-        $orderItemUnit->expects($this->once())->method('getTotal')->willReturn(5500);
-        $orderItemUnit->expects($this->once())->method('getOrderItem')->willReturn($orderItem);
+        $orderItemUnit->expects(self::once())->method('getTaxTotal')->willReturn(500);
+        $orderItemUnit->expects(self::once())->method('getTotal')->willReturn(5500);
+        $orderItemUnit->expects(self::once())->method('getOrderItem')->willReturn($orderItem);
 
         $this->unitNetPriceProvider
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getUnitNetPrice')
             ->with($orderItemUnit)
             ->willReturn(6000);
 
-        $orderItem->expects($this->once())->method('getProductName')->willReturn('Mjolnir');
-        $orderItem->expects($this->once())->method('getVariant')->willReturn($variant);
-        $orderItem->expects($this->once())->method('getVariantName')->willReturn(null);
+        $orderItem->expects(self::once())->method('getProductName')->willReturn('Mjolnir');
+        $orderItem->expects(self::once())->method('getVariant')->willReturn($variant);
+        $orderItem->expects(self::once())->method('getVariantName')->willReturn(null);
 
-        $variant->expects($this->once())->method('getCode')->willReturn('CODE');
+        $variant->expects(self::once())->method('getCode')->willReturn('CODE');
 
         $this->taxRatePercentageProvider
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('provideFromAdjustable')
             ->with($orderItemUnit)
             ->willReturn('10%');
 
         $result = $this->converter->convert($order);
 
-        $this->assertEquals([$lineItem], $result);
+        self::assertEquals([$lineItem], $result);
     }
 
     /** @test */
@@ -129,21 +131,21 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
         $mjolnirLineItem
             ->expects($this->exactly(2))
             ->method('compare')
-            ->willReturnCallback(function ($item) use ($mjolnirLineItem, $stormbreakerLineItem) {
+            ->willReturnCallback(function ($item) use ($mjolnirLineItem) {
                 if ($item === $mjolnirLineItem) {
-                    return true; // Same item - should merge
+                    return true;
                 }
 
-                return false; // Different item
+                return false;
             });
 
         $mjolnirLineItem
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('merge')
             ->with($mjolnirLineItem);
 
         $order
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getItemUnits')
             ->willReturn(new ArrayCollection([
                 $firstOrderItemUnit,
@@ -152,9 +154,9 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
             ]));
 
         // First order item unit setup
-        $firstOrderItemUnit->expects($this->once())->method('getTaxTotal')->willReturn(500);
-        $firstOrderItemUnit->expects($this->once())->method('getTotal')->willReturn(5500);
-        $firstOrderItemUnit->expects($this->once())->method('getOrderItem')->willReturn($firstOrderItem);
+        $firstOrderItemUnit->expects(self::once())->method('getTaxTotal')->willReturn(500);
+        $firstOrderItemUnit->expects(self::once())->method('getTotal')->willReturn(5500);
+        $firstOrderItemUnit->expects(self::once())->method('getOrderItem')->willReturn($firstOrderItem);
 
         $this->unitNetPriceProvider
             ->expects($this->exactly(3))
@@ -163,25 +165,25 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
             ->willReturnOnConsecutiveCalls(5000, 5000, 8000);
 
         // Second order item unit setup
-        $secondOrderItemUnit->expects($this->once())->method('getTaxTotal')->willReturn(500);
-        $secondOrderItemUnit->expects($this->once())->method('getTotal')->willReturn(5500);
-        $secondOrderItemUnit->expects($this->once())->method('getOrderItem')->willReturn($firstOrderItem);
+        $secondOrderItemUnit->expects(self::once())->method('getTaxTotal')->willReturn(500);
+        $secondOrderItemUnit->expects(self::once())->method('getTotal')->willReturn(5500);
+        $secondOrderItemUnit->expects(self::once())->method('getOrderItem')->willReturn($firstOrderItem);
 
         // Third order item unit setup
-        $thirdOrderItemUnit->expects($this->once())->method('getTaxTotal')->willReturn(1600);
-        $thirdOrderItemUnit->expects($this->once())->method('getTotal')->willReturn(9600);
-        $thirdOrderItemUnit->expects($this->once())->method('getOrderItem')->willReturn($secondOrderItem);
+        $thirdOrderItemUnit->expects(self::once())->method('getTaxTotal')->willReturn(1600);
+        $thirdOrderItemUnit->expects(self::once())->method('getTotal')->willReturn(9600);
+        $thirdOrderItemUnit->expects(self::once())->method('getOrderItem')->willReturn($secondOrderItem);
 
         $firstOrderItem->expects($this->exactly(2))->method('getProductName')->willReturn('Mjolnir');
         $firstOrderItem->expects($this->exactly(2))->method('getVariant')->willReturn($firstVariant);
         $firstOrderItem->expects($this->exactly(2))->method('getVariantName')->willReturn(null);
 
-        $secondOrderItem->expects($this->once())->method('getProductName')->willReturn('Stormbreaker');
-        $secondOrderItem->expects($this->once())->method('getVariant')->willReturn($secondVariant);
-        $secondOrderItem->expects($this->once())->method('getVariantName')->willReturn(null);
+        $secondOrderItem->expects(self::once())->method('getProductName')->willReturn('Stormbreaker');
+        $secondOrderItem->expects(self::once())->method('getVariant')->willReturn($secondVariant);
+        $secondOrderItem->expects(self::once())->method('getVariantName')->willReturn(null);
 
         $firstVariant->expects($this->exactly(2))->method('getCode')->willReturn('MJOLNIR');
-        $secondVariant->expects($this->once())->method('getCode')->willReturn('STORMBREAKER');
+        $secondVariant->expects(self::once())->method('getCode')->willReturn('STORMBREAKER');
 
         $this->taxRatePercentageProvider
             ->expects($this->exactly(3))
@@ -191,6 +193,6 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
 
         $result = $this->converter->convert($order);
 
-        $this->assertEquals([$mjolnirLineItem, $stormbreakerLineItem], $result);
+        self::assertEquals([$mjolnirLineItem, $stormbreakerLineItem], $result);
     }
 }
