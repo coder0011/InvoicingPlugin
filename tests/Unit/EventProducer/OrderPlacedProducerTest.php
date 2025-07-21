@@ -92,7 +92,8 @@ final class OrderPlacedProducerTest extends TestCase
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        $event = new LifecycleEventArgs('notAnOrder', $entityManager);
+        $notAnOrder = new \stdClass();
+        $event = new LifecycleEventArgs($notAnOrder, $entityManager);
 
         $eventBus->expects($this->never())->method('dispatch');
 
@@ -105,7 +106,8 @@ final class OrderPlacedProducerTest extends TestCase
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        $event = new LifecycleEventArgs('notAnOrder', $entityManager);
+        $notAnOrder = new \stdClass();
+        $event = new LifecycleEventArgs($notAnOrder, $entityManager);
 
         $eventBus->expects($this->never())->method('dispatch');
 
