@@ -36,7 +36,7 @@ final class UuidInvoiceIdentifierGeneratorTest extends TestCase
     public function it_returns_a_string(): void
     {
         $result = $this->generator->generate();
-        
+
         $this->assertIsString($result);
     }
 

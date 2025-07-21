@@ -28,9 +28,13 @@ use Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface;
 final class InvoiceFileProviderTest extends TestCase
 {
     private InvoiceFileNameGeneratorInterface $invoiceFileNameGenerator;
+
     private FilesystemInterface $filesystem;
+
     private InvoicePdfFileGeneratorInterface $invoicePdfFileGenerator;
+
     private InvoiceFileManagerInterface $invoiceFileManager;
+
     private InvoiceFileProvider $provider;
 
     protected function setUp(): void

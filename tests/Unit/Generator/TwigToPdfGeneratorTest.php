@@ -23,8 +23,11 @@ use Twig\Environment;
 final class TwigToPdfGeneratorTest extends TestCase
 {
     private Environment $twig;
+
     private GeneratorInterface $pdfGenerator;
+
     private PdfOptionsGeneratorInterface $pdfOptionsGenerator;
+
     private TwigToPdfGenerator $generator;
 
     protected function setUp(): void

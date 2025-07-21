@@ -37,13 +37,21 @@ use Sylius\InvoicingPlugin\Generator\InvoiceNumberGenerator;
 final class InvoiceGeneratorTest extends TestCase
 {
     private InvoiceIdentifierGenerator $uuidInvoiceIdentifierGenerator;
+
     private InvoiceNumberGenerator $sequentialInvoiceNumberGenerator;
+
     private InvoiceFactoryInterface $invoiceFactory;
+
     private BillingDataFactoryInterface $billingDataFactory;
+
     private InvoiceShopBillingDataFactoryInterface $invoiceShopBillingDataFactory;
+
     private LineItemsConverterInterface $orderItemUnitsToLineItemsConverter;
+
     private LineItemsConverterInterface $shippingAdjustmentsToLineItemsConverter;
+
     private TaxItemsConverterInterface $taxItemsConverter;
+
     private InvoiceGenerator $invoiceGenerator;
 
     protected function setUp(): void

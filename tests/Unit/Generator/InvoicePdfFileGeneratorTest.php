@@ -26,8 +26,11 @@ use Symfony\Component\Config\FileLocatorInterface;
 final class InvoicePdfFileGeneratorTest extends TestCase
 {
     private TwigToPdfGeneratorInterface $twigToPdfGenerator;
+
     private FileLocatorInterface $fileLocator;
+
     private InvoiceFileNameGeneratorInterface $invoiceFileNameGenerator;
+
     private InvoicePdfFileGenerator $generator;
 
     protected function setUp(): void

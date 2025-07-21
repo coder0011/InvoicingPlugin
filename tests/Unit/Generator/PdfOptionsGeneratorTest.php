@@ -21,6 +21,7 @@ use Symfony\Component\Config\FileLocatorInterface;
 final class PdfOptionsGeneratorTest extends TestCase
 {
     private FileLocatorInterface $fileLocator;
+
     private PdfOptionsGenerator $generator;
 
     protected function setUp(): void

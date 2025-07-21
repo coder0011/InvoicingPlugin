@@ -26,7 +26,9 @@ use Sylius\InvoicingPlugin\Provider\TaxRatePercentageProviderInterface;
 final class TaxItemsConverterTest extends TestCase
 {
     private TaxRatePercentageProviderInterface $taxRatePercentageProvider;
+
     private TaxItemFactoryInterface $taxItemFactory;
+
     private TaxItemsConverter $converter;
 
     protected function setUp(): void
@@ -36,7 +38,7 @@ final class TaxItemsConverterTest extends TestCase
 
         $this->converter = new TaxItemsConverter(
             $this->taxRatePercentageProvider,
-            $this->taxItemFactory
+            $this->taxItemFactory,
         );
     }
 

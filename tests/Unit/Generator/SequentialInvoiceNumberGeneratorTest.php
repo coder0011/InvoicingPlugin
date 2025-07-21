@@ -26,9 +26,13 @@ use Symfony\Component\Clock\ClockInterface;
 final class SequentialInvoiceNumberGeneratorTest extends TestCase
 {
     private RepositoryInterface $sequenceRepository;
+
     private FactoryInterface $sequenceFactory;
+
     private EntityManagerInterface $sequenceManager;
+
     private ClockInterface $clock;
+
     private SequentialInvoiceNumberGenerator $generator;
 
     protected function setUp(): void

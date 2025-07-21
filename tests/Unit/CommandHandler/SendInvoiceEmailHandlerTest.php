@@ -26,8 +26,11 @@ use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 final class SendInvoiceEmailHandlerTest extends TestCase
 {
     private InvoiceRepositoryInterface $invoiceRepository;
+
     private OrderRepositoryInterface $orderRepository;
+
     private InvoiceEmailSenderInterface $emailSender;
+
     private SendInvoiceEmailHandler $handler;
 
     protected function setUp(): void
@@ -39,7 +42,7 @@ final class SendInvoiceEmailHandlerTest extends TestCase
         $this->handler = new SendInvoiceEmailHandler(
             $this->invoiceRepository,
             $this->orderRepository,
-            $this->emailSender
+            $this->emailSender,
         );
     }
 

@@ -76,7 +76,7 @@ final class BillingDataFactoryTest extends TestCase
             '000001',
             'sample_province_code',
             'sample_province_name',
-            'Shelby Company Limited'
+            'Shelby Company Limited',
         );
 
         $this->assertEquals($expected, $result);

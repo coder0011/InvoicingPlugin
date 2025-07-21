@@ -30,10 +30,15 @@ use Sylius\InvoicingPlugin\Model\InvoicePdf;
 final class InvoiceCreatorTest extends TestCase
 {
     private InvoiceRepositoryInterface $invoiceRepository;
+
     private OrderRepositoryInterface $orderRepository;
+
     private InvoiceGeneratorInterface $invoiceGenerator;
+
     private InvoicePdfFileGeneratorInterface $invoicePdfFileGenerator;
+
     private InvoiceFileManagerInterface $invoiceFileManager;
+
     private InvoiceCreator $creator;
 
     protected function setUp(): void
@@ -49,7 +54,7 @@ final class InvoiceCreatorTest extends TestCase
             $this->orderRepository,
             $this->invoiceGenerator,
             $this->invoicePdfFileGenerator,
-            $this->invoiceFileManager
+            $this->invoiceFileManager,
         );
     }
 
@@ -113,7 +118,7 @@ final class InvoiceCreatorTest extends TestCase
             $this->invoiceGenerator,
             $this->invoicePdfFileGenerator,
             $this->invoiceFileManager,
-            false
+            false,
         );
 
         $order = $this->createMock(OrderInterface::class);

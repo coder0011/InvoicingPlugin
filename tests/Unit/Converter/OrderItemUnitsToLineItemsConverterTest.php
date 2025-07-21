@@ -29,8 +29,11 @@ use Sylius\InvoicingPlugin\Provider\UnitNetPriceProviderInterface;
 final class OrderItemUnitsToLineItemsConverterTest extends TestCase
 {
     private TaxRatePercentageProviderInterface $taxRatePercentageProvider;
+
     private LineItemFactoryInterface $lineItemFactory;
+
     private UnitNetPriceProviderInterface $unitNetPriceProvider;
+
     private OrderItemUnitsToLineItemsConverter $converter;
 
     protected function setUp(): void
@@ -42,7 +45,7 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
         $this->converter = new OrderItemUnitsToLineItemsConverter(
             $this->taxRatePercentageProvider,
             $this->lineItemFactory,
-            $this->unitNetPriceProvider
+            $this->unitNetPriceProvider,
         );
     }
 
@@ -119,17 +122,18 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
             ->withConsecutive(
                 ['Mjolnir', 1, 5000, 5000, 5000, 500, 5500, null, 'MJOLNIR', '10%'],
                 ['Mjolnir', 1, 5000, 5000, 5000, 500, 5500, null, 'MJOLNIR', '10%'],
-                ['Stormbreaker', 1, 8000, 8000, 8000, 1600, 9600, null, 'STORMBREAKER', '20%']
+                ['Stormbreaker', 1, 8000, 8000, 8000, 1600, 9600, null, 'STORMBREAKER', '20%'],
             )
             ->willReturnOnConsecutiveCalls($mjolnirLineItem, $mjolnirLineItem, $stormbreakerLineItem);
 
         $mjolnirLineItem
             ->expects($this->exactly(2))
             ->method('compare')
-            ->willReturnCallback(function($item) use ($mjolnirLineItem, $stormbreakerLineItem) {
+            ->willReturnCallback(function ($item) use ($mjolnirLineItem, $stormbreakerLineItem) {
                 if ($item === $mjolnirLineItem) {
                     return true; // Same item - should merge
                 }
+
                 return false; // Different item
             });
 

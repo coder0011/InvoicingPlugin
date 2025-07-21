@@ -33,7 +33,7 @@ final class BillingDataTest extends TestCase
             '24154',
             'IE',
             'Utah',
-            'Company Ltd.'
+            'Company Ltd.',
         );
     }
 

@@ -28,12 +28,19 @@ use Sylius\InvoicingPlugin\Entity\TaxItemInterface;
 final class InvoiceTest extends TestCase
 {
     private BillingDataInterface $billingData;
+
     private LineItemInterface $lineItem;
+
     private TaxItemInterface $taxItem;
+
     private ChannelInterface $channel;
+
     private InvoiceShopBillingDataInterface $shopBillingData;
+
     private OrderInterface $order;
+
     private Invoice $invoice;
+
     private \DateTimeImmutable $issuedAt;
 
     protected function setUp(): void

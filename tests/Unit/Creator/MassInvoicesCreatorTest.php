@@ -22,7 +22,9 @@ use Symfony\Component\Clock\ClockInterface;
 final class MassInvoicesCreatorTest extends TestCase
 {
     private InvoiceCreatorInterface $invoiceCreator;
+
     private ClockInterface $clock;
+
     private MassInvoicesCreator $massInvoicesCreator;
 
     protected function setUp(): void

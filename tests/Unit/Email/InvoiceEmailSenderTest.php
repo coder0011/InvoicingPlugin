@@ -25,6 +25,7 @@ use Sylius\InvoicingPlugin\Provider\InvoiceFileProviderInterface;
 final class InvoiceEmailSenderTest extends TestCase
 {
     private SenderInterface $sender;
+
     private InvoiceFileProviderInterface $invoiceFileProvider;
 
     protected function setUp(): void

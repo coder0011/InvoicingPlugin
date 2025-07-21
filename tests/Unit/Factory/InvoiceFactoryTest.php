@@ -29,6 +29,7 @@ use Sylius\InvoicingPlugin\Factory\InvoiceFactoryInterface;
 final class InvoiceFactoryTest extends TestCase
 {
     private FactoryInterface $invoiceShopBillingDataFactory;
+
     private InvoiceFactory $invoiceFactory;
 
     protected function setUp(): void

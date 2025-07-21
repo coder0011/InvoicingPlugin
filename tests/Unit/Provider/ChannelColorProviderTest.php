@@ -22,6 +22,7 @@ use Sylius\InvoicingPlugin\Provider\ChannelColorProviderInterface;
 final class ChannelColorProviderTest extends TestCase
 {
     private ChannelRepositoryInterface $channelRepository;
+
     private ChannelColorProvider $provider;
 
     protected function setUp(): void

@@ -27,7 +27,9 @@ use Sylius\InvoicingPlugin\Provider\TaxRatePercentageProviderInterface;
 final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
 {
     private TaxRatePercentageProviderInterface $taxRatePercentageProvider;
+
     private LineItemFactoryInterface $lineItemFactory;
+
     private ShippingAdjustmentsToLineItemsConverter $converter;
 
     protected function setUp(): void
@@ -37,7 +39,7 @@ final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
 
         $this->converter = new ShippingAdjustmentsToLineItemsConverter(
             $this->taxRatePercentageProvider,
-            $this->lineItemFactory
+            $this->lineItemFactory,
         );
     }
 
@@ -81,10 +83,11 @@ final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
 
         $shipment
             ->method('getAdjustmentsTotal')
-            ->willReturnCallback(function($type = null) {
+            ->willReturnCallback(function ($type = null) {
                 if ($type === 'order_shipping_promotion') {
                     return 200;
                 }
+
                 return 1200; // Default case (when called with null or no parameter)
             });
 

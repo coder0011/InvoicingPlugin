@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Fixture;
@@ -7,8 +16,8 @@ namespace Tests\Sylius\InvoicingPlugin\Unit\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
-use Sylius\InvoicingPlugin\Fixture\ShopBillingDataFixture;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
+use Sylius\InvoicingPlugin\Fixture\ShopBillingDataFixture;
 
 final class ShopBillingDataFixtureTest extends TestCase
 {
@@ -70,13 +79,13 @@ final class ShopBillingDataFixtureTest extends TestCase
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function getConfiguration(): ShopBillingDataFixture
     {
         return new ShopBillingDataFixture(
             $this->getMockBuilder(ObjectManager::class)->getMock(),
-            $this->getMockBuilder(ExampleFactoryInterface::class)->getMock()
+            $this->getMockBuilder(ExampleFactoryInterface::class)->getMock(),
         );
     }
 }
