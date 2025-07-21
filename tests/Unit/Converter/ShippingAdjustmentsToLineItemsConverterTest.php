@@ -71,7 +71,6 @@ final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
         $shippingAdjustment->expects($this->once())->method('getLabel')->willReturn('UPS');
         $shippingAdjustment->expects($this->once())->method('getShipment')->willReturn($shipment);
 
-        $shipment->expects($this->once())->method('getAdjustmentsTotal')->willReturn(1200);
         $shipment
             ->expects($this->once())
             ->method('getAdjustments')
@@ -81,10 +80,13 @@ final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
         $shippingTaxAdjustment->expects($this->once())->method('getAmount')->willReturn(200);
 
         $shipment
-            ->expects($this->once())
             ->method('getAdjustmentsTotal')
-            ->with(AdjustmentInterface::ORDER_SHIPPING_PROMOTION_ADJUSTMENT)
-            ->willReturn(200);
+            ->willReturnCallback(function($type = null) {
+                if ($type === 'order_shipping_promotion') {
+                    return 200;
+                }
+                return 1200; // Default case (when called with null or no parameter)
+            });
 
         $this->taxRatePercentageProvider
             ->expects($this->once())

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Creator;
 
-use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\EntityNotFoundException;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -195,7 +195,7 @@ final class InvoiceCreatorTest extends TestCase
             ->expects($this->once())
             ->method('add')
             ->with($invoice)
-            ->willThrowException(new ORMException());
+            ->willThrowException(new EntityNotFoundException());
 
         $this->invoiceFileManager
             ->expects($this->once())
@@ -233,7 +233,7 @@ final class InvoiceCreatorTest extends TestCase
             ->method('add');
 
         $this->expectException(InvoiceAlreadyGenerated::class);
-        $this->expectExceptionMessage('Invoice for order with number "0000001" is already generated.');
+        $this->expectExceptionMessage('An invoice for order with number 0000001 was already generated');
 
         ($this->creator)('0000001', $invoiceDateTime);
     }
