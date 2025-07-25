@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Converter;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -51,13 +52,13 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_line_items_converter_interface(): void
     {
         self::assertInstanceOf(LineItemsConverterInterface::class, $this->converter);
     }
 
-    /** @test */
+    #[Test]
     public function it_extracts_line_items_from_order_item_units(): void
     {
         $lineItem = $this->createMock(LineItemInterface::class);
@@ -104,7 +105,7 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
         self::assertEquals([$lineItem], $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_groups_the_same_line_items_during_extracting_order_item_units(): void
     {
         $mjolnirLineItem = $this->createMock(LineItemInterface::class);
@@ -121,12 +122,24 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
         $this->lineItemFactory
             ->expects($this->exactly(3))
             ->method('createWithData')
-            ->withConsecutive(
-                ['Mjolnir', 1, 5000, 5000, 5000, 500, 5500, null, 'MJOLNIR', '10%'],
-                ['Mjolnir', 1, 5000, 5000, 5000, 500, 5500, null, 'MJOLNIR', '10%'],
-                ['Stormbreaker', 1, 8000, 8000, 8000, 1600, 9600, null, 'STORMBREAKER', '20%'],
-            )
-            ->willReturnOnConsecutiveCalls($mjolnirLineItem, $mjolnirLineItem, $stormbreakerLineItem);
+            ->willReturnCallback(function (...$args) use ($mjolnirLineItem, $stormbreakerLineItem) {
+                static $callCount = 0;
+                ++$callCount;
+
+                if ($callCount === 1) {
+                    $this->assertEquals(['Mjolnir', 1, 5000, 5000, 5000, 500, 5500, null, 'MJOLNIR', '10%'], $args);
+
+                    return $mjolnirLineItem;
+                }
+                if ($callCount === 2) {
+                    $this->assertEquals(['Mjolnir', 1, 5000, 5000, 5000, 500, 5500, null, 'MJOLNIR', '10%'], $args);
+
+                    return $mjolnirLineItem;
+                }
+                $this->assertEquals(['Stormbreaker', 1, 8000, 8000, 8000, 1600, 9600, null, 'STORMBREAKER', '20%'], $args);
+
+                return $stormbreakerLineItem;
+            });
 
         $mjolnirLineItem
             ->expects($this->exactly(2))
@@ -161,8 +174,24 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
         $this->unitNetPriceProvider
             ->expects($this->exactly(3))
             ->method('getUnitNetPrice')
-            ->withConsecutive([$firstOrderItemUnit], [$secondOrderItemUnit], [$thirdOrderItemUnit])
-            ->willReturnOnConsecutiveCalls(5000, 5000, 8000);
+            ->willReturnCallback(function ($unit) use ($firstOrderItemUnit, $secondOrderItemUnit, $thirdOrderItemUnit) {
+                static $callCount = 0;
+                ++$callCount;
+
+                if ($callCount === 1) {
+                    $this->assertSame($firstOrderItemUnit, $unit);
+
+                    return 5000;
+                }
+                if ($callCount === 2) {
+                    $this->assertSame($secondOrderItemUnit, $unit);
+
+                    return 5000;
+                }
+                $this->assertSame($thirdOrderItemUnit, $unit);
+
+                return 8000;
+            });
 
         // Second order item unit setup
         $secondOrderItemUnit->expects(self::once())->method('getTaxTotal')->willReturn(500);
@@ -188,8 +217,24 @@ final class OrderItemUnitsToLineItemsConverterTest extends TestCase
         $this->taxRatePercentageProvider
             ->expects($this->exactly(3))
             ->method('provideFromAdjustable')
-            ->withConsecutive([$firstOrderItemUnit], [$secondOrderItemUnit], [$thirdOrderItemUnit])
-            ->willReturnOnConsecutiveCalls('10%', '10%', '20%');
+            ->willReturnCallback(function ($unit) use ($firstOrderItemUnit, $secondOrderItemUnit, $thirdOrderItemUnit) {
+                static $callCount = 0;
+                ++$callCount;
+
+                if ($callCount === 1) {
+                    $this->assertSame($firstOrderItemUnit, $unit);
+
+                    return '10%';
+                }
+                if ($callCount === 2) {
+                    $this->assertSame($secondOrderItemUnit, $unit);
+
+                    return '10%';
+                }
+                $this->assertSame($thirdOrderItemUnit, $unit);
+
+                return '20%';
+            });
 
         $result = $this->converter->convert($order);
 

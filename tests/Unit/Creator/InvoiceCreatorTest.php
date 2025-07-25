@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Creator;
 
 use Doctrine\ORM\EntityNotFoundException;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -60,13 +61,13 @@ final class InvoiceCreatorTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_invoice_for_order_creator_interface(): void
     {
         self::assertInstanceOf(InvoiceCreatorInterface::class, $this->creator);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_invoice_for_order(): void
     {
         $order = $this->createMock(OrderInterface::class);
@@ -111,7 +112,7 @@ final class InvoiceCreatorTest extends TestCase
         ($this->creator)('0000001', $invoiceDateTime);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_invoice_without_generating_pdf_file(): void
     {
         $creator = new InvoiceCreator(
@@ -161,7 +162,7 @@ final class InvoiceCreatorTest extends TestCase
         $creator('0000001', $invoiceDateTime);
     }
 
-    /** @test */
+    #[Test]
     public function it_removes_saved_invoice_file_if_database_update_fails(): void
     {
         $order = $this->createMock(OrderInterface::class);
@@ -212,7 +213,7 @@ final class InvoiceCreatorTest extends TestCase
         ($this->creator)('0000001', $invoiceDateTime);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_when_invoice_was_already_created_for_given_order(): void
     {
         $order = $this->createMock(OrderInterface::class);

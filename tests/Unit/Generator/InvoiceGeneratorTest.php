@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AddressInterface;
@@ -79,13 +80,13 @@ final class InvoiceGeneratorTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_is_an_invoice_generator(): void
     {
         self::assertInstanceOf(InvoiceGeneratorInterface::class, $this->invoiceGenerator);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_an_invoice_for_a_given_order(): void
     {
         $order = $this->createMock(OrderInterface::class);

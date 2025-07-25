@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 use Sylius\InvoicingPlugin\Generator\InvoiceFileNameGenerator;
@@ -28,13 +29,13 @@ final class InvoiceFileNameGeneratorTest extends TestCase
         $this->generator = new InvoiceFileNameGenerator();
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_invoice_file_name_generator_interface(): void
     {
         self::assertInstanceOf(InvoiceFileNameGeneratorInterface::class, $this->generator);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_invoice_file_name_based_on_its_number(): void
     {
         $invoice = $this->createMock(InvoiceInterface::class);

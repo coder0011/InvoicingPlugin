@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -50,13 +51,13 @@ final class InvoicePdfFileGeneratorTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_invoice_pdf_file_generator_interface(): void
     {
         self::assertInstanceOf(InvoicePdfFileGeneratorInterface::class, $this->generator);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_invoice_pdf_with_generated_content_and_filename_basing_on_invoice_number(): void
     {
         $invoice = $this->createMock(InvoiceInterface::class);

@@ -15,6 +15,7 @@ namespace Tests\Sylius\InvoicingPlugin\Unit\Fixture;
 
 use Doctrine\Persistence\ObjectManager;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
 use Sylius\InvoicingPlugin\Fixture\ShopBillingDataFixture;
@@ -23,56 +24,56 @@ final class ShopBillingDataFixtureTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /** @test */
+    #[Test]
     public function shop_billing_data_are_optional(): void
     {
         self::assertConfigurationIsValid([[]], 'custom');
     }
 
-    /** @test */
+    #[Test]
     public function shop_billing_data_can_be_generated_randomly(): void
     {
         self::assertConfigurationIsValid([['random' => 4]], 'random');
         self::assertPartialConfigurationIsInvalid([['random' => -1]], 'random');
     }
 
-    /** @test */
+    #[Test]
     public function shop_billing_data_channel_code_is_optional(): void
     {
         self::assertConfigurationIsValid([['custom' => [['channel_code' => 'CUSTOM']]]], 'custom.*.channel_code');
     }
 
-    /** @test */
+    #[Test]
     public function shop_billing_data_company_is_optional(): void
     {
         self::assertConfigurationIsValid([['custom' => [['company' => 'Custom']]]], 'custom.*.company');
     }
 
-    /** @test */
+    #[Test]
     public function shop_billing_data_country_code_is_optional(): void
     {
         self::assertConfigurationIsValid([['custom' => [['country_code' => 'pl_PL']]]], 'custom.*.country_code');
     }
 
-    /** @test */
+    #[Test]
     public function shop_billing_data_city_is_optional(): void
     {
         self::assertConfigurationIsValid([['custom' => [['city' => 'Custom']]]], 'custom.*.city');
     }
 
-    /** @test */
+    #[Test]
     public function shop_billing_data_postcode_is_optional(): void
     {
         self::assertConfigurationIsValid([['custom' => [['postcode' => '12345']]]], 'custom.*.postcode');
     }
 
-    /** @test */
+    #[Test]
     public function shop_billing_data_tax_id_is_optional(): void
     {
         self::assertConfigurationIsValid([['custom' => [['tax_id' => '12345']]]], 'custom.*.tax_id');
     }
 
-    /** @test */
+    #[Test]
     public function shop_billing_data_street_address_is_optional(): void
     {
         self::assertConfigurationIsValid([['custom' => [['street_address' => 'Custom street address']]]], 'custom.*.street_address');

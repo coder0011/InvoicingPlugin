@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Factory;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ShopBillingDataInterface;
@@ -30,13 +31,13 @@ final class InvoiceShopBillingDataFactoryTest extends TestCase
         $this->invoiceShopBillingDataFactory = new InvoiceShopBillingDataFactory(InvoiceShopBillingData::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_invoice_shop_billing_data_factory_interface(): void
     {
         self::assertInstanceOf(InvoiceShopBillingDataFactoryInterface::class, $this->invoiceShopBillingDataFactory);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_invoice_shop_billing_data_from_channel_with_null_shop_billing_data(): void
     {
         $channel = $this->createMock(ChannelInterface::class);
@@ -49,7 +50,7 @@ final class InvoiceShopBillingDataFactoryTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_invoice_shop_billing_data_from_channel_with_shop_billing_data(): void
     {
         $channel = $this->createMock(ChannelInterface::class);
@@ -77,7 +78,7 @@ final class InvoiceShopBillingDataFactoryTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_invoice_shop_billing_data_from_shop_billing_data(): void
     {
         $shopBillingData = $this->createMock(ShopBillingDataInterface::class);

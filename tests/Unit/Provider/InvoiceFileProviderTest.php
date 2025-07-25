@@ -16,6 +16,7 @@ namespace Tests\Sylius\InvoicingPlugin\Unit\Provider;
 use Gaufrette\Exception\FileNotFound;
 use Gaufrette\File;
 use Gaufrette\FilesystemInterface;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
@@ -55,13 +56,13 @@ final class InvoiceFileProviderTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_invoice_file_provider_interface(): void
     {
         self::assertInstanceOf(InvoiceFileProviderInterface::class, $this->provider);
     }
 
-    /** @test */
+    #[Test]
     public function it_provides_invoice_file_for_invoice(): void
     {
         $invoice = $this->createMock(InvoiceInterface::class);
@@ -92,7 +93,7 @@ final class InvoiceFileProviderTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_invoice_if_it_does_not_exist_and_provides_it(): void
     {
         $invoice = $this->createMock(InvoiceInterface::class);

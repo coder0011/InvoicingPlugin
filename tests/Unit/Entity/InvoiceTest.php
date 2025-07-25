@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -80,19 +81,19 @@ final class InvoiceTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_invoice_interface(): void
     {
         self::assertInstanceOf(InvoiceInterface::class, $this->invoice);
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_resource_interface(): void
     {
         self::assertInstanceOf(ResourceInterface::class, $this->invoice);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_data(): void
     {
         self::assertSame('7903c83a-4c5e-4bcf-81d8-9dc304c6a353', $this->invoice->id());

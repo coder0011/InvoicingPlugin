@@ -13,12 +13,13 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Event;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Event\OrderPaymentPaid;
 
 final class OrderPaymentPaidTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_represents_an_immutable_fact_that_payment_related_to_order_was_completed(): void
     {
         $date = new \DateTimeImmutable('now');

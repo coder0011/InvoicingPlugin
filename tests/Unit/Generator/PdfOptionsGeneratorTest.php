@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Generator\PdfOptionsGenerator;
@@ -37,13 +38,13 @@ final class PdfOptionsGeneratorTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_is_pdf_options_generator_interface(): void
     {
         self::assertInstanceOf(PdfOptionsGeneratorInterface::class, $this->generator);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_pdf_options(): void
     {
         $this->fileLocator

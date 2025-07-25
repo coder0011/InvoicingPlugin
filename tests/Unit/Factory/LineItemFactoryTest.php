@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Factory;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Exception\UnsupportedMethodException;
 use Sylius\InvoicingPlugin\Entity\LineItem;
@@ -29,13 +30,13 @@ final class LineItemFactoryTest extends TestCase
         $this->lineItemFactory = new LineItemFactory(LineItem::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_line_item_factory_interface(): void
     {
         self::assertInstanceOf(LineItemFactoryInterface::class, $this->lineItemFactory);
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_allow_to_create_with_empty_data(): void
     {
         $this->expectException(UnsupportedMethodException::class);
@@ -43,7 +44,7 @@ final class LineItemFactoryTest extends TestCase
         $this->lineItemFactory->createNew();
     }
 
-    /** @test */
+    #[Test]
     public function it_allows_only_for_injection_of_fqcn_that_are_line_item_or_its_descendants(): void
     {
         $this->expectException(\DomainException::class);
@@ -51,7 +52,7 @@ final class LineItemFactoryTest extends TestCase
         new LineItemFactory(\stdClass::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_line_items_with_data(): void
     {
         $result1 = $this->lineItemFactory->createWithData('Mjolnir', 2, 6000, 5000, 10000, 1000, 11000, null, 'MJOLNIR', '10%');

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Email;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Mailer\Sender\SenderInterface;
@@ -36,7 +37,7 @@ final class InvoiceEmailSenderTest extends TestCase
         $this->invoiceFileProvider = $this->createMock(InvoiceFileProviderInterface::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_invoice_email_sender_interface(): void
     {
         $invoiceEmailSender = new InvoiceEmailSender($this->sender, $this->invoiceFileProvider);
@@ -44,7 +45,7 @@ final class InvoiceEmailSenderTest extends TestCase
         self::assertInstanceOf(InvoiceEmailSenderInterface::class, $invoiceEmailSender);
     }
 
-    /** @test */
+    #[Test]
     public function it_sends_an_invoice_to_a_given_email_address(): void
     {
         $invoiceEmailSender = new InvoiceEmailSender($this->sender, $this->invoiceFileProvider);
@@ -72,7 +73,7 @@ final class InvoiceEmailSenderTest extends TestCase
         $invoiceEmailSender->sendInvoiceEmail($invoice, 'sylius@example.com');
     }
 
-    /** @test */
+    #[Test]
     public function it_sends_an_invoice_without_attachment_to_a_given_email_address(): void
     {
         $invoiceEmailSender = new InvoiceEmailSender($this->sender, $this->invoiceFileProvider, false);

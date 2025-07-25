@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\CommandHandler;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -48,7 +49,7 @@ final class SendInvoiceEmailHandlerTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_requests_an_email_with_an_invoice_to_be_sent(): void
     {
         $invoice = $this->createMock(InvoiceInterface::class);
@@ -85,7 +86,7 @@ final class SendInvoiceEmailHandlerTest extends TestCase
         ($this->handler)(new SendInvoiceEmail('0000001'));
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_request_an_email_to_be_sent_if_order_was_not_found(): void
     {
         $this->orderRepository
@@ -105,7 +106,7 @@ final class SendInvoiceEmailHandlerTest extends TestCase
         ($this->handler)(new SendInvoiceEmail('0000001'));
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_request_an_email_to_be_sent_if_customer_was_not_found(): void
     {
         $order = $this->createMock(OrderInterface::class);
@@ -132,7 +133,7 @@ final class SendInvoiceEmailHandlerTest extends TestCase
         ($this->handler)(new SendInvoiceEmail('0000001'));
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_request_an_email_to_be_sent_if_invoice_was_not_found(): void
     {
         $order = $this->createMock(OrderInterface::class);

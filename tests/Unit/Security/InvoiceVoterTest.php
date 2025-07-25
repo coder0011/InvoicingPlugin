@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Security;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -26,7 +27,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 final class InvoiceVoterTest extends TestCase
 {
-    public function test_it_is_a_symfony_security_voter(): void
+    #[Test]
+    public function it_is_a_symfony_security_voter(): void
     {
         $orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $voter = new InvoiceVoter($orderRepository);
@@ -34,7 +36,8 @@ final class InvoiceVoterTest extends TestCase
         self::assertInstanceOf(VoterInterface::class, $voter);
     }
 
-    public function test_it_abstains_from_making_a_decision_if_attribute_is_not_supported(): void
+    #[Test]
+    public function it_abstains_from_making_a_decision_if_attribute_is_not_supported(): void
     {
         $orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $token = $this->createMock(TokenInterface::class);
@@ -46,7 +49,8 @@ final class InvoiceVoterTest extends TestCase
         $this->assertSame(VoterInterface::ACCESS_ABSTAIN, $result);
     }
 
-    public function test_it_abstains_from_making_a_decision_if_subject_is_not_supported(): void
+    #[Test]
+    public function it_abstains_from_making_a_decision_if_subject_is_not_supported(): void
     {
         $orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $token = $this->createMock(TokenInterface::class);
@@ -57,7 +61,8 @@ final class InvoiceVoterTest extends TestCase
         $this->assertSame(VoterInterface::ACCESS_ABSTAIN, $result);
     }
 
-    public function test_it_does_not_allow_accessing_an_invoice_if_user_is_not_logged_in(): void
+    #[Test]
+    public function it_does_not_allow_accessing_an_invoice_if_user_is_not_logged_in(): void
     {
         $orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $token = $this->createMock(TokenInterface::class);
@@ -71,7 +76,8 @@ final class InvoiceVoterTest extends TestCase
         $this->assertSame(VoterInterface::ACCESS_DENIED, $result);
     }
 
-    public function test_it_allows_accessing_an_invoice_if_user_is_logged_as_admin(): void
+    #[Test]
+    public function it_allows_accessing_an_invoice_if_user_is_logged_as_admin(): void
     {
         $orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $token = $this->createMock(TokenInterface::class);
@@ -86,7 +92,8 @@ final class InvoiceVoterTest extends TestCase
         $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
     }
 
-    public function test_it_does_not_allow_accessing_an_invoice_if_user_has_not_placed_the_order_related_to_the_invoice(): void
+    #[Test]
+    public function it_does_not_allow_accessing_an_invoice_if_user_has_not_placed_the_order_related_to_the_invoice(): void
     {
         $orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $token = $this->createMock(TokenInterface::class);
@@ -107,7 +114,8 @@ final class InvoiceVoterTest extends TestCase
         $this->assertSame(VoterInterface::ACCESS_DENIED, $result);
     }
 
-    public function test_it_allows_accessing_an_invoice_if_user_has_placed_the_order_related_to_the_invoice(): void
+    #[Test]
+    public function it_allows_accessing_an_invoice_if_user_has_placed_the_order_related_to_the_invoice(): void
     {
         $orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $token = $this->createMock(TokenInterface::class);

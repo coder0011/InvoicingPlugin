@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Fixture\Listener;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Bundle\FixturesBundle\Listener\SuiteEvent;
 use Sylius\Bundle\FixturesBundle\Suite\SuiteInterface;
@@ -21,7 +22,8 @@ use Symfony\Component\Filesystem\Filesystem;
 
 final class InvoicesPurgerListenerTest extends TestCase
 {
-    public function test_it_removes_invoices_before_fixture_suite(): void
+    #[Test]
+    public function it_removes_invoices_before_fixture_suite(): void
     {
         $filesystem = $this->createMock(Filesystem::class);
         $suite = $this->createMock(SuiteInterface::class);

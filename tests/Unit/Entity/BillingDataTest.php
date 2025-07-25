@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Entity;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\InvoicingPlugin\Entity\BillingData;
@@ -38,19 +39,19 @@ final class BillingDataTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_billing_data_interface(): void
     {
         self::assertInstanceOf(BillingDataInterface::class, $this->billingData);
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_resource_interface(): void
     {
         self::assertInstanceOf(ResourceInterface::class, $this->billingData);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_proper_billing_data(): void
     {
         self::assertSame('John', $this->billingData->firstName());

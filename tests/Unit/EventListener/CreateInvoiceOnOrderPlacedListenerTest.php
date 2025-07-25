@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\EventListener;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Creator\InvoiceCreatorInterface;
 use Sylius\InvoicingPlugin\Event\OrderPlaced;
@@ -20,7 +21,8 @@ use Sylius\InvoicingPlugin\EventListener\CreateInvoiceOnOrderPlacedListener;
 
 final class CreateInvoiceOnOrderPlacedListenerTest extends TestCase
 {
-    public function test_it_requests_invoice_creation(): void
+    #[Test]
+    public function it_requests_invoice_creation(): void
     {
         $invoiceCreator = $this->createMock(InvoiceCreatorInterface::class);
         $issuedAt = new \DateTimeImmutable();

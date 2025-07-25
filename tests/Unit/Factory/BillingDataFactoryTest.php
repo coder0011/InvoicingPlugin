@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Factory;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Resource\Exception\UnsupportedMethodException;
@@ -30,13 +31,13 @@ final class BillingDataFactoryTest extends TestCase
         $this->factory = new BillingDataFactory(BillingData::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_billing_data_factory_interface(): void
     {
         self::assertInstanceOf(BillingDataFactoryInterface::class, $this->factory);
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_allow_to_create_empty_data(): void
     {
         $this->expectException(UnsupportedMethodException::class);
@@ -44,7 +45,7 @@ final class BillingDataFactoryTest extends TestCase
         $this->factory->createNew();
     }
 
-    /** @test */
+    #[Test]
     public function it_allows_only_for_injection_of_fqcn_that_are_billing_data_or_its_descendants(): void
     {
         $this->expectException(\DomainException::class);
@@ -52,7 +53,7 @@ final class BillingDataFactoryTest extends TestCase
         new BillingDataFactory(\stdClass::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_billing_data_from_address(): void
     {
         $address = $this->createMock(AddressInterface::class);

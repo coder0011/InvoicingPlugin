@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Manager;
 
 use Gaufrette\FilesystemInterface;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Manager\InvoiceFileManager;
 use Sylius\InvoicingPlugin\Manager\InvoiceFileManagerInterface;
@@ -21,7 +22,8 @@ use Sylius\InvoicingPlugin\Model\InvoicePdf;
 
 final class InvoiceFileManagerTest extends TestCase
 {
-    public function test_it_implements_invoice_file_saver_interface(): void
+    #[Test]
+    public function it_implements_invoice_file_saver_interface(): void
     {
         $filesystem = $this->createMock(FilesystemInterface::class);
         $manager = new InvoiceFileManager($filesystem);
@@ -29,7 +31,8 @@ final class InvoiceFileManagerTest extends TestCase
         self::assertInstanceOf(InvoiceFileManagerInterface::class, $manager);
     }
 
-    public function test_it_saves_invoice_pdf_in_given_filesystem(): void
+    #[Test]
+    public function it_saves_invoice_pdf_in_given_filesystem(): void
     {
         $filesystem = $this->createMock(FilesystemInterface::class);
 
@@ -42,7 +45,8 @@ final class InvoiceFileManagerTest extends TestCase
         $manager->save(new InvoicePdf('2020_01_01_invoice.pdf', 'CONTENT'));
     }
 
-    public function test_it_removes_invoice_pdf_in_given_filesystem(): void
+    #[Test]
+    public function it_removes_invoice_pdf_in_given_filesystem(): void
     {
         $filesystem = $this->createMock(FilesystemInterface::class);
 

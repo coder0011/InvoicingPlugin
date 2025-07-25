@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Generator\InvoiceIdentifierGenerator;
 use Sylius\InvoicingPlugin\Generator\UuidInvoiceIdentifierGenerator;
@@ -27,13 +28,13 @@ final class UuidInvoiceIdentifierGeneratorTest extends TestCase
         $this->generator = new UuidInvoiceIdentifierGenerator();
     }
 
-    /** @test */
+    #[Test]
     public function it_is_an_invoice_identifier_generator(): void
     {
         self::assertInstanceOf(InvoiceIdentifierGenerator::class, $this->generator);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_a_string(): void
     {
         $result = $this->generator->generate();
@@ -41,7 +42,7 @@ final class UuidInvoiceIdentifierGeneratorTest extends TestCase
         self::assertIsString($result);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_two_different_strings_on_subsequent_calls(): void
     {
         $firstResult = $this->generator->generate();

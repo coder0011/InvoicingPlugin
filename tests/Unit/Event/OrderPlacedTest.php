@@ -13,12 +13,13 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Event;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Event\OrderPlaced;
 
 final class OrderPlacedTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_represents_an_immutable_fact_that_an_order_has_been_placed(): void
     {
         $date = new \DateTimeImmutable();

@@ -16,6 +16,7 @@ namespace Tests\Sylius\InvoicingPlugin\Unit\EventProducer;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
@@ -27,7 +28,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class OrderPlacedProducerTest extends TestCase
 {
-    public function test_it_dispatches_an_order_placed_event_for_persisted_order(): void
+    #[Test]
+    public function it_dispatches_an_order_placed_event_for_persisted_order(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
@@ -53,7 +55,8 @@ final class OrderPlacedProducerTest extends TestCase
         $producer->postPersist($postPersistEvent);
     }
 
-    public function test_it_dispatches_an_order_placed_event_for_updated_order(): void
+    #[Test]
+    public function it_dispatches_an_order_placed_event_for_updated_order(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
@@ -87,7 +90,8 @@ final class OrderPlacedProducerTest extends TestCase
         $producer->postUpdate($postUpdateEvent);
     }
 
-    public function test_it_does_nothing_after_persisting_if_event_entity_is_not_order(): void
+    #[Test]
+    public function it_does_nothing_after_persisting_if_event_entity_is_not_order(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
@@ -101,7 +105,8 @@ final class OrderPlacedProducerTest extends TestCase
         $producer->postPersist($event);
     }
 
-    public function test_it_does_nothing_after_update_if_event_entity_is_not_order(): void
+    #[Test]
+    public function it_does_nothing_after_update_if_event_entity_is_not_order(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
@@ -115,7 +120,8 @@ final class OrderPlacedProducerTest extends TestCase
         $producer->postUpdate($event);
     }
 
-    public function test_it_does_nothing_after_persisting_if_order_is_not_completed(): void
+    #[Test]
+    public function it_does_nothing_after_persisting_if_order_is_not_completed(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
@@ -131,7 +137,8 @@ final class OrderPlacedProducerTest extends TestCase
         $producer->postPersist($event);
     }
 
-    public function test_it_does_nothing_after_update_if_order_checkout_state_has_not_changed(): void
+    #[Test]
+    public function it_does_nothing_after_update_if_order_checkout_state_has_not_changed(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
@@ -149,7 +156,8 @@ final class OrderPlacedProducerTest extends TestCase
         $producer->postUpdate($event);
     }
 
-    public function test_it_does_nothing_after_update_if_order_checkout_state_has_not_changed_to_completed(): void
+    #[Test]
+    public function it_does_nothing_after_update_if_order_checkout_state_has_not_changed_to_completed(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);

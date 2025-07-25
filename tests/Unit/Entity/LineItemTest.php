@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Entity;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
@@ -41,19 +42,19 @@ final class LineItemTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_line_item_interface(): void
     {
         self::assertInstanceOf(LineItemInterface::class, $this->lineItem);
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_resource_interface(): void
     {
         self::assertInstanceOf(ResourceInterface::class, $this->lineItem);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_proper_line_item_data(): void
     {
         self::assertSame('Mjolnir', $this->lineItem->name());
@@ -67,7 +68,7 @@ final class LineItemTest extends TestCase
         self::assertSame('7903c83a-4c5e-4bcf-81d8-9dc304c6a353', $this->lineItem->variantCode());
     }
 
-    /** @test */
+    #[Test]
     public function it_has_an_invoice(): void
     {
         $invoice = $this->createMock(InvoiceInterface::class);
@@ -77,7 +78,7 @@ final class LineItemTest extends TestCase
         $this->assertSame($invoice, $this->lineItem->invoice());
     }
 
-    /** @test */
+    #[Test]
     public function it_merges_with_another_line_item(): void
     {
         $newLineItem = $this->createMock(LineItemInterface::class);
@@ -99,7 +100,7 @@ final class LineItemTest extends TestCase
         $this->assertSame(1500, $this->lineItem->taxTotal());
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_if_another_line_item_is_different_during_merging(): void
     {
         $newLineItem = $this->createMock(LineItemInterface::class);
@@ -112,7 +113,7 @@ final class LineItemTest extends TestCase
         $this->lineItem->merge($newLineItem);
     }
 
-    /** @test */
+    #[Test]
     public function it_compares_with_another_line_item(): void
     {
         $theSameLineItem = $this->createMock(LineItemInterface::class);

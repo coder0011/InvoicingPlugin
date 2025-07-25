@@ -13,26 +13,30 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Model;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Model\InvoicePdf;
 
 final class InvoicePdfTest extends TestCase
 {
-    public function test_it_has_filename(): void
+    #[Test]
+    public function it_has_filename(): void
     {
         $invoicePdf = new InvoicePdf('2018_01_0000002.pdf', 'pdf content');
 
         self::assertSame('2018_01_0000002.pdf', $invoicePdf->filename());
     }
 
-    public function test_it_has_content(): void
+    #[Test]
+    public function it_has_content(): void
     {
         $invoicePdf = new InvoicePdf('2018_01_0000002.pdf', 'pdf content');
 
         self::assertSame('pdf content', $invoicePdf->content());
     }
 
-    public function test_it_has_full_path(): void
+    #[Test]
+    public function it_has_full_path(): void
     {
         $invoicePdf = new InvoicePdf('2018_01_0000002.pdf', 'pdf content');
         $invoicePdf->setFullPath('/full/path/invoice.pdf');

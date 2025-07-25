@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\EventListener;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\InvoicingPlugin\Command\SendInvoiceEmail;
 use Sylius\InvoicingPlugin\Event\OrderPaymentPaid;
@@ -22,7 +23,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class OrderPaymentPaidListenerTest extends TestCase
 {
-    public function test_it_dispatches_send_invoice_email_command(): void
+    #[Test]
+    public function it_dispatches_send_invoice_email_command(): void
     {
         $commandBus = $this->createMock(MessageBusInterface::class);
         $command = new SendInvoiceEmail('00000001');

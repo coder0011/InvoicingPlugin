@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -44,13 +45,13 @@ final class InvoiceFactoryTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_invoice_factory_interface(): void
     {
         self::assertInstanceOf(InvoiceFactoryInterface::class, $this->invoiceFactory);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_an_invoice_for_given_data(): void
     {
         $billingData = $this->createMock(BillingDataInterface::class);
@@ -79,7 +80,7 @@ final class InvoiceFactoryTest extends TestCase
         self::assertInstanceOf(InvoiceInterface::class, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_allows_for_nullable_shop_billing_data(): void
     {
         $order = $this->createMock(OrderInterface::class);

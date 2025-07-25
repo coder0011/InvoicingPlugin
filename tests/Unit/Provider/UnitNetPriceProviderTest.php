@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Provider;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -31,13 +32,13 @@ final class UnitNetPriceProviderTest extends TestCase
         $this->provider = new UnitNetPriceProvider();
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_unit_net_price_provider_interface(): void
     {
         self::assertInstanceOf(UnitNetPriceProviderInterface::class, $this->provider);
     }
 
-    /** @test */
+    #[Test]
     public function it_provides_net_price_for_unit_with_taxes_included_in_price(): void
     {
         $unit = $this->createMock(OrderItemUnitInterface::class);
@@ -60,7 +61,7 @@ final class UnitNetPriceProviderTest extends TestCase
         self::assertSame(800, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_provides_net_price_for_unit_with_taxes_excluded_of_price(): void
     {
         $unit = $this->createMock(OrderItemUnitInterface::class);

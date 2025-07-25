@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\Factory;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Exception\UnsupportedMethodException;
 use Sylius\InvoicingPlugin\Entity\TaxItem;
@@ -29,13 +30,13 @@ final class TaxItemFactoryTest extends TestCase
         $this->taxItemFactory = new TaxItemFactory(TaxItem::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_tax_item_factory_interface(): void
     {
         self::assertInstanceOf(TaxItemFactoryInterface::class, $this->taxItemFactory);
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_allow_to_create_with_empty_data(): void
     {
         $this->expectException(UnsupportedMethodException::class);
@@ -43,7 +44,7 @@ final class TaxItemFactoryTest extends TestCase
         $this->taxItemFactory->createNew();
     }
 
-    /** @test */
+    #[Test]
     public function it_allows_only_for_injection_of_fqcn_that_are_tax_item_or_its_descendants(): void
     {
         $this->expectException(\DomainException::class);
@@ -51,7 +52,7 @@ final class TaxItemFactoryTest extends TestCase
         new TaxItemFactory(\stdClass::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_tax_item_from_label_and_amount(): void
     {
         $result = $this->taxItemFactory->createWithData('Tax', 17);

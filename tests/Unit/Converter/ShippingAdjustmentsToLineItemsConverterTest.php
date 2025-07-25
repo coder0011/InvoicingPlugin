@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Converter;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AdjustmentInterface;
@@ -45,13 +46,13 @@ final class ShippingAdjustmentsToLineItemsConverterTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_line_items_converter_interface(): void
     {
         self::assertInstanceOf(LineItemsConverterInterface::class, $this->converter);
     }
 
-    /** @test */
+    #[Test]
     public function it_extracts_line_items_from_orders_shipping_adjustments(): void
     {
         $lineItem = $this->createMock(LineItemInterface::class);

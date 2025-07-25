@@ -15,6 +15,7 @@ namespace Tests\Sylius\InvoicingPlugin\Unit\Generator;
 
 use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -54,13 +55,13 @@ final class SequentialInvoiceNumberGeneratorTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_invoice_number_generator_interface(): void
     {
         self::assertInstanceOf(InvoiceNumberGenerator::class, $this->generator);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_invoice_number(): void
     {
         $sequence = $this->createMock(InvoiceSequenceInterface::class);
@@ -87,7 +88,7 @@ final class SequentialInvoiceNumberGeneratorTest extends TestCase
         self::assertSame($dateTime->format('Y/m') . '/000000001', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_invoice_number_when_sequence_is_null(): void
     {
         $sequence = $this->createMock(InvoiceSequenceInterface::class);

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\InvoicingPlugin\Unit\Converter;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AdjustmentInterface;
@@ -43,13 +44,13 @@ final class TaxItemsConverterTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_implements_tax_items_converter_interface(): void
     {
         self::assertInstanceOf(TaxItemsConverterInterface::class, $this->converter);
     }
 
-    /** @test */
+    #[Test]
     public function it_extracts_tax_items_from_order(): void
     {
         $taxItem = $this->createMock(TaxItemInterface::class);

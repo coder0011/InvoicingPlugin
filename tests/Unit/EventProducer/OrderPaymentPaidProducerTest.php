@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\InvoicingPlugin\Unit\EventProducer;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -26,7 +27,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class OrderPaymentPaidProducerTest extends TestCase
 {
-    public function test_it_dispatches_order_payment_paid_event_for_payment(): void
+    #[Test]
+    public function it_dispatches_order_payment_paid_event_for_payment(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
@@ -53,7 +55,8 @@ final class OrderPaymentPaidProducerTest extends TestCase
         $producer($payment);
     }
 
-    public function test_it_does_not_dispatch_event_when_payment_is_not_related_to_order(): void
+    #[Test]
+    public function it_does_not_dispatch_event_when_payment_is_not_related_to_order(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
@@ -69,7 +72,8 @@ final class OrderPaymentPaidProducerTest extends TestCase
         $producer($payment);
     }
 
-    public function test_it_does_not_dispatch_event_when_there_is_no_invoice_related_to_order(): void
+    #[Test]
+    public function it_does_not_dispatch_event_when_there_is_no_invoice_related_to_order(): void
     {
         $eventBus = $this->createMock(MessageBusInterface::class);
         $clock = $this->createMock(ClockInterface::class);
