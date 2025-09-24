@@ -23,8 +23,7 @@ final class InvoicesExtension extends AbstractExtension
     public function __construct(
         private readonly InvoiceRepositoryInterface $invoiceRepository,
         private readonly bool $pdfEnabled = true,
-    )
-    {
+    ) {
     }
 
     public function getFunctions(): array
